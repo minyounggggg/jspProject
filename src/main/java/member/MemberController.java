@@ -26,6 +26,14 @@ public class MemberController extends HttpServlet{
 		else if(com.equals("/MemberLoginOK")){
 			
 		}
+		else if(com.equals("/MemberJoin")){
+			viewPage += "/memberJoin.jsp";
+		}
+		else if(com.equals("/MemberJoinOk")){
+			command = new MemberJoinOkCommand();
+			command.execute(request, response);
+			viewPage = "/include/message.jsp";
+		}
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);

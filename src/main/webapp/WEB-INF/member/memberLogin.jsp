@@ -10,8 +10,13 @@
     <jsp:include page="/include/bs4.jsp" />
     <style>
     	body{
-    		background: url("<%=request.getContextPath() %>/images/visual_bg_pc.png");
-    		<%-- background: url("<%=request.getContextPath() %>/images/bg_1.png"); --%>
+    		background-image : url("<%=request.getContextPath() %>/images/visual_bg_pc.png");
+    		<%-- background-image : url("<%=request.getContextPath() %>/images/bg_1.png"); --%>
+    		height: 100vh;
+		    background-size: cover;
+		    background-position: center center;
+		    background-repeat: no-repeat;
+		    background-attachment: fixed;
     	}
     	.container{
     		width : 50%;
@@ -20,6 +25,22 @@
     		padding : 30px
     	}
     </style>
+    <script>
+    	'use strict';
+    	
+    	jQuery(function($) {
+    	    $("body").css("display", "none");
+    	    $("body").fadeIn(1000);
+    	    $("a.transition").click(function(e){
+    	        e.preventDefault();
+    	        linkLocation = this.href;
+    	        $("body").fadeOut(1000, redirectPage);
+    	    });
+    	    function redirectPage() {
+    	    window.location = linkLocation;
+    	    }
+    	});
+    </script>
 </head>
 <body>
 <p><br/></p>
