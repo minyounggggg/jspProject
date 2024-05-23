@@ -34,6 +34,16 @@ public class MemberController extends HttpServlet{
 			command.execute(request, response);
 			viewPage = "/include/message.jsp";
 		}
+		else if(com.equals("/MemberIdCheck")){
+			command = new MemberIdCheckCommand();
+			command.execute(request, response);
+			return;
+		}
+		else if(com.equals("/MemberNickNameCheck")){
+			command = new MemberNickNameCheckCommand();
+			command.execute(request, response);
+			return;
+		}
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);

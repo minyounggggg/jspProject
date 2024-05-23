@@ -10,8 +10,8 @@
     <jsp:include page="/include/bs4.jsp" />
     <style>
     	body{
-    		background-image : url("<%=request.getContextPath() %>/images/visual_bg_pc.png");
-    		<%-- background-image : url("<%=request.getContextPath() %>/images/bg_1.png"); --%>
+    		<%-- background-image : url("<%=request.getContextPath() %>/images/visual_bg_pc.png"); --%>
+    		background-image : url("<%=request.getContextPath() %>/images/bg_1.png");
     		height: 100vh;
 		    background-size: cover;
 		    background-position: center center;
@@ -49,6 +49,19 @@
     		// 유효성 검사.....
 	    	// 아이디,닉네임,성명,이메일,홈페이지,전화번호,비밀번호 등등....
 	    	
+	    	// 아이디, 닉네임 중복 체크버튼
+	    	let idCheckBtn = 0;
+	    	let nickCheckBtn = 0;
+	    	
+			if(idCheckBtn == 0){
+				alert("아이디 중복 체크를 해주세요.");
+				document.getElementById("#midBtn").focus();
+			}
+			else if(nickCheckBtn == 0){
+				alert("닉네임 중복 체크를 해주세요.");
+				document.getElementById("#nickNameBtn").focus();
+			}
+	    	
 	    	// 정규식을 이용한 유효성검사처리..
 	    	
 	    	// 검사를 끝내고 필요한 내역들을 변수에 담아 회원 가입처리한다.
@@ -69,8 +82,6 @@
 	    	
 	    	// 이메일 주소형식체크
 	        
-	        // 홈페이지 주소형식체크
-	        
 	        // 전화번호 형식 체크
 	        if(tel2 != "" && tel3 != ""){
 	        	// 전화번호 정규화 체크
@@ -81,10 +92,76 @@
 	        	tel = tel1 + "-" + tel2 + "-" + tel3;
 	        }
 		}
+    	
+    	// 아이디 중복체크
+    	function idCheck() {
+			let mid = myform.mid.value;
+			if(mid.trim() == ""){
+				alert("아이디를 입력해주세요");
+				myform.mid.focus();
+			}
+			else {
+				idCheckBtn = 1;
+				
+				$.ajax({
+					url : "MemberIdCheck.mem",
+					type : "post",
+					data : {mid : mid},
+					success : function (res) {
+						if(res != '0'){
+							alert("이미 존재하는 아이디입니다.");
+							myform.mid.focus();
+						}
+						else alert("사용가능한 아이디입니다.");
+					},
+					error : function () {
+						alert("전송오류");
+					}
+				});
+			}
+		}
+    	// 닉네임 중복체크
+    	function nickCheck() {
+			let nickName = myform.nickName.value;
+			if(nickName.trim() == ""){
+				alert("닉네임을 입력해주세요");
+				myform.nickName.focus();
+			}
+			else {
+				nickCheckBtn = 1;
+				
+				$.ajax({
+					url : "MemberNickNameCheck.mem",
+					type : "post",
+					data : {nickName : nickName},
+					success : function (res) {
+						if(res != '0'){
+							alert("이미 사용중인 닉네임입니다.");
+							myform.nickName.focus();
+						}
+						else alert("사용가능한 닉네임입니다.");
+					},
+					error : function () {
+						alert("전송오류");
+					}
+				});
+			}
+		}
+    	// 아이디, 닉네임 다시 고쳤을 경우 다시 중복버튼 체크하게 유도
+    	$(function(){
+        	$("#mid").on("blur", () => {
+        		idCheckSw = 0;
+        	});
+        	
+        	$("#nickName").on("blur", () => {
+        		nickCheckSw = 0;
+        	});
+        	
+        });
+    	
     </script>
 </head>
 <body>
-<p><br/></p>
 <div class="container">
 	<form name="myform" method="post" action="${ctp}/MemberJoinOk.mem" enctype="multipart/form-data" class="was-validated"><!-- enctype="multipart/form-data" -->
     <h2>회 원 가 입</h2>
@@ -144,16 +221,16 @@
           <span class="input-group-text">전화번호 :</span> &nbsp;&nbsp;
             <select name="tel1" class="custom-select">
               <option value="010" selected>010</option>
-              <option value="02">서울</option>
-              <option value="031">경기</option>
-              <option value="032">인천</option>
-              <option value="041">충남</option>
-              <option value="042">대전</option>
-              <option value="043">충북</option>
-              <option value="051">부산</option>
-              <option value="052">울산</option>
-              <option value="061">전북</option>
-              <option value="062">광주</option>
+              <option value="02">02</option>
+              <option value="031">"031"</option>
+              <option value="032">032</option>
+              <option value="041">041</option>
+              <option value="042">042</option>
+              <option value="043">043</option>
+              <option value="051">051</option>
+              <option value="052">052</option>
+              <option value="061">061</option>
+              <option value="062">062</option>
             </select>-
         </div>
         <input type="text" name="tel2" size=4 maxlength=4 class="form-control" required/>-
@@ -278,6 +355,5 @@
     <input type="hidden" name="address" />
   </form>
 </div>
-<p><br/></p>
 </body>
 </html>

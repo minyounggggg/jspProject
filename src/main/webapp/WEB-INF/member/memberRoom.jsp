@@ -6,7 +6,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Insert</title>
+	<title>memberRoom.jsp</title>
     <jsp:include page="/include/bs4.jsp" />
     <style>
     	body{
@@ -16,11 +16,8 @@
     </style>
 </head>
 <body>
-<p><br/></p>
 <div class="container">
-	<h2>프로젝트 준비</h2>
-	<input type="button" value="시작하기" onclick="location.href='${ctp}/MemberLogin.mem';" class="btn btn-success mr-2"/>
+	<h2>로그인 완료 후 메인방</h2>
 </div>
-<p><br/></p>
 </body>
 </html>
