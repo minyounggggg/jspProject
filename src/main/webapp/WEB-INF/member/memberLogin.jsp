@@ -29,8 +29,8 @@
 			justify-content: center;
 			align-items: center;
     		font-family: "Jua", sans-serif;
-    		background-image : url("<%=request.getContextPath() %>/images/visual_bg_pc.png");
-    		<%-- background-image : url("<%=request.getContextPath() %>/images/bg_1.png"); --%>
+    		<%-- background-image : url("${ctp}/images/visual_bg_pc.png"); --%>
+    		background-image : url("${ctp}/images/bg_1.png");
     		height: 100vh;
 		    background-size: cover;
 		    background-position: center center;
@@ -79,7 +79,8 @@
 <body>
 <div class="sec1">
 	<form name="myform" method="post" action="${ctp}/MemberLoginOk.mem">
-		<p class="text-center"><img src="${ctp}/images/logo2.png" class="mb-2"></p>
+		<%-- <p class="text-center"><img src="${ctp}/images/logo2.png" class="mb-2"></p> --%>
+		<h2 class="text-center">L O G I N</h2>
 	    <table class="table table-borderless text-left">
 	      	<tr>
 	        	<th>아이디</th>
