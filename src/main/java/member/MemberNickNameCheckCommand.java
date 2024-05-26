@@ -18,7 +18,7 @@ public class MemberNickNameCheckCommand implements MemberInterface {
 		String res = "0";
 		if(vo.getNickName() != null) res = "1";
 		
-		response.getWriter().write("res");
+		response.getWriter().write(res);
 	}
 
 }

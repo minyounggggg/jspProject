@@ -47,7 +47,7 @@ public class MemberDAO {
 	//============================================================
 	
 	
-	// 아이디 중복체크
+	// 아이디 중복체크, 로그인시 아이디 체크
 	public MemberVO getMemberIdCheck(String mid) {
 		MemberVO vo = new MemberVO();
 		try {
@@ -124,6 +124,34 @@ public class MemberDAO {
 			rsClose();
 		}
 		return vo;
+	}
+
+	
+	// 회원가입 처리
+	public int setMemberJoinOk(MemberVO vo) {
+		int res = 0;
+		try {
+			sql = "insert into members value (default,?,?,?,?,?,?,?,?,?,?,?,?,default,default,default,default,default,default,default)";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, vo.getMid());
+			pstmt.setString(2, vo.getPwd());
+			pstmt.setString(3, vo.getNickName());
+			pstmt.setString(4, vo.getName());
+			pstmt.setString(5, vo.getGender());
+			pstmt.setString(6, vo.getBirthday());
+			pstmt.setString(7, vo.getTel());
+			pstmt.setString(8, vo.getAddress());
+			pstmt.setString(9, vo.getEmail());
+			pstmt.setString(10, vo.getPhoto());
+			pstmt.setString(11, vo.getContent());
+			pstmt.setString(12, vo.getUserInfor());
+			res = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("SQL오류3 : " + e.getMessage());
+		} finally {
+			pstmtClose();
+		}
+		return res;
 	}
 
 	

@@ -9,10 +9,20 @@
 	<title>Insert</title>
     <jsp:include page="/include/bs4.jsp" />
     <style>
+    	*{
+		    box-sizing: border-box;
+		    padding: 0;
+		    margin: 0;
+		}
     	body{
     		font-family: "a신디나루B";
-    		<%-- background-image : url("${ctp}/images/visual_bg_pc.png"); --%>
-    		background-image : url("<%=request.getContextPath() %>/images/bg_1.png");
+    		background-image : url("${ctp}/images/visual_bg_pc.png");
+    		<%-- background-image : url("<%=request.getContextPath() %>/images/bg_1.png"); --%>
+    		height: 100vh;
+		    background-size: cover;
+		    background-position: center center;
+		    background-repeat: no-repeat;
+		    background-attachment: fixed;
     	}
     </style>
 </head>

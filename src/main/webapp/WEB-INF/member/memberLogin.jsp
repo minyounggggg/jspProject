@@ -24,26 +24,34 @@
 	    font-weight: 700;
 	    font-style: normal;
 		}
+		*{
+		    box-sizing: border-box;
+		    padding: 0;
+		    margin: 0;
+		}
     	body{
     		display: flex;
 			justify-content: center;
 			align-items: center;
     		font-family: "Jua", sans-serif;
-    		<%-- background-image : url("${ctp}/images/visual_bg_pc.png"); --%>
-    		background-image : url("${ctp}/images/bg_1.png");
+    		background-image : url("${ctp}/images/visual_bg_pc.png");
+    		/* background-image : url("${ctp}/images/bg_1.png"); */
     		height: 100vh;
 		    background-size: cover;
 		    background-position: center center;
 		    background-repeat: no-repeat;
 		    background-attachment: fixed;
     	}
-    	.sec1{
+    	.sec01{
     		width : 500px;
     		/* height : 500px; */
-    		background-color : rgba(245,243,215,0.8);
-    		border-radius : 20px;
-    		padding : 30px
+    		background-color : rgba(245,243,215,0.9);
+    		border-radius : 50px;
+    		border : 10px solid #19c8b9;
+    		box-shadow : 8px 15px 10px rgba(0, 0, 50, 0.5);
+    		padding : 50px;
     	}
+    	
     	.loginBtn{
     		background: url("${ctp}/images/loginBtn2.png") no-repeat;
 	        border: none;
@@ -51,13 +59,18 @@
 	        height: 50px;
 	        cursor: pointer;
     	}
-    	.btnSec{
+    	/* .btnSec{
 			text-align: center;
-    	}
+    	} */
     	button{
     		border: 0;
   			background-color: transparent;
     	}
+    	.btnSec img{
+    		width: 380px;
+			object-fit: cover;
+    	}
+    	
     </style>
     <script>
     	'use strict';
@@ -77,36 +90,16 @@
     </script>
 </head>
 <body>
-<div class="sec1">
+<div class="sec01">
 	<form name="myform" method="post" action="${ctp}/MemberLoginOk.mem">
-		<%-- <p class="text-center"><img src="${ctp}/images/logo2.png" class="mb-2"></p> --%>
-		<h2 class="text-center">L O G I N</h2>
-	    <table class="table table-borderless text-left">
-	      	<tr>
-	        	<th>아이디</th>
-	        	<td><input type="text" name="mid" value="${mid}" autofocus required class="form-control"/></td>
-	      	</tr>
-	      	<tr>
-	      		<td></td>
-	        	<td><input type="checkbox" name="idSave" checked /> 아이디 저장</td>
-	      	</tr>
-	      	<tr>
-		        <th>비밀번호</th>
-		        <td><input type="password" name="pwd" value="1234" required class="form-control"/></td>
-		    </tr>
-		    <%-- 
-	      	<tr>
-		        <td colspan="2">
-		          	<input type="submit" value="로그인" class="btn btn-success mr-2"/>
-			        <input type="reset" value="다시입력" class="btn btn-warning mr-2"/>
-			        <input type="button" value="회원가입" onclick="location.href='${ctp}/MemberJoin.mem';" class="btn btn-primary mr-4"/>
-		        </td>
-	      	</tr>
-	      	 --%>
-	    </table>
+		<!-- <h2 class="text-center mb-5">L O G I N</h2> -->
+		<div class="text-center mb-5"><img src="${ctp}/images/logo2.png" class="logo"></div>
+    	<input type="text" name="mid" value="${mid}" placeholder="User ID" autofocus required class="form-control mb-1" style="height:45px"/>
+       	<input type="checkbox" name="idSave" checked class="mb-3 ml-2"/> 아이디 저장
+	    <input type="password" name="pwd" placeholder="Password" required class="form-control mb-4" style="height:45px"/>
 	    <div class="btnSec">
-		    <button type="submit"><img src="${ctp}/images/loginBtn2.png" class="mb-2"></button><br/>
-		    <button type="button" onclick="location.href='${ctp}/MemberJoin.mem';"><img src="${ctp}/images/loginBtn2.png"/></button>
+		    <button type="submit" class="mb-2 p-0"><img src="${ctp}/images/login_btn_03.png"></button>
+		    <button type="button" onclick="location.href='${ctp}/MemberJoin.mem';" class="m-0 p-0"><img src="${ctp}/images/join_btn_03.png"/></button>
 	    </div>
   	</form>
 </div>
