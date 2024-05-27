@@ -49,7 +49,7 @@
     		border-radius : 50px;
     		border : 10px solid #19c8b9;
     		box-shadow : 8px 15px 10px rgba(0, 0, 50, 0.5);
-    		padding : 50px;
+    		padding : 40px 50px 50px;
     	}
     	
     	.loginBtn{
@@ -93,10 +93,10 @@
 <div class="sec01">
 	<form name="myform" method="post" action="${ctp}/MemberLoginOk.mem">
 		<!-- <h2 class="text-center mb-5">L O G I N</h2> -->
-		<div class="text-center mb-5"><img src="${ctp}/images/logo2.png" class="logo"></div>
-    	<input type="text" name="mid" value="${mid}" placeholder="User ID" autofocus required class="form-control mb-1" style="height:45px"/>
+		<div class="text-center mb-5"><img src="${ctp}/images/logo03.png" class="logo" style="width:300px"></div>
+    	<input type="text" name="mid" value="atom" placeholder="User ID" autofocus required class="form-control mb-1" style="height:45px"/>
        	<input type="checkbox" name="idSave" checked class="mb-3 ml-2"/> 아이디 저장
-	    <input type="password" name="pwd" placeholder="Password" required class="form-control mb-4" style="height:45px"/>
+	    <input type="password" name="pwd" value="1234" nplaceholder="Password" required class="form-control mb-4" style="height:45px"/>
 	    <div class="btnSec">
 		    <button type="submit" class="mb-2 p-0"><img src="${ctp}/images/login_btn_03.png"></button>
 		    <button type="button" onclick="location.href='${ctp}/MemberJoin.mem';" class="m-0 p-0"><img src="${ctp}/images/join_btn_03.png"/></button>

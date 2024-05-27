@@ -14,6 +14,7 @@
 		    padding: 0;
 		    margin: 0;
 		}
+		p{margin : 0}
     	body{
     		/* 
     		display: flex;
@@ -53,10 +54,13 @@
     		background-image : url("${ctp}/images/memberRoom/room_bg01.jpg");
     		/* overflow:hidden; */
     		border-radius : 40px 0 0 40px;
+    		/* 
     		display: flex;
 			justify-content: center;
 			align-items: center;
+			 */
     		width : 30%;
+    		padding : 50px
     	}
     	/* 
     	.sec01_01 img{
@@ -66,8 +70,8 @@
     	}
     	 */
     	.sec01_01 .imgBox {
-    		width:300px;
-		    height:300px;
+    		width:350px;
+		    height:350px;
 		    border-radius : 200px;
 		    border : 8px solid #075663;
 		    box-shadow : 8px 10px 10px rgba(0, 0, 50, 0.3);
@@ -84,11 +88,28 @@
     		padding : 50px
     	}
     	.levelSec, .nickNameSec{
-    		box-shadow : 8px 15px 10px rgba(0, 0, 50, 0.5);
-    		border-radius : 20px;
+    		box-shadow : 5px 5px 10px rgba(0, 0, 50, 0.5);
+    		border-radius : 50px;
     		width : 50%;
     		padding : 15px;
-    		margin : 0 auto;
+    		float : left;
+    		text-align : center;
+    		background-color : rgba(245,243,215,0.9);
+    		margin-top : 20px;
+    		margin-bottom : 20px;
+    		font-family : "a신디나루B";
+    		font-size : 25px;
+    	}
+    	.genderSec{
+    		/* overflow: hidden; */
+    		clear : both;
+    		box-shadow : 5px 5px 10px rgba(0, 0, 50, 0.5);
+    		border-radius : 50px;
+    		background-color : rgba(245,243,215,0.9);
+    		text-align : center;
+    		padding : 15px;
+    		font-size : 22px;
+    		/* position : absolute; */
     	}
     </style>
 </head>
@@ -98,16 +119,17 @@
 		<section class="imgBox"><img src="${ctp}/images/member/${memVO.photo}"/></section>
 			<!-- 회원 등급(등급별로 뱃지?달아주기?), 닉네임 표시 -->
 		<section class="levelSec">
-			<i class="fi fi-rr-user"></i>
 			<p>${levelName}</p>
 		</section>
 		<section class="nickNameSec">
 			<p>${sNickName}</p>
 		</section>
-			<!-- 회원 등급(등급별로 뱃지?달아주기?), 닉네임 표시 -->
+		<section class="genderSec">
+			<p>성별 | ${memVO.gender} | <img src="${ctp}/images/memberRoom/girl01.png"/></p>
+		</section>
 	</div>
 	<div class="sec01_02">
-		<section><h2>로그인 완료 후 메인방</h2></section>
+		<section><h2 style="font-family:a신디나루B; margin:0"><img src="${ctp}/images/memberRoom/idLogo01.png"/> ${sMid}</h2></section>
 		<hr/>
 		<section>
 			<p>현재 <font color="blue"><b>${sNickName}(<font color="red">${levelName}</font>)</b></font>님이 로그인 상태 입니다.</p>
