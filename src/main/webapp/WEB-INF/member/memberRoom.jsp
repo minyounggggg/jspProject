@@ -83,12 +83,28 @@
     		width : 70%;
     		padding : 50px
     	}
+    	.levelSec, .nickNameSec{
+    		box-shadow : 8px 15px 10px rgba(0, 0, 50, 0.5);
+    		border-radius : 20px;
+    		width : 50%;
+    		padding : 15px;
+    		margin : 0 auto;
+    	}
     </style>
 </head>
 <body>
 <div class="sec01">
 	<div class="sec01_01">
 		<section class="imgBox"><img src="${ctp}/images/member/${memVO.photo}"/></section>
+			<!-- 회원 등급(등급별로 뱃지?달아주기?), 닉네임 표시 -->
+		<section class="levelSec">
+			<i class="fi fi-rr-user"></i>
+			<p>${levelName}</p>
+		</section>
+		<section class="nickNameSec">
+			<p>${sNickName}</p>
+		</section>
+			<!-- 회원 등급(등급별로 뱃지?달아주기?), 닉네임 표시 -->
 	</div>
 	<div class="sec01_02">
 		<section><h2>로그인 완료 후 메인방</h2></section>
