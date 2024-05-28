@@ -60,6 +60,9 @@ public class MemberController extends HttpServlet{
 			command.execute(request, response);
 			viewPage += "/memberRoom.jsp";
 		}
+		else if(com.equals("/MemberMain")){
+			viewPage += "/memberMain.jsp";
+		}
 		else if(com.equals("/MemberUpdate")){
 			command = new MemberUpdateCommand();
 			command.execute(request, response);

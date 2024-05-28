@@ -7,7 +7,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>memberRoom.jsp</title>
+	<title>memberMain.jsp</title>
     <jsp:include page="/include/bs4.jsp" />
     <style>
     	*{
@@ -18,22 +18,18 @@
 		p {margin : 0}
     	body{
     		font-family: "a영고딕M";
-    		background-image : url("${ctp}/images/memberRoom/content_bg01.jpg");
+    		background-image : url("${ctp}/images/bg_1.png");
     	}
     	.sec01{
     		display : flex;
-    		margin : 100px 200px;
-    		background-color : rgba(245,243,215,0.9);
-    		border-radius : 50px;
-    		border : 10px solid #19c8b9;
-    		box-shadow : 8px 15px 10px rgba(0, 0, 50, 0.5);
+    		margin : 100px;
+    		background-color : #f0f8ff;
     	}
     	.sec01-01{
-    		background-image : url("${ctp}/images/memberRoom/room_bg01.jpg");
-    		border-radius : 40px 0 0 40px;
+    		/* background-image : url("${ctp}/images/memberRoom/room_bg01.jpg"); */
     		width : 30%;
     		padding : 50px 65px;
-    		box-shadow : 5px 0px 5px -2px rgba(0, 0, 50, 0.5);
+    		/* box-shadow : 5px 0px 5px -2px rgba(0, 0, 50, 0.5); */
     	}
     	.sec01-01 .imgBox {
     		width:300px;
@@ -61,7 +57,7 @@
     		float : left;
     		text-align : center;
     		background-color : rgba(245,243,215,0.9);
-    		margin-top : 10px;
+    		margin-top : 20px;
     		margin-bottom : 30px;
     		font-family : "a신디나루B";
     		font-size : 25px;
@@ -113,39 +109,11 @@
 			<p>${sNickName}</p>
 		</section>
 		<section class="genderSec">
-			<p><span style="font-family:a신디나루B">성별</span> &nbsp; | &nbsp; <span style="font-size:20px">${memVO.gender}</span> &nbsp; | &nbsp; <img src="${ctp}/images/memberRoom/girl01.png" style="width:30px"/></p>
+			<span style="font-family:a신디나루B">내 정보 보기</span>
 		</section>
-		<section class="birthdaySec">
-			<p><img src="${ctp}/images/memberRoom/birthday_Icon01.png" style="width:45px; margin-right:50px"/>${memVO.birthday.substring(0,10)}</p>
-		</section>
-		<%-- 
-		<section class="birthdaySec">
-			<p>생일 <i class="fi fi-rr-cake-birthday"></i>${memVO.birthday}</p>
-		</section>
-		 --%>
 	</div>
 	<div class="sec01-02">
-		<div class="sec01-02-01">
-			<section><h2 style="font-family:a신디나루B; margin:0"><img src="${ctp}/images/memberRoom/idLogo01.png"/> ${sMid}</h2></section>
-			<section><h2 style="font-family:a신디나루B; margin:0"><img src="${ctp}/images/memberRoom/idLogo01.png"/> Lv. ${sLevel}</h2></section>
-			<section><h2 style="font-family:a신디나루B; margin:0"><img src="${ctp}/images/memberRoom/idLogo01.png"/> ${memVO.point} p</h2></section>
-		</div>
-		<section class="sec01-02-02">
-		<hr/>
-			<p><b>가입일자</b> : ${memVO.startDate.substring(0,10)}</p>
-			<p><b>TODAY</b> : ${memVO.todayCnt} 회</p>
-			<p><b>TOTAL</b> : ${memVO.point} 회</p>
-			<p><b>E-mail</b> : ${memVO.email}</p>
-			<%-- <p>좋아요 : <b>${memVO.good}</b></p> --%>
-		</section>
-		<hr/>
-		<section>
-			<h5 style="font-family:a신디나루B">CONTENT</h5>
-			<textarea rows="5" class="form-control" id="content" name="content" placeholder="${memVO.content}" readonly></textarea>
-		</section>
-		<hr/>
-		<button type="button" class="btn btn-secondary" onclick="location.href='${ctp}/MemberMain.mem';">메인</button>
-		<button type="button" class="btn btn-secondary" onclick="location.href='${ctp}/MemberLogin.mem';">돌아가기</button>
+		
 	</div>
 </div>
 </body>
