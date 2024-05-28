@@ -19,6 +19,7 @@ public class MemberJoinOkCommand implements MemberInterface {
 		String realPath = request.getServletContext().getRealPath("images/member");
 		int maxSize = 1024 * 1024 * 2;
 		String encoding = "UTF-8";
+		//String noImg = request.getServletContext().getRealPath("images/member/noimage.jpg");
 		
 		MultipartRequest multipartRequest = new MultipartRequest(request, realPath, maxSize, encoding, new DefaultFileRenamePolicy());
 		

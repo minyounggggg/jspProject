@@ -25,8 +25,11 @@ create table members (
   unique(mid)
 );
 
+  /*good 			int default 0,							좋아요 버튼 클릭 횟수 누적*/
   /* salt      char(8) not null, */			/* 비밀번호 보안을 위한 salt */
   /* primary key (idx,mid) */
+
+drop table members;
 
 insert into members value (default, 'admin', '1234', '관리자', '최민영', '남자', default, '010-1234-5678','050/서울시/그린아파트/100동/101호','abc@atom.com', default,'관리자입니다.',default,default,default,default,default,default,default,default);
 

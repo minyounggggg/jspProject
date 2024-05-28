@@ -60,6 +60,16 @@ public class MemberController extends HttpServlet{
 			command.execute(request, response);
 			viewPage += "/memberRoom.jsp";
 		}
+		else if(com.equals("/MemberUpdate")){
+			command = new MemberUpdateCommand();
+			command.execute(request, response);
+			viewPage += "/memberUpdate.jsp";
+		}
+		else if(com.equals("/MemberUpdateOk")){
+			command = new MemberUpdateOkCommand();
+			command.execute(request, response);
+			viewPage += "/memberUpdate.jsp";
+		}
 		
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);

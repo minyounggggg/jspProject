@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:set var="ctp" value="${pageContext.request.contextPath}" />
+<%-- <%@ include file = "/include/certification.jsp" %> --%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,13 +9,14 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>memberRoom.jsp</title>
     <jsp:include page="/include/bs4.jsp" />
+    <link href="/your-path-to-uicons/css/uicons-[your-style].css" rel="stylesheet">
     <style>
     	*{
-		    box-sizing: border-box;
+		    /* box-sizing: border-box; */
 		    padding: 0;
 		    margin: 0;
 		}
-		p{margin : 0}
+		p {margin : 0}
     	body{
     		/* 
     		display: flex;
@@ -50,7 +52,7 @@
     		flex : 0 2:8 ;
     	}
     	 */
-    	.sec01_01{
+    	.sec01-01{
     		background-image : url("${ctp}/images/memberRoom/room_bg01.jpg");
     		/* overflow:hidden; */
     		border-radius : 40px 0 0 40px;
@@ -69,7 +71,7 @@
     		border-radius : 200px;
     	}
     	 */
-    	.sec01_01 .imgBox {
+    	.sec01-01 .imgBox {
     		width:350px;
 		    height:350px;
 		    border-radius : 200px;
@@ -78,12 +80,12 @@
 		    overflow:hidden;
 		    margin:0 auto;
     	}
-    	.sec01_01 .imgBox img{
+    	.sec01-01 .imgBox img{
     		width:100%;
 		    height:100%;
 		    object-fit:cover;
     	}
-    	.sec01_02{
+    	.sec01-02{
     		width : 70%;
     		padding : 50px
     	}
@@ -111,13 +113,17 @@
     		font-size : 22px;
     		/* position : absolute; */
     	}
+    	.sec01-02-01 section{
+    		width : 30%;
+    		
+    	}
     </style>
 </head>
 <body>
 <div class="sec01">
-	<div class="sec01_01">
+	<div class="sec01-01">
 		<section class="imgBox"><img src="${ctp}/images/member/${memVO.photo}"/></section>
-			<!-- 회원 등급(등급별로 뱃지?달아주기?), 닉네임 표시 -->
+			<!-- 회원 등급(등급별로 아이콘?달아주기?, 등급 이름 뭐로하지,, 관리자, ), 닉네임 표시 -->
 		<section class="levelSec">
 			<p>${levelName}</p>
 		</section>
@@ -127,22 +133,31 @@
 		<section class="genderSec">
 			<p>성별 | ${memVO.gender} | <img src="${ctp}/images/memberRoom/girl01.png"/></p>
 		</section>
+		<%-- 
+		<section class="birthdaySec">
+			<p>생일 <i class="fi fi-rr-cake-birthday"></i>${memVO.birthday}</p>
+		</section>
+		 --%>
 	</div>
-	<div class="sec01_02">
-		<section><h2 style="font-family:a신디나루B; margin:0"><img src="${ctp}/images/memberRoom/idLogo01.png"/> ${sMid}</h2></section>
+	<div class="sec01-02">
+		<div class="sec01-02-01">
+			<section><h2 style="font-family:a신디나루B; margin:0"><img src="${ctp}/images/memberRoom/idLogo01.png"/> ${sMid}</h2></section>
+			<section><h2 style="font-family:a영고딕B; margin:0"><i class="fi fi-rr-circle-star"></i> ${sLevel}</h2></section>
+			<section><h2 style="font-family:a영고딕B; margin:0"><i class="fi fi-br-circle-p"></i> ${memVO.point}</h2></section>
+		</div>
 		<hr/>
 		<section>
-			<p>현재 <font color="blue"><b>${sNickName}(<font color="red">${levelName}</font>)</b></font>님이 로그인 상태 입니다.</p>
-			<p>총 방문횟수 : <b>${mVo.visitCnt}</b>회</p>
-			<p>오늘 방문횟수 : <b>${mVo.todayCnt}</b>회</p>
-			<p>총 보유 포인트 : <b>${mVo.point}</b>점</p>
+			<p>가입일자 : <b>${memVO.startDate}</b></p>
+			<p>TODAY : <b>${memVO.todayCnt}</b>회</p>
+			<p>TOTAL : <b>${memVO.email}</b>회</p>
+			<p>E-mail : <b>${memVO.point}</b></p>
+			<%-- <p>좋아요 : <b>${memVO.good}</b></p> --%>
 		</section>
 		<hr/>
 		<section>
-			<h5>활동내역</h5>
-			<p>방명록에 올린 글 수 : <b>${guestCnt}</b>건</p>
-			<p>게시판에 올린 글 수 : __건</p>
-			<p>자료실에 올린 글 수 : __건</p>
+			<h5>CONTENT</h5>
+			<span style="background-color:#f1f1f1; padding:15px;">${memVO.content}</span>
+			<textarea rows="5" class="form-control" id="content" name="content" placeholder="${memVO.content}" readonly></textarea>
 		</section>
 	</div>
 </div>
