@@ -32,7 +32,7 @@ public class MemberJoinOkCommand implements MemberInterface {
 		String tel = multipartRequest.getParameter("tel")==null? "" : multipartRequest.getParameter("tel");
 		String address = multipartRequest.getParameter("address")==null? "" : multipartRequest.getParameter("address");
 		String email = multipartRequest.getParameter("email")==null? "" : multipartRequest.getParameter("email");
-		String photo = multipartRequest.getFilesystemName("photo")==null? "noimage.jpg" : multipartRequest.getFilesystemName("photo");
+		String photo = multipartRequest.getFilesystemName("photo")==null? request.getContextPath()+"/images/member/noimage.jpg" : multipartRequest.getFilesystemName("photo");
 		String content = multipartRequest.getParameter("content")==null? "" : multipartRequest.getParameter("content");
 		String userInfor = multipartRequest.getParameter("userInfor")==null? "" : multipartRequest.getParameter("userInfor");
 		

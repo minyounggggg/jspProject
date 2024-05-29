@@ -19,10 +19,15 @@
     	body{
     		font-family: "a영고딕M";
     		background-image : url("${ctp}/images/memberRoom/content_bg01.jpg");
+    		display : flex;
+    		align-items: center;
+    		justify-content: center;
     	}
     	.sec01{
     		display : flex;
-    		margin : 100px 200px;
+    		/* align-items: center; */
+    		margin : 100px 0;
+    		width : 1500px;
     		background-color : rgba(245,243,215,0.9);
     		border-radius : 50px;
     		border : 10px solid #19c8b9;

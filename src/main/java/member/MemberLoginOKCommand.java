@@ -55,7 +55,7 @@ public class MemberLoginOKCommand implements MemberInterface {
 		session.setAttribute("levelName", levelName);
 		
 		request.setAttribute("message", mid+"님 로그인되었습니다.");
-		request.setAttribute("url", request.getContextPath()+"/MemberRoom.mem");
+		request.setAttribute("url", request.getContextPath()+"/MemberMain.mem");
 	}
 
 }

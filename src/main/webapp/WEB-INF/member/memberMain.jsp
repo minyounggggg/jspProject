@@ -25,7 +25,7 @@
     	}
     	.sec01{
     		display : flex;
-    		width : 1300px;
+    		width : 1500px;
     		margin : 100px 0;
     		background-color : #f0f8ff;
     	}
@@ -93,6 +93,7 @@
     		float : left;
     		width : 50%;
     		margin : 0 auto;
+    		padding : 30px;
     		text-align : center;
     	}
     	.sec01-02 button{
@@ -123,12 +124,14 @@
 		<section><button type="button" onclick="location.href='${ctp}/MemberAllList.mem';"><img src="${ctp}/images/memberRoom/birthday_Icon01.png"/></button></section>
 		<section><button type="button" onclick="location.href='${ctp}/MemberAllList.mem';"><img src="${ctp}/images/memberRoom/birthday_Icon01.png"/></button></section>
 		<section><button type="button" onclick="location.href='${ctp}/MemberAllList.mem';"><img src="${ctp}/images/memberRoom/birthday_Icon01.png"/></button></section>
+		<!-- 
 		<section>All-List</section>
 		<section>F-List</section>
 		<section>방명록</section>
 		<section>게시판</section>
 		<section>MENU</section>
 		<section>MENU</section>
+		 -->
 	</div>
 </div>
 </body>
