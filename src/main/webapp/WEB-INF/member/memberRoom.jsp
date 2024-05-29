@@ -118,11 +118,6 @@
 		<section class="birthdaySec">
 			<p><img src="${ctp}/images/memberRoom/birthday_Icon01.png" style="width:45px; margin-right:50px"/>${memVO.birthday.substring(0,10)}</p>
 		</section>
-		<%-- 
-		<section class="birthdaySec">
-			<p>생일 <i class="fi fi-rr-cake-birthday"></i>${memVO.birthday}</p>
-		</section>
-		 --%>
 	</div>
 	<div class="sec01-02">
 		<div class="sec01-02-01">
@@ -136,7 +131,7 @@
 			<p><b>TODAY</b> : ${memVO.todayCnt} 회</p>
 			<p><b>TOTAL</b> : ${memVO.point} 회</p>
 			<p><b>E-mail</b> : ${memVO.email}</p>
-			<%-- <p>좋아요 : <b>${memVO.good}</b></p> --%>
+			<p><b>좋아요</b> : ${memVO.heart}</p>
 		</section>
 		<hr/>
 		<section>

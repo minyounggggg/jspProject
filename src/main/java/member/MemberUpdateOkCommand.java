@@ -21,6 +21,14 @@ public class MemberUpdateOkCommand implements MemberInterface {
 		String photo = request.getParameter("photo")==null? "noimage.jpg" : request.getParameter("photo");
 		String content = request.getParameter("content")==null? "" : request.getParameter("content");
 		String userInfor = request.getParameter("userInfor")==null? "" : request.getParameter("userInfor");
+		
+		MemberDAO dao = new MemberDAO();
+		MemberVO vo = dao.getMemberNickNameCheck(nickName);
+		if(nickName != null) {
+			request.setAttribute("message", "이미 사용중인 닉네임입니다.\\n다시 입력해주세요.");
+			request.setAttribute("url", "/MemberUpdate.mem");
+		}
+		
 	}
 
 }

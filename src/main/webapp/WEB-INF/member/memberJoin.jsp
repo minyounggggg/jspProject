@@ -28,7 +28,7 @@
     	}
     	.sec01{
     		width : 1000px;
-    		/* height : 500px; */
+    		/* height : 500px; */1
     		background-color : rgba(245,243,215,0.9);
     		border-radius : 50px;
     		border : 10px solid #19c8b9;

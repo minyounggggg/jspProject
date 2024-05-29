@@ -19,10 +19,14 @@
     	body{
     		font-family: "a영고딕M";
     		background-image : url("${ctp}/images/bg_1.png");
+    		display : flex;
+    		align-items: center;
+    		justify-content: center;
     	}
     	.sec01{
     		display : flex;
-    		margin : 100px;
+    		width : 1300px;
+    		margin : 100px 0;
     		background-color : #f0f8ff;
     	}
     	.sec01-01{
@@ -47,7 +51,7 @@
     	}
     	.sec01-02{
     		width : 70%;
-    		padding : 50px
+    		padding : 50px;
     	}
     	.levelSec, .nickNameSec{
     		box-shadow : 5px 5px 10px rgba(0, 0, 50, 0.5);
@@ -84,16 +88,16 @@
     		text-align : center;
     		padding : 10px;
     	}
-    	.sec01-02-01{
-			display: flex;
-			align-items: center;    	
-    	}
-    	.sec01-02-01 section{
-    		width : 30%;
+    	.sec01-02 section{
+    		background-color : #f1f1f1;
     		float : left;
+    		width : 50%;
+    		margin : 0 auto;
+    		text-align : center;
     	}
-    	.sec01-02-02{
-    		clear : both;
+    	.sec01-02 button{
+    		border: 0;
+  			background-color: transparent;
     	}
     </style>
 </head>
@@ -113,7 +117,18 @@
 		</section>
 	</div>
 	<div class="sec01-02">
-		
+		<section><button type="button" onclick="location.href='${ctp}/MemberAllList.mem';"><img src="${ctp}/images/memberRoom/birthday_Icon01.png"/></button></section>
+		<section><button type="button" onclick="location.href='${ctp}/MemberAllList.mem';"><img src="${ctp}/images/memberRoom/birthday_Icon01.png"/></button></section>
+		<section><button type="button" onclick="location.href='${ctp}/MemberAllList.mem';"><img src="${ctp}/images/memberRoom/birthday_Icon01.png"/></button></section>
+		<section><button type="button" onclick="location.href='${ctp}/MemberAllList.mem';"><img src="${ctp}/images/memberRoom/birthday_Icon01.png"/></button></section>
+		<section><button type="button" onclick="location.href='${ctp}/MemberAllList.mem';"><img src="${ctp}/images/memberRoom/birthday_Icon01.png"/></button></section>
+		<section><button type="button" onclick="location.href='${ctp}/MemberAllList.mem';"><img src="${ctp}/images/memberRoom/birthday_Icon01.png"/></button></section>
+		<section>All-List</section>
+		<section>F-List</section>
+		<section>방명록</section>
+		<section>게시판</section>
+		<section>MENU</section>
+		<section>MENU</section>
 	</div>
 </div>
 </body>

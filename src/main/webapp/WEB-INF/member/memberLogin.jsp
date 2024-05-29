@@ -59,9 +59,6 @@
 	        height: 50px;
 	        cursor: pointer;
     	}
-    	/* .btnSec{
-			text-align: center;
-    	} */
     	button{
     		border: 0;
   			background-color: transparent;

@@ -21,17 +21,19 @@ create table members (
   startDate 	datetime default now(),					/* 최초 가입일 */
   lastDate  	datetime default now(),					/* 마지막 접속일 */
   todayCnt  	int default 0,							/* 오늘 방문한 횟수 */
+  heart 		int default 0,							/* 좋아요 버튼 클릭 횟수 누적*/
   primary key (idx),
   unique(mid)
 );
 
-  /*good 			int default 0,							좋아요 버튼 클릭 횟수 누적*/
   /* salt      char(8) not null, */			/* 비밀번호 보안을 위한 salt */
   /* primary key (idx,mid) */
 
 drop table members;
 
-insert into members value (default, 'admin', '1234', '관리자', '최민영', '남자', default, '010-1234-5678','050/서울시/그린아파트/100동/101호','abc@atom.com', default,'관리자입니다.',default,default,default,default,default,default,default,default);
+insert into members value (default, 'admin', '1234', '관리자', '최민영', '남자', default, '010-1234-5678','050/서울시/그린아파트/100동/101호','abc@atom.com', default,'관리자입니다.',default,default,default,default,default,default,default,default,default);
+insert into members value (default, 'atom', '1234', '아톰맨', '아톰', '남자', default, '010-1364-5678','022/서울시/그린아파트/100동/101호','atom@atom.com', default,'아톰입니다.',default,default,default,default,default,default,default,default,default);
+insert into members value (default, 'btom', '1234', '비톰맨', '비톰', '여자', default, '010-1234-5558','033/서울시/그린아파트/100동/101호','btom@atom.com', default,'비톰입니다.',default,default,default,default,default,default,default,default,default);
 
 desc members;
 select * from members;
