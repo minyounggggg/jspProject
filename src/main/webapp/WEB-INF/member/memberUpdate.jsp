@@ -232,7 +232,7 @@
 <div class="sec01">
 	<section>
 		<form name="myform" method="post" action="${ctp}/MemberUpdateOk.mem" enctype="multipart/form-data" class="was-validated"><!-- enctype="multipart/form-data" -->
-	    <h2 style="font-family: a신디나루B; color:#075663">회원정보 수정</h2>
+	    <h2 style="font-family: a신디나루B; color:#075663;">회원정보 수정</h2>
 	    <p style="font-family: a영고딕B; color: #708090;">정보수정 중 문제 발생시 고객센터로 문의주시기 바랍니다.</p>
 	    <hr/>
 	    <div class="form-group">아이디
@@ -254,15 +254,15 @@
 	    <div class="form-group">
 	      <label for="email1">Email address <span style="color:#DB4455"><b>*</b></span></label>
 	        <div class="input-group mb-3">
-	          <input type="text" class="form-control" placeholder="Email을 입력하세요." id="email1" name="email1" required />
+	          <input type="text" class="form-control" placeholder="Email을 입력하세요." id="email1" value="${email1}" name="email1" required />
 	          <div class="input-group-append">
 	            <select name="email2" class="custom-select">
-	              <option value="naver.com" selected>@naver.com</option>
-	              <option value="hanmail.net">@hanmail.net</option>
-	              <option value="hotmail.com">@hotmail.com</option>
-	              <option value="gmail.com">@gmail.com</option>
-	              <option value="nate.com">@nate.com</option>
-	              <option value="yahoo.com">@yahoo.com</option>
+	              <option value="@naver.com" ${email2 == "@naver.com" ? "selected" : ""}>@naver.com</option>
+	              <option value="@hanmail.net" ${email2 == "@hanmail.net" ? "selected" : ""}>@hanmail.net</option>
+	              <option value="@hotmail.com" ${email2 == "@hotmail.com" ? "selected" : ""}>@hotmail.com</option>
+	              <option value="@gmail.com" ${email2 == "@gmail.com" ? "selected" : ""}>@gmail.com</option>
+	              <option value="@nate.com" ${email2 == "@nate.com" ? "selected" : ""}>@nate.com</option>
+	              <option value="@yahoo.com" ${email2 == "@yahoo.com" ? "selected" : ""}>@yahoo.com</option>
 	            </select>
 	          </div>
 	        </div>
@@ -271,39 +271,39 @@
 	      <div class="form-check-inline">
 	        <span class="input-group-text">성별 :</span> &nbsp; &nbsp;
 	        <label class="form-check-label">
-	          <input type="radio" class="form-check-input" name="gender" value="남자" <c:if test="${vo.gender == '남자'}"/> checked/>남자
+	          <input type="radio" class="form-check-input" name="gender" value="남자" <c:if test="${vo.gender == '남자'}">checked</c:if> />남자
 	        </label>
 	      </div>
 	      <div class="form-check-inline">
 	        <label class="form-check-label">
-	          <input type="radio" class="form-check-input" name="gender" value="여자" <c:if test="${vo.gender == '여자'}"/> checked/>여자
+	          <input type="radio" class="form-check-input" name="gender" value="여자" <c:if test="${vo.gender == '여자'}">checked</c:if> />여자
 	        </label>
 	      </div>
 	    </div>
 	    <div class="form-group">
 	      <label for="birthday">생일</label>
-	      <input type="date" name="birthday" value="<%=java.time.LocalDate.now() %>" class="form-control"/>
+	      <input type="date" name="birthday" value="${vo.birthday.substring(0,10)}" class="form-control"/>
 	    </div>
 	    <div class="form-group">
 	      <div class="input-group mb-3">
 	        <div class="input-group-prepend">
 	          <span class="input-group-text">전화번호 :</span> &nbsp;&nbsp;
 	            <select name="tel1" class="custom-select">
-	              <option value="010" selected>010</option>
-	              <option value="02">02</option>
-	              <option value="031">"031"</option>
-	              <option value="032">032</option>
-	              <option value="041">041</option>
-	              <option value="042">042</option>
-	              <option value="043">043</option>
-	              <option value="051">051</option>
-	              <option value="052">052</option>
-	              <option value="061">061</option>
-	              <option value="062">062</option>
+	              <option value="010" ${tel1 == "010" ? "selected" : ""}>010</option>
+	              <option value="02"  ${tel1 == "02" ? "selected" : ""}>02</option>
+	              <option value="031" ${tel1 == "031" ? "selected" : ""}>031</option>
+	              <option value="032" ${tel1 == "032" ? "selected" : ""}>032</option>
+	              <option value="041" ${tel1 == "041" ? "selected" : ""}>041</option>
+	              <option value="042" ${tel1 == "042" ? "selected" : ""}>042</option>
+	              <option value="043" ${tel1 == "043" ? "selected" : ""}>043</option>
+	              <option value="051" ${tel1 == "051" ? "selected" : ""}>051</option>
+	              <option value="052" ${tel1 == "052" ? "selected" : ""}>052</option>
+	              <option value="061" ${tel1 == "061" ? "selected" : ""}>061</option>
+	              <option value="062" ${tel1 == "062" ? "selected" : ""}>062</option>
 	            </select>-
 	        </div>
-	        <input type="text" name="tel2" size=4 maxlength=4 class="form-control" required/>-
-	        <input type="text" name="tel3" size=4 maxlength=4 class="form-control" required/>
+	        <input type="text" name="tel2" value="${tel2}" size=4 maxlength=4 class="form-control" required/>-
+	        <input type="text" name="tel3" value="${tel3}" size=4 maxlength=4 class="form-control" required/>
 	      </div>
 	    </div>
 	    <div class="form-group">
@@ -331,19 +331,20 @@
 	      <div class="form-check-inline">
 	        <span class="input-group-text">정보공개</span>&nbsp; &nbsp;
 	        <label class="form-check-label">
-	          <input type="radio" class="form-check-input" name="userInfor" value="공개" <c:if test="${vo.userInfor == '공개'}"/> checked/>공개
+	          <input type="radio" class="form-check-input" name="userInfor" value="공개" <c:if test="${vo.userInfor == '공개'}">checked</c:if> />공개
 	        </label>
 	      </div>
 	      <div class="form-check-inline">
 	        <label class="form-check-label">
-	          <input type="radio" class="form-check-input" name="userInfor" value="비공개" <c:if test="${vo.userInfor == '비공개'}"/> checked/>비공개
+	          <input type="radio" class="form-check-input" name="userInfor" value="비공개" <c:if test="${vo.userInfor == '비공개'}">checked</c:if> />비공개
 	        </label>
 	      </div>
 	    </div>
 	    <div  class="form-group">
-	      회원 사진(파일용량:2MByte이내) :
+	      <p>회원 사진(파일용량:2MByte이내) :</p>
 	      <input type="file" name="photo" id="file" onchange="imgCheck(this)" class="form-control-file border mb-3"/>
-	      <img id="demoImg" width="200px"/>
+	      <img id="demoImg" src="${ctp}/images/member/${vo.photo}" width="200px"/>
+	      <!-- <img id="demoImg" width="200px"/> -->
 	      <hr/>
 	    </div>
 	    <button type="button" class="btn btn-secondary" onclick="fCheck()">수정하기</button> &nbsp;

@@ -21,12 +21,12 @@ public class MemberAllListCommand implements MemberInterface {
 		request.setAttribute("vos", vos);
 		request.setAttribute("mVo", mVo);
 		
-		String listlevelName = "";
-		if(mVo.getLevel() == 0) listlevelName = "관리자";
-		else if(mVo.getLevel() == 1) listlevelName = "정회원";
-		else if(mVo.getLevel() == 2) listlevelName = "우수회원";
-		
-		request.setAttribute("listlevelName", listlevelName);
+//		String listlevelName = "";
+//		if(mVo.getLevel() == 0) listlevelName = "운영자";
+//		else if(mVo.getLevel() == 1) listlevelName = "주민";
+//		else if(mVo.getLevel() == 2) listlevelName = "섬대표";
+//		
+//		request.setAttribute("listlevelName", listlevelName);
 		
 	}
 

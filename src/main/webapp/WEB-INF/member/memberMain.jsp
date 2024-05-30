@@ -119,8 +119,8 @@
 	</div>
 	<div class="sec01-02">
 		<section><button type="button" onclick="location.href='${ctp}/MemberAllList.mem';"><img src="${ctp}/images/memberRoom/birthday_Icon01.png"/></button></section>
-		<section><button type="button" onclick="location.href='${ctp}/MemberAllList.mem';"><img src="${ctp}/images/memberRoom/birthday_Icon01.png"/></button></section>
-		<section><button type="button" onclick="location.href='${ctp}/MemberAllList.mem';"><img src="${ctp}/images/memberRoom/birthday_Icon01.png"/></button></section>
+		<section><button type="button" onclick="location.href='${ctp}/MemberFList.mem';"><img src="${ctp}/images/memberRoom/birthday_Icon01.png"/></button></section>
+		<section><button type="button" onclick="location.href='${ctp}/MemberBoard.mem';"><img src="${ctp}/images/memberRoom/birthday_Icon01.png"/></button></section>
 		<section><button type="button" onclick="location.href='${ctp}/MemberAllList.mem';"><img src="${ctp}/images/memberRoom/birthday_Icon01.png"/></button></section>
 		<section><button type="button" onclick="location.href='${ctp}/MemberAllList.mem';"><img src="${ctp}/images/memberRoom/birthday_Icon01.png"/></button></section>
 		<section><button type="button" onclick="location.href='${ctp}/MemberAllList.mem';"><img src="${ctp}/images/memberRoom/birthday_Icon01.png"/></button></section>

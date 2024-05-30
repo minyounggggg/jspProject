@@ -189,6 +189,11 @@ public class MemberDAO {
 				vo.setLastDate(rs.getString("lastDate"));
 				vo.setTodayCnt(rs.getInt("todayCnt"));
 				vo.setHeart(rs.getInt("heart"));
+				
+				if(vo.getLevel() == 0) vo.setStrLevel("운영자");
+				else if(vo.getLevel() == 1) vo.setStrLevel("주민");
+				else if(vo.getLevel() == 2) vo.setStrLevel("섬대표");
+				
 				vos.add(vo);
 			}
 		} catch (SQLException e) {

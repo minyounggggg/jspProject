@@ -17,6 +17,22 @@ public class MemberUpdateCommand implements MemberInterface {
 		MemberDAO dao = new MemberDAO();
 		MemberVO vo = dao.getMemberIdCheck(mid);
 		
+		String[] tel = vo.getTel().split("-");
+		if(tel[1].equals(" ")) tel[1] = "";
+		if(tel[2].equals(" ")) tel[2] = "";
+		request.setAttribute("tel1", tel[0]);
+		request.setAttribute("tel2", tel[1]);
+		request.setAttribute("tel3", tel[2]);
+		
+		String[] email = vo.getEmail().split("@");
+		if(email[0].equals(" ")) email[0] = "";
+		request.setAttribute("email1", email[0]);
+		request.setAttribute("email2", email[1]);
+		
+		
+		
+		
+		
 		request.setAttribute("vo", vo);
 	}
 

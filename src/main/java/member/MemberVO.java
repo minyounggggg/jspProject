@@ -24,6 +24,7 @@ public class MemberVO {
 	private int todayCnt;
 	private int heart;
 	
+	private String strLevel;
 	
 	public int getIdx() {
 		return idx;
@@ -151,6 +152,12 @@ public class MemberVO {
 	public void setHeart(int heart) {
 		this.heart = heart;
 	}
+	public String getStrLevel() {
+		return strLevel;
+	}
+	public void setStrLevel(String strLevel) {
+		this.strLevel = strLevel;
+	}
 	
 	@Override
 	public String toString() {
@@ -158,7 +165,7 @@ public class MemberVO {
 				+ ", gender=" + gender + ", birthday=" + birthday + ", tel=" + tel + ", address=" + address + ", email="
 				+ email + ", photo=" + photo + ", content=" + content + ", userInfor=" + userInfor + ", userDel="
 				+ userDel + ", point=" + point + ", level=" + level + ", visitCnt=" + visitCnt + ", startDate="
-				+ startDate + ", lastDate=" + lastDate + ", todayCnt=" + todayCnt + ", heart=" + heart + "]";
+				+ startDate + ", lastDate=" + lastDate + ", todayCnt=" + todayCnt + ", heart=" + heart + ", strLevel="
+				+ strLevel + "]";
 	}
-	
 }

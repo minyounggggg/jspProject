@@ -16,6 +16,7 @@
 		    padding: 0;
 		    margin: 0;
 		}
+		
 		p {margin : 0}
 	    body{
     		font-family: "a영고딕M";
@@ -124,25 +125,30 @@
     	.sec01-02-02{
     		clear : both;
     	}
+    	section.sec01-02-03{
+    		background-color: #f1f1f1;
+		    padding: 20px;
+		    height: 30%;
+    	}
     </style>
     <script>
     	'use strict';
     	
-    	function profile(mid,nickName,gender,birthday,email,photo,content,level,startDate,lastDate,todayCnt,heart,levelName) {
+    	function profile(mid,nickName,gender,birthday,email,photo,content,level,startDate,lastDate,todayCnt,heart,listlevelName) {
+    		let img = "${ctp}/images/member/"+photo;
+			$("#myModal #modalPhoto").attr("src",img);
 			$("#myModal #modalNick").text(nickName);
 			$("#myModal #modalMid").text(mid);
 			$("#myModal #modalGender").text(gender);
 			$("#myModal #modalBirthday").text(birthday.substring(0,10));
 			$("#myModal #modalEmail").text(email);
-			$("#myModal #modalPhoto").text(photo);
 			$("#myModal #modalContent").text(content);
 			$("#myModal #modalLevel").text(level);
 			$("#myModal #modalStartDate").text(startDate.substring(0,10));
 			$("#myModal #modalLastDate").text(lastDate.substring(0,16));
 			$("#myModal #modalTodayCnt").text(todayCnt);
 			$("#myModal #modalHeart").text(heart);
-			$("#myModal #modalLevelName").text(levelName);
-			
+			$("#myModal #modalLevelName").text(listlevelName);
 		}
     	
     </script>
@@ -177,15 +183,8 @@
 						<input type="button" value="프로필보기" 
 						onclick="profile('${vo.mid}','${vo.nickName}','${vo.gender}','${vo.birthday}',
 						'${vo.email}','${vo.photo}','${vo.content}','${vo.level}','${vo.startDate}',
-						'${vo.lastDate}','${vo.todayCnt}','${vo.heart}','${levelName}')" 
+						'${vo.lastDate}','${vo.todayCnt}','${vo.heart}','${vo.strLevel}')" 
 						data-toggle="modal" data-target="#myModal" class="secondary"/>
-						<%-- 
-						<a href="#"
-						onclick="profile('${vo.mid}','${vo.nickName}','${vo.gender}','${vo.birthday}',
-						'${vo.email}','${vo.photo}','${vo.content}','${vo.level}','${vo.startDate}',
-						'${vo.lastDate}','${vo.todayCnt}','${vo.heart}','${listlevelName}')" 
-						data-toggle="modal" data-target="#myModal" class="secondary">프로필보기</a>
-						 --%>
 					</td>
 					<td><a href="MemberSearch.mem?mid=${vo.mid}">${vo.mid}</a></td>
 					<td>${vo.gender}</td>
@@ -217,43 +216,45 @@
         
         <!-- Modal body -->
         <div class="sec01">
-	<div class="sec01-01">
-		<section class="imgBox"><img src="${ctp}/images/member/${memVO.photo}"/></section>
-			<!-- 회원 등급(등급별로 아이콘?달아주기?, 등급 이름 뭐로하지,, 관리자, ), 닉네임 표시 -->
-		<section class="levelSec">
-			<p>${levelName}</p>
-		</section>
-		<section class="nickNameSec">
-			<span id="modalNick"></span>
-		</section>
-		<section class="genderSec">
-			<p><span style="font-family:a신디나루B">성별</span> &nbsp; | &nbsp; <span id="modalGender" style="font-size:20px"></span> &nbsp; | &nbsp; <img src="${ctp}/images/memberRoom/girl01.png" style="width:30px"/></p>
-		</section>
-		<section class="birthdaySec">
-			<p><img src="${ctp}/images/memberRoom/birthday_Icon01.png" style="width:45px; margin-right:50px"/><span id="modalBirthday"></span></p>
-		</section>
-	</div>
-	<div class="sec01-02">
-		<div class="sec01-02-01">
-			<section><h2 style="font-family:a신디나루B; margin:0"><img src="${ctp}/images/memberRoom/idLogo01.png"/> <span id="modalMid"></span></h2></section>
-			<section><h2 style="font-family:a신디나루B; margin:0"><img src="${ctp}/images/memberRoom/idLogo01.png"/> Lv.<span id="modalLevel"></span></h2></section>
+			<div class="sec01-01">
+				<%-- <section class="imgBox"><img src="${ctp}/images/member/${mVo.photo}"/></section> --%>
+				<div class="imgBox"><img id="modalPhoto"/></div>
+					<!-- 회원 등급(등급별로 아이콘?달아주기?, 등급 이름 뭐로하지,, 관리자, ), 닉네임 표시 -->
+				<section class="levelSec">
+					<span id="modalLevelName"></span>
+				</section>
+				<section class="nickNameSec">
+					<span id="modalNick"></span>
+				</section>
+				<section class="genderSec">
+					<p><span style="font-family:a신디나루B">성별</span> &nbsp; | &nbsp; <span id="modalGender" style="font-size:20px"></span> &nbsp; | &nbsp; <img src="${ctp}/images/memberRoom/girl01.png" style="width:30px"/></p>
+				</section>
+				<section class="birthdaySec">
+					<p><img src="${ctp}/images/memberRoom/birthday_Icon01.png" style="width:45px; margin-right:50px"/><span id="modalBirthday"></span></p>
+				</section>
+			</div>
+			<div class="sec01-02">
+				<div class="sec01-02-01">
+					<section><h2 style="font-family:a신디나루B; margin:0"><img src="${ctp}/images/memberRoom/idLogo01.png"/> <span id="modalMid"></span></h2></section>
+					<section><h2 style="font-family:a신디나루B; margin:0"><img src="${ctp}/images/memberRoom/idLogo01.png"/> Lv.<span id="modalLevel"></span></h2></section>
+				</div>
+				<section class="sec01-02-02">
+				<hr/>
+					<p><b>가입일자</b> : <span id="modalStartDate"></span></p>
+					<p><b>TODAY</b> : <span id="modalTodayCnt"></span> 회</p>
+					<p><b>TOTAL</b> : <span id="modalTodayCnt"></span> 회</p>
+					<p><b>E-mail</b> : <span id="modalEmail"></span></p>
+					<p><b>좋아요</b> : <span id="modalHeart"></span></p>
+				</section>
+				<hr/>
+					<h5 style="font-family:a신디나루B">CONTENT</h5>
+				<section class="sec01-02-03">
+					<span id="modalContent"></span>
+					<%-- <textarea rows="5" class="form-control" id="content" name="content" placeholder="${memVO.content}" readonly></textarea> --%>
+				</section>
+			</div>
+			<input type="hidden" name="idx" id="idx"/>
 		</div>
-		<section class="sec01-02-02">
-		<hr/>
-			<p><b>가입일자</b> : <span id="modalStartDate"></span></p>
-			<p><b>TODAY</b> : <span id="modalTodayCnt"></span> 회</p>
-			<p><b>TOTAL</b> : <span id="modalTodayCnt"></span> 회</p>
-			<p><b>E-mail</b> : <span id="modalEmail"></span></p>
-			<p><b>좋아요</b> : <span id="modalHeart"></span></p>
-		</section>
-		<hr/>
-		<section>
-			<h5 style="font-family:a신디나루B">CONTENT</h5>
-			<span id="modalContent" style="backgroung-color:#f1f1f1;width:100%;hight:5em;"></span>
-			<textarea rows="5" class="form-control" id="content" name="content" placeholder="${memVO.content}" readonly></textarea>
-		</section>
-	</div>
-</div>
         
         <!-- Modal footer -->
         <!-- 
@@ -264,46 +265,7 @@
       </div>
     </div>
   </div>
-<!-- 댓글수정 모달창 -->
+<!-- 댓글수정 모달창 끝 -->
 
-<!-- 
-댓글수정 모달창
-  <div class="modal fade" id="myModal">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-      
-        Modal Header
-        <div class="modal-header">
-          <h4 class="modal-title"><span id="modalNick"></span>님의 프로필</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
-        
-        Modal body
-        <div class="modal-body">
-          고유번호 : <span id="modalMid"></span><br/>
-          고유번호 : <span id="modalGender"></span><br/>
-          고유번호 : <span id="modalBirthday"></span><br/>
-          고유번호 : <span id="modalEmail"></span><br/>
-          고유번호 : <span id="modalPhoto"></span><br/>
-          고유번호 : <span id="modalContent"></span><br/>
-          고유번호 : <span id="modalLevel"></span><br/>
-          고유번호 : <span id="modalStartDate"></span><br/>
-          고유번호 : <span id="modalLastDate"></span><br/>
-          고유번호 : <span id="modalTodayCnt"></span><br/>
-          고유번호 : <span id="modalHeart"></span><br/>
-          고유번호 : <span id="modalLevelName"></span><br/>
-          
-          <input type="hidden" name="idx" id="idx"/>
-        </div>
-        
-        Modal footer
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
-댓글수정 모달창
-  -->
 </body>
 </html>

@@ -15,6 +15,10 @@
 		    padding: 0;
 		    margin: 0;
 		}
+		button{
+    		border: 0;
+  			background-color: transparent;
+    	}
 		p {margin : 0}
     	body{
     		font-family: "a영고딕M";
@@ -81,7 +85,7 @@
     		font-size : 22px;
     		margin-bottom : 5px;
     	}
-    	.birthdaySec{
+    	.birthdaySec, .updateBtn{
     		clear : both;
     		display: flex;
 			align-items: center;
@@ -92,6 +96,7 @@
     		background-color : rgba(245,243,215,0.9);
     		text-align : center;
     		padding : 10px;
+    		margin-bottom : 5px;
     	}
     	.sec01-02-01{
 			display: flex;
@@ -101,7 +106,12 @@
     		width : 30%;
     		float : left;
     	}
-    	.sec01-02-02{
+    	.sec-I, .sec-C{
+    		float : left;
+    		width : 50%;
+    		margin-bottom : 20px;
+    	}
+    	.sec01-02-03{
     		clear : both;
     	}
     </style>
@@ -118,10 +128,20 @@
 			<p>${sNickName}</p>
 		</section>
 		<section class="genderSec">
-			<p><span style="font-family:a신디나루B">성별</span> &nbsp; | &nbsp; <span style="font-size:20px">${memVO.gender}</span> &nbsp; | &nbsp; <img src="${ctp}/images/memberRoom/girl01.png" style="width:30px"/></p>
+			<p>
+				<span style="font-family:a신디나루B">성별</span> &nbsp; | &nbsp; 
+				<span style="font-size:20px">${memVO.gender}</span> &nbsp; | &nbsp; 
+				<c:if test="${memVO.gender == '남자'}"><img src="${ctp}/images/memberRoom/boy01.png" style="width:30px"/></c:if>
+				<c:if test="${memVO.gender == '여자'}"><img src="${ctp}/images/memberRoom/girl01.png" style="width:30px"/></c:if>
+			</p>
 		</section>
 		<section class="birthdaySec">
-			<p><img src="${ctp}/images/memberRoom/birthday_Icon01.png" style="width:45px; margin-right:50px"/>${memVO.birthday.substring(0,10)}</p>
+			<p><img src="${ctp}/images/memberRoom/birthday_Icon01.png" style="width:45px; margin-right:50px;"/>${memVO.birthday.substring(0,10)}</p>
+		</section>
+		<section class="updateBtn">
+			<button onclick="location.href='${ctp}/MemberUpdate.mem';" style="width:100%">
+				<img src="${ctp}/images/memberRoom/birthday_Icon01.png" style="width:45px; margin-right:50px;"/>정보 수정하기
+			</button>
 		</section>
 	</div>
 	<div class="sec01-02">
@@ -130,21 +150,36 @@
 			<section><h2 style="font-family:a신디나루B; margin:0"><img src="${ctp}/images/memberRoom/idLogo01.png"/> Lv. ${sLevel}</h2></section>
 			<section><h2 style="font-family:a신디나루B; margin:0"><img src="${ctp}/images/memberRoom/idLogo01.png"/> ${memVO.point} p</h2></section>
 		</div>
-		<section class="sec01-02-02">
+		<div class="sec01-02-02">
 		<hr/>
-			<p><b>가입일자</b> : ${memVO.startDate.substring(0,10)}</p>
-			<p><b>TODAY</b> : ${memVO.todayCnt} 회</p>
-			<p><b>TOTAL</b> : ${memVO.point} 회</p>
-			<p><b>E-mail</b> : ${memVO.email}</p>
-			<p><b>좋아요</b> : ${memVO.heart}</p>
-		</section>
+			<section class="sec-I">
+				<p><b>가입일자</b> : ${memVO.startDate.substring(0,10)}</p>
+				<p><b>TODAY</b> : ${memVO.todayCnt} 회</p>
+				<p><b>TOTAL</b> : ${memVO.point} 회</p>
+				<p><b>E-mail</b> : ${memVO.email}</p>
+				<p><b>좋아요</b> : ${memVO.heart}</p>
+			</section>
+			<section class="sec-C" style="width:300px">
+				<form name="chatForm">
+					<label for="chat"><b>실시간 대화방</b></label>
+					<iframe src="${ctp}/include/memberMessage.jsp" width="100%" height="200px" class="border"></iframe>
+					<div class="input-group mt-1">
+						<input type="text" name="chat" id="chat" class="form-control" placeholder="대화내용을 입력하세요" autofocus/>
+						<div class="input-group-append">
+							<input type="button" value="글등록" onclick="chatInput()" class="btn btn-primary"/> 
+						</div>
+					</div>
+				</form>
+			</section>
+		</div>
+		<section class="sec01-02-03">
 		<hr/>
-		<section>
 			<h5 style="font-family:a신디나루B">CONTENT</h5>
 			<textarea rows="5" class="form-control" id="content" name="content" placeholder="${memVO.content}" readonly></textarea>
 		</section>
 		<hr/>
 		<button type="button" class="btn btn-secondary" onclick="location.href='${ctp}/MemberMain.mem';">메인</button>
+		<button type="button" class="btn btn-secondary" onclick="location.href='${ctp}/MemberUpdate.mem';">수정하기</button>
 		<button type="button" class="btn btn-secondary" onclick="location.href='${ctp}/MemberLogin.mem';">돌아가기</button>
 	</div>
 </div>
