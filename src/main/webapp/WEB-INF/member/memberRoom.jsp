@@ -30,7 +30,7 @@
     	.sec01{
     		display : flex;
     		/* align-items: center; */
-    		margin : 100px 0;
+    		margin : 80px 0;
     		width : 1500px;
     		background-color : rgba(245,243,215,0.9);
     		border-radius : 50px;
@@ -60,7 +60,7 @@
     	}
     	.sec01-02{
     		width : 70%;
-    		padding : 50px
+    		padding : 30px 50px 30px;
     	}
     	.levelSec, .nickNameSec{
     		box-shadow : 5px 5px 10px rgba(0, 0, 50, 0.5);
@@ -85,7 +85,7 @@
     		font-size : 22px;
     		margin-bottom : 5px;
     	}
-    	.birthdaySec, .updateBtn{
+    	.birthdaySec{
     		clear : both;
     		display: flex;
 			align-items: center;
@@ -97,6 +97,17 @@
     		text-align : center;
     		padding : 10px;
     		margin-bottom : 5px;
+    	}
+    	.updateBtn{
+    		float : left;
+    		font-family : "a신디나루B";
+    		font-size : 20px;
+    		box-shadow : 5px 5px 10px rgba(0, 0, 50, 0.5);
+    		border-radius : 50px;
+    		background-color : rgba(245,243,215,0.9);
+    		padding : 10px;
+    		margin-bottom : 5px;
+    		width : 100%;
     	}
     	.sec01-02-01{
 			display: flex;
@@ -125,7 +136,7 @@
 			<p>${levelName}</p>
 		</section>
 		<section class="nickNameSec">
-			<p>${sNickName}</p>
+			<p>${memVO.nickName}</p>
 		</section>
 		<section class="genderSec">
 			<p>
@@ -139,7 +150,7 @@
 			<p><img src="${ctp}/images/memberRoom/birthday_Icon01.png" style="width:45px; margin-right:50px;"/>${memVO.birthday.substring(0,10)}</p>
 		</section>
 		<section class="updateBtn">
-			<button onclick="location.href='${ctp}/MemberUpdate.mem';" style="width:100%">
+			<button onclick="location.href='${ctp}/MemberUpdate.mem';">
 				<img src="${ctp}/images/memberRoom/birthday_Icon01.png" style="width:45px; margin-right:50px;"/>정보 수정하기
 			</button>
 		</section>
@@ -159,6 +170,7 @@
 				<p><b>E-mail</b> : ${memVO.email}</p>
 				<p><b>좋아요</b> : ${memVO.heart}</p>
 			</section>
+			<%-- 
 			<section class="sec-C" style="width:300px">
 				<form name="chatForm">
 					<label for="chat"><b>실시간 대화방</b></label>
@@ -171,6 +183,7 @@
 					</div>
 				</form>
 			</section>
+			 --%>
 		</div>
 		<section class="sec01-02-03">
 		<hr/>

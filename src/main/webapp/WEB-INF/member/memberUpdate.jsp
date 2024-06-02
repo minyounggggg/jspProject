@@ -54,9 +54,7 @@
     	});
     	
     	
-    	// 회원가입처리
-    	let idCheckBtn = 0;
-	    let nickCheckBtn = 0;
+	    let nickCheckBtn = 1;
 	    
     	function fCheck() {
     		// 유효성 검사하기
@@ -89,8 +87,9 @@
 	    	let address = postcode + "/" + roadAddress + "/" + detailAddress + "/" + extraAddress;
 	    	
 	    	// 이메일 주소형식체크
-	        
+	        //-----------------------------------------------------------
 	        // 전화번호 형식 체크
+	        /* 
 	        if(tel2 != "" && tel3 != ""){
 	        	// 전화번호 정규화 체크
 	        }
@@ -99,8 +98,10 @@
 	        	tel3 = " ";
 	        	tel = tel1 + "-" + tel2 + "-" + tel3;
 	        }
-	    	/* 
+	    	 */
+	    	 //-----------------------------------------------------------
 	    	// 정규식, 유효성
+	    	/* 
 	    	if(!regMid.test(mid)){
 	    		alert("영문 대소문자와 숫자의 8~16자 조합으로 입력해주세요.")
 	    	}
@@ -110,7 +111,7 @@
 	    		return false;
 	    	}
 	    	 */
-	    	
+	    	//-----------------------------------------------------------
 	    	// 사진파일 업로드
 	    	let photo = document.getElementById("file").value;
 	    	if(photo.trim != ""){
@@ -127,17 +128,19 @@
 	    			return false;
 	    		}
 	    	}
-	    	else return false;
+	    	//else return false;
 	    	
-	    	// 아이디, 닉네임 중복 체크버튼
-			if(idCheckBtn == 0){
-				alert("아이디 중복 체크를 해주세요.");
-				document.getElementById("midBtn").focus();
-			}
-			else if(nickCheckBtn == 0){
+	    	// 닉네임 중복 체크버튼
+	    	let nickName = myform.nickName.value;
+			if(nickCheckBtn == 0){
 				alert("닉네임 중복 체크를 해주세요.");
 				document.getElementById("nickNameBtn").focus();
 			}
+	    	/* 
+			else if(nickName == '${sNickName}') {
+				nickCheckBtn = 1;
+			}
+	    	 */
 			else{
 	    		myform.email.value = email;
 	    		myform.tel.value = tel;
@@ -147,73 +150,48 @@
 	    	}
 		}
     	
-    	// 아이디 중복체크
-    	function idCheck() {
-			let mid = myform.mid.value;
-			if(mid.trim() == ""){
-				alert("아이디를 입력해주세요");
-				myform.mid.focus();
-			}
-			else {
-				idCheckBtn = 1;
-				
-				$.ajax({
-					url : "${ctp}/MemberIdCheck.mem",
-					type : "get",
-					data : {mid : mid},
-					success : function (res) {
-						if(res != '0'){
-							alert("이미 존재하는 아이디입니다.");
-							myform.mid.focus();
-						}
-						else alert("사용가능한 아이디입니다.");
-					},
-					error : function () {
-						alert("전송오류");
-					}
-				});
-			}
-		}
     	// 닉네임 중복체크
-    	function nickCheck() {
-			let nickName = myform.nickName.value;
-			if(nickName.trim() == ""){
-				alert("닉네임을 입력해주세요");
-				myform.nickName.focus();
-			}
-			else {
-				nickCheckBtn = 1;
-				
+        function nickCheck() {
+    		let nickName = myform.nickName.value;
+    		if(nickName.trim() == ""){
+    			alert("닉네임을 입력해주세요.");
+    			myform.nickName.focus();
+    		}
+    		else if(nickName == '${sNickName}'){
+    			alert("현재 닉네임을 그대로 사용합니다.");
+    			nickCheckBtn = 1;
+    			return false;
+    		}	
+    		else {
+    			nickCheckBtn = 1;
 				$.ajax({
 					url : "MemberNickNameCheck.mem",
-					type : "post",
+					type : "get",
 					data : {nickName : nickName},
 					success : function (res) {
 						if(res != '0'){
 							alert("이미 사용중인 닉네임입니다.");
 							myform.nickName.focus();
 						}
-						else alert("사용가능한 닉네임입니다.");
+						else {
+							alert("사용가능한 닉네임입니다.");
+						}
 					},
 					error : function () {
 						alert("전송오류");
 					}
 				});
-			}
+    		}	
 		}
+		
     	// 아이디, 닉네임 다시 고쳤을 경우 다시 중복버튼 체크하게 유도
-    	/* 
+    	
     	$(function(){
-        	$("#mid").on("blur", () => {
-        		idCheckBtn = 0;
-        	});
-        	
         	$("#nickName").on("blur", () => {
         		nickCheckBtn = 0;
         	});
-        	
         });
-    	 */
+    	 
     	// 사진파일 미리보기
     	function imgCheck(e) {
 			if(e.files && e.files[0]){
@@ -241,7 +219,7 @@
 	    <div class="form-group">
 	      <label for="nickName">닉네임 <span style="color:#DB4455"><b>*</b></span></label>
 	      <div class="input-group mb-1">
-		      <input type="text" class="form-control" value="${vo.nickName}" id="nickName" name="nickName" required />
+		      <input type="text" class="form-control" value="${sNickName}" id="nickName" name="nickName" required />
 		      <div class="input-group-prepend">
 		      	<input type="button" id="nickNameBtn" value="닉네임 중복체크" class="btn btn-secondary" onclick="nickCheck()"/>
 		      </div>
@@ -309,23 +287,23 @@
 	    <div class="form-group">
 	      <label for="address">주소 <span style="color:#DB4455"><b>*</b></span></label>
 	      <div class="input-group mb-1">
-	        <input type="text" name="postcode" id="sample6_postcode" placeholder="우편번호" class="form-control" required>
+	        <input type="text" name="postcode" value="${postcode}" id="sample6_postcode" placeholder="우편번호" class="form-control" required>
 	        <div class="input-group-append">
 	          <input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기" class="btn btn-secondary">
 	        </div>
 	      </div>
-	      <input type="text" name="roadAddress" id="sample6_address" size="50" placeholder="주소" class="form-control mb-1" required>
+	      <input type="text" name="roadAddress" value="${roadAddress}" id="sample6_address" size="50" placeholder="주소" class="form-control mb-1" required>
 	      <div class="input-group mb-1">
-	        <input type="text" name="detailAddress" id="sample6_detailAddress" placeholder="상세주소" class="form-control"> &nbsp;&nbsp;
+	        <input type="text" name="detailAddress" value="${detailAddress}" id="sample6_detailAddress" placeholder="상세주소" class="form-control"> &nbsp;&nbsp;
 	        <div class="input-group-append">
-	          <input type="text" name="extraAddress" id="sample6_extraAddress" placeholder="참고항목" class="form-control">
+	          <input type="text" name="extraAddress" value="${extraAddress}" id="sample6_extraAddress" placeholder="참고항목" class="form-control">
 	        </div>
 	      </div>
 	    </div>
 	   
 	    <div class="form-group">
 	      <label for="content">자기소개</label>
-	      <textarea rows="5" class="form-control" id="content" name="content" placeholder="${vo.content}"></textarea>
+	      <textarea rows="5" class="form-control" id="content" name="content">${vo.content}</textarea>
 	    </div>
 	    <div class="form-group">
 	      <div class="form-check-inline">
@@ -342,7 +320,7 @@
 	    </div>
 	    <div  class="form-group">
 	      <p>회원 사진(파일용량:2MByte이내) :</p>
-	      <input type="file" name="photo" id="file" onchange="imgCheck(this)" class="form-control-file border mb-3"/>
+	      <input type="file" name="photo" id="file" value="${vo.photo}" onchange="imgCheck(this)" class="form-control-file border mb-3"/>
 	      <img id="demoImg" src="${ctp}/images/member/${vo.photo}" width="200px"/>
 	      <!-- <img id="demoImg" width="200px"/> -->
 	      <hr/>

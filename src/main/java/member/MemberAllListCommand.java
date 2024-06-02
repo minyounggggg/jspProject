@@ -7,27 +7,28 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import friend.FriendDAO;
+import friend.FriendVO;
+
 public class MemberAllListCommand implements MemberInterface {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String mid = request.getParameter("mid")==null? "" : request.getParameter("mid");
+		//String mid = request.getParameter("mid")==null? "" : request.getParameter("mid");
 		
 		MemberDAO dao = new MemberDAO();
 		ArrayList<MemberVO> vos = dao.getMemberAllList();
 		
-		MemberVO mVo = dao.getMemberIdCheck(mid);
+		//MemberVO mVo = dao.getMemberIdCheck(mid);
 		
 		request.setAttribute("vos", vos);
-		request.setAttribute("mVo", mVo);
+		//request.setAttribute("mVo", mVo);
 		
-//		String listlevelName = "";
-//		if(mVo.getLevel() == 0) listlevelName = "운영자";
-//		else if(mVo.getLevel() == 1) listlevelName = "주민";
-//		else if(mVo.getLevel() == 2) listlevelName = "섬대표";
-//		
-//		request.setAttribute("listlevelName", listlevelName);
+//		FriendDAO fdao = new FriendDAO();
+//		FriendVO fvo = fdao.getFriendInputCheck(mid);
 		
+//		request.setAttribute("fvo", fvo);
+//		System.out.println("fvo : " + fvo);
 	}
 
 }

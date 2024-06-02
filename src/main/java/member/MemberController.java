@@ -71,7 +71,7 @@ public class MemberController extends HttpServlet{
 		else if(com.equals("/MemberUpdateOk")){
 			command = new MemberUpdateOkCommand();
 			command.execute(request, response);
-			viewPage += "/memberUpdate.jsp";
+			viewPage = "/include/message.jsp";
 		}
 		else if(com.equals("/MemberAllList")){
 			command = new MemberAllListCommand();

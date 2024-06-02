@@ -18,6 +18,7 @@ public class MemberRoomCommand implements MemberInterface {
 		MemberVO memVO = memDAO.getMemberIdCheck(mid);
 		
 		request.setAttribute("memVO", memVO);
+		//System.out.println("memVO : " + memVO.getGender());
 	}
 
 }

@@ -44,9 +44,9 @@ public class MemberLoginOKCommand implements MemberInterface {
 		// 3. 처리 완료된자료(vo)를 DB에 업데이트해준다.
 		
 		String levelName = "";
-		if(vo.getLevel() == 0) levelName = "관리자";
-		else if(vo.getLevel() == 1) levelName = "정회원";
-		else if(vo.getLevel() == 2) levelName = "우수회원";
+		if(vo.getLevel() == 0) levelName = "운영자";
+		else if(vo.getLevel() == 1) levelName = "주민";
+		else if(vo.getLevel() == 2) levelName = "섬대표";
 		
 		HttpSession session = request.getSession();
 		session.setAttribute("sMid", mid);

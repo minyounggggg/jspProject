@@ -16,8 +16,11 @@
 		    padding: 0;
 		    margin: 0;
 		}
-		
 		p {margin : 0}
+		button{
+    		border: 0;
+  			background-color: transparent;
+    	}
 	    body{
     		font-family: "a영고딕M";
     		/* background-image : url("${ctp}/images/memberAllList/bg01.jpg"); */
@@ -119,7 +122,7 @@
 			align-items: center;    	
     	}
     	.sec01-02-01 section{
-    		width : 30%;
+    		width : 25%;
     		float : left;
     	}
     	.sec01-02-02{
@@ -149,6 +152,78 @@
 			$("#myModal #modalTodayCnt").text(todayCnt);
 			$("#myModal #modalHeart").text(heart);
 			$("#myModal #modalLevelName").text(listlevelName);
+			
+			let friendMid = $("#modalMid").text();
+    		let query = {
+    				mid : "${sMid}",
+    				friendMid : friendMid
+    		}
+			$.ajax({
+				url : "FriendInputCheck.bf",
+				type : "get",
+				data : query,
+				//success : 
+				error : function () {
+					alert("전송오류");
+				}
+			});
+		}
+    	
+    	// 친구신청 처리
+    	function friendInput() {
+    		let friendMid = $("#modalMid").text();
+    		let query = {
+    				mid : "${sMid}",
+    				friendMid : friendMid
+    		}
+			$.ajax({
+				url : "FriendInput.bf",
+				type : "get",
+				data : query,
+				success : function (res) {
+					if(res != "0") {
+						alert("친구신청이 완료되었습니다.");
+						//location.reload();
+					}
+					else {
+						alert("친구신청 실패, 다시 시도해주세요.");
+						return false;
+					}
+				},
+				error : function () {
+					alert("전송오류");
+				}
+			});
+		}
+    	
+    	//친구신청 취소 처리
+    	function friendInputCancel() {
+    		let ans = confirm("친구신청을 취소하시겠습니까?");
+    		if(!ans) return false;
+    		
+    		let friendMid = $("#modalMid").text();
+    		let query = {
+    				mid : "${sMid}",
+    				friendMid : friendMid
+    		}
+			$.ajax({
+				url : "FriendInputCancel.bf",
+				type : "get",
+				data : query,
+				success : function (res) {
+					if(res != "0") {
+						alert("친구신청이 취소되었습니다.");
+						//location.reload();
+					}
+					else {
+						alert("친구신청 취소 실패, 다시 시도해주세요.");
+						return false;
+					}
+				},
+				error : function () {
+					alert("전송오류");
+				}
+			});
 		}
     	
     </script>
@@ -177,7 +252,7 @@
 				<tr>
 					<td>${vo.idx}</td>
 					<td>${vo.nickName}</td>
-					<td>${vo.level}</td>
+					<td>${vo.strLevel}</td>
 					<td>${fn:substring(vo.lastDate,0,16)}</td>
 					<td>
 						<input type="button" value="프로필보기" 
@@ -204,7 +279,7 @@
 	</div>
 </div>
 
-<!-- 댓글수정 모달창 -->
+<!-- 모달창 -->
   <div class="modal fade" id="myModal">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
@@ -227,7 +302,11 @@
 					<span id="modalNick"></span>
 				</section>
 				<section class="genderSec">
-					<p><span style="font-family:a신디나루B">성별</span> &nbsp; | &nbsp; <span id="modalGender" style="font-size:20px"></span> &nbsp; | &nbsp; <img src="${ctp}/images/memberRoom/girl01.png" style="width:30px"/></p>
+					<p>
+						<span style="font-family:a신디나루B">성별</span> &nbsp; | &nbsp; 
+						<span id="modalGender" style="font-size:20px"></span> &nbsp; | &nbsp; 
+						<img src="${ctp}/images/memberRoom/boy01.png" style="width:30px"/>
+					</p>
 				</section>
 				<section class="birthdaySec">
 					<p><img src="${ctp}/images/memberRoom/birthday_Icon01.png" style="width:45px; margin-right:50px"/><span id="modalBirthday"></span></p>
@@ -237,6 +316,21 @@
 				<div class="sec01-02-01">
 					<section><h2 style="font-family:a신디나루B; margin:0"><img src="${ctp}/images/memberRoom/idLogo01.png"/> <span id="modalMid"></span></h2></section>
 					<section><h2 style="font-family:a신디나루B; margin:0"><img src="${ctp}/images/memberRoom/idLogo01.png"/> Lv.<span id="modalLevel"></span></h2></section>
+					<section><h2 style="font-family:a신디나루B; margin:0"><img src="${ctp}/images/memberRoom/idLogo01.png"/> ♥ <span id="modalLevel"></span></h2></section>
+					<c:if test="${fvo.accept != 'NO'}">
+						<section>
+							<button type="button" onclick="friendInput()" class="m-0 p-0">
+							<img src="${ctp}/images/memberAllList/friend_input_btn01.png" style="width:100%"/>
+							</button>
+						</section>
+					</c:if>
+					<c:if test="${fvo.accept == NO}">
+						<section>
+							<button type="button" onclick="friendInput()" class="m-0 p-0">
+							<img src="${ctp}/images/memberAllList/friend_cancel_btn01.png" style="width:100%"/>
+							</button>
+						</section>
+					</c:if>
 				</div>
 				<section class="sec01-02-02">
 				<hr/>
@@ -253,7 +347,8 @@
 					<%-- <textarea rows="5" class="form-control" id="content" name="content" placeholder="${memVO.content}" readonly></textarea> --%>
 				</section>
 			</div>
-			<input type="hidden" name="idx" id="idx"/>
+			<!-- <input type="hidden" name="idx" id="idx"/> -->
+			<input type="hidden" name="mid" value="${sMid}" />
 		</div>
         
         <!-- Modal footer -->
@@ -265,7 +360,7 @@
       </div>
     </div>
   </div>
-<!-- 댓글수정 모달창 끝 -->
+<!-- 모달창 끝 -->
 
 </body>
 </html>

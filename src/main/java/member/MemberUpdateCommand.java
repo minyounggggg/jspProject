@@ -29,9 +29,15 @@ public class MemberUpdateCommand implements MemberInterface {
 		request.setAttribute("email1", email[0]);
 		request.setAttribute("email2", email[1]);
 		
-		
-		
-		
+		String[] address = vo.getAddress().split("/");
+		if(address[0].equals(" ")) address[0] = "";
+		if(address[1].equals(" ")) address[1] = "";
+		if(address[2].equals(" ")) address[2] = "";
+		if(address[3].equals(" ")) address[3] = "";
+		request.setAttribute("postcode", address[0]);
+		request.setAttribute("roadAddress", address[1]);
+		request.setAttribute("detailAddress", address[2]);
+		request.setAttribute("extraAddress", address[3]);
 		
 		request.setAttribute("vo", vo);
 	}
