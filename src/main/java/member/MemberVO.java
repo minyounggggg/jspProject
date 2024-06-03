@@ -25,6 +25,7 @@ public class MemberVO {
 	private int heart;
 	
 	private String strLevel;
+	private String accept;
 	
 	public int getIdx() {
 		return idx;
@@ -158,6 +159,12 @@ public class MemberVO {
 	public void setStrLevel(String strLevel) {
 		this.strLevel = strLevel;
 	}
+	public String getAccept() {
+		return accept;
+	}
+	public void setAccept(String accept) {
+		this.accept = accept;
+	}
 	
 	@Override
 	public String toString() {
@@ -166,6 +173,6 @@ public class MemberVO {
 				+ email + ", photo=" + photo + ", content=" + content + ", userInfor=" + userInfor + ", userDel="
 				+ userDel + ", point=" + point + ", level=" + level + ", visitCnt=" + visitCnt + ", startDate="
 				+ startDate + ", lastDate=" + lastDate + ", todayCnt=" + todayCnt + ", heart=" + heart + ", strLevel="
-				+ strLevel + "]";
+				+ strLevel + ", accept=" + accept + "]";
 	}
 }

@@ -22,6 +22,7 @@ public class MemberAllListCommand implements MemberInterface {
 		//MemberVO mVo = dao.getMemberIdCheck(mid);
 		
 		request.setAttribute("vos", vos);
+		System.out.println("vos : " + vos);
 		//request.setAttribute("mVo", mVo);
 		
 //		FriendDAO fdao = new FriendDAO();

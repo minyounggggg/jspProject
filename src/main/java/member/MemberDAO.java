@@ -162,7 +162,8 @@ public class MemberDAO {
 	public ArrayList<MemberVO> getMemberAllList() {
 		ArrayList<MemberVO> vos = new ArrayList<MemberVO>();
 		try {
-			sql = "select * from members order by idx";
+//			sql = "select * from members order by idx";
+			sql = "select m.*, f.accept as accept from members m, friend f where m.mid=f.friendMid order by idx";
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			
@@ -189,6 +190,8 @@ public class MemberDAO {
 				vo.setLastDate(rs.getString("lastDate"));
 				vo.setTodayCnt(rs.getInt("todayCnt"));
 				vo.setHeart(rs.getInt("heart"));
+				
+				vo.setAccept(rs.getString("accept"));
 				
 				if(vo.getLevel() == 0) vo.setStrLevel("운영자");
 				else if(vo.getLevel() == 1) vo.setStrLevel("주민");
@@ -230,7 +233,6 @@ public class MemberDAO {
 		}
 		return res;
 	}
-	
 
 	
 	

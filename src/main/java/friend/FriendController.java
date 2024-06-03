@@ -39,6 +39,11 @@ public class FriendController extends HttpServlet{
 			command.execute(request, response);
 			return;
 		}
+		else if(com.equals("/FriendList")){
+			command = new FriendListCommand();
+			command.execute(request, response);
+			viewPage += "/friendList.jsp";
+		}
 //		else if(com.equals("/MemberJoin")){
 //			viewPage += "/memberJoin.jsp";
 //		}

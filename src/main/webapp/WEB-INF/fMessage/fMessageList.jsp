@@ -133,11 +133,16 @@
 		    padding: 20px;
 		    height: 30%;
     	}
+    	#fMessageBtn {
+		  position: fixed;
+		  right: 1rem;
+		  transition: 0.7s ease;
+		}
     </style>
     <script>
     	'use strict';
     	
-    	function profile(mid,nickName,gender,birthday,email,photo,content,level,startDate,lastDate,todayCnt,heart,listlevelName,accept) {
+    	function profile(mid,nickName,gender,birthday,email,photo,content,level,startDate,lastDate,todayCnt,heart,listlevelName) {
     		let img = "${ctp}/images/member/"+photo;
 			$("#myModal #modalPhoto").attr("src",img);
 			$("#myModal #modalNick").text(nickName);
@@ -152,31 +157,7 @@
 			$("#myModal #modalTodayCnt").text(todayCnt);
 			$("#myModal #modalHeart").text(heart);
 			$("#myModal #modalLevelName").text(listlevelName);
-			let str = '';
-			if(accept == 'NO') {
-				//str = '[친구요청]';
-				str += '<section>';
-				str += '<button type="button" onclick="friendInputCancel()" class="m-0 p-0">';
-				str += '<img src="${ctp}/images/memberAllList/friend_cancel_btn01.png" style="width:100%"/>';
-				str += '</button>';
-				str += '</section>';
-			}
-			else if (accept == 'OK') {
-				str += '<section>';
-				str += '<button type="button" onclick="friendInput()" class="m-0 p-0">';
-				str += '<img src="${ctp}/images/memberAllList/friend_delete_btn01.png" style="width:100%"/>';
-				str += '</button>';
-				str += '</section>';
-			}
-			else {
-				str += '<section>';
-				str += '<button type="button" onclick="friendInput()" class="m-0 p-0">';
-				str += '<img src="${ctp}/images/memberAllList/friend_input_btn01.png" style="width:100%"/>';
-				str += '</button>';
-				str += '</section>';
-			}
-			$("#myModal #modalAccept").html(str);
-			/* 
+			
 			let friendMid = $("#modalMid").text();
     		let query = {
     				mid : "${sMid}",
@@ -191,7 +172,6 @@
 					alert("전송오류");
 				}
 			});
-    		 */
 		}
     	
     	// 친구신청 처리
@@ -259,12 +239,12 @@
 		<table class="table table-hover text-center">
 			<tr class="table-dark text-dark">
 				<th>번호</th>
-				<th>닉네임</th>
-				<th>회원등급</th>
-				<th>마지막접속일</th>
-				<th>프로필보기</th>
-				<th>아이디</th>
-				<th>최종방문일</th>
+				<th>제목</th>
+				<th>보낸날짜</th>
+				<th>-</th>
+				<th>-</th>
+				<th>-</th>
+				<th>-</th>
 				<c:if test="${sLevel == 0}">
 					<th>오늘방문횟수</th>
 					<th>활동여부</th>
@@ -272,36 +252,47 @@
 			</tr>
 			<c:forEach var="vo" items="${vos}" varStatus="st">
 				<c:if test="${vo.userInfor == '공개' || (vo.userInfor != '공개' && sLevel == 0)}">
-				<c:if test="${vo.userDel == 'OK'}"><c:set var="active" value="탈퇴신청" /></c:if>
-				<c:if test="${vo.userDel != 'OK'}"><c:set var="active" value="활동중" /></c:if>
-				<tr>
-					<td>${vo.idx}</td>
-					<td>${vo.nickName}</td>
-					<td>${vo.strLevel}</td>
-					<td>${fn:substring(vo.lastDate,0,16)}</td>
-					<td>
-						<input type="button" value="프로필보기" 
-						onclick="profile('${vo.mid}','${vo.nickName}','${vo.gender}','${vo.birthday}',
-						'${vo.email}','${vo.photo}','${vo.content}','${vo.level}','${vo.startDate}',
-						'${vo.lastDate}','${vo.todayCnt}','${vo.heart}','${vo.strLevel}','${vo.accept}')" 
-						data-toggle="modal" data-target="#myModal" class="secondary"/>
-					</td>
-					<td><a href="MemberSearch.mem?mid=${vo.mid}">${vo.mid}</a></td>
-					<td>${vo.gender}</td>
-					<c:if test="${sLevel == 0}">
-						<td>${vo.todayCnt}</td>
+					<c:if test="${vo.userDel == 'OK'}"><c:set var="active" value="탈퇴신청" /></c:if>
+					<c:if test="${vo.userDel != 'OK'}"><c:set var="active" value="활동중" /></c:if>
+					<tr>
+						<td>${vo.idx}</td>
+						<td><a href="FMessageContent.msg?title=${vo.title}">${vo.title}</a></td>
+						<td>${fn:substring(vo.sendId,0,16)}</td>
+						
+						<td>-</td>
+						<%-- 
 						<td>
-							<c:if test="${vo.userDel == 'OK'}"><font color="red"><b>${active}</b></font></c:if>
-							<c:if test="${vo.userDel != 'OK'}">${active}</c:if>
+							<input type="button" value="프로필보기" 
+							onclick="profile('${vo.mid}','${vo.nickName}','${vo.gender}','${vo.birthday}',
+							'${vo.email}','${vo.photo}','${vo.content}','${vo.level}','${vo.startDate}',
+							'${vo.lastDate}','${vo.todayCnt}','${vo.heart}','${vo.strLevel}')" 
+							data-toggle="modal" data-target="#myModal" class="secondary"/>
 						</td>
-					</c:if>
-				</tr>
+						 --%>
+						<td>-</td>
+<%-- 						<td><a href="MemberSearch.mem?mid=${vo.mid}">${vo.mid}</a></td> --%>
+						<td>-</td>
+						<td>-</td>
+						<c:if test="${sLevel == 0}">
+							<td>${vo.todayCnt}</td>
+							<td>
+								<c:if test="${vo.userDel == 'OK'}"><font color="red"><b>${active}</b></font></c:if>
+								<c:if test="${vo.userDel != 'OK'}">${active}</c:if>
+							</td>
+						</c:if>
+					</tr>
 				</c:if>
+				<input type="hidden" name="sMid" value="${sMid}" />
 			</c:forEach>
 			<tr><td colspan="9" class="m-0 p-0"></td></tr>
 		</table>
 		<button type="button" class="btn btn-secondary" onclick="location.href='${ctp}/MemberMain.mem';">돌아가기</button>
 	</div>
+	
+	<div>
+		<section id="fMessageBtn" class="text-right mr-3"><img src="${ctp}/images/memberRoom/birthday_Icon01.png" style="width:50px"/></section>
+	</div>
+	
 </div>
 
 <!-- 모달창 -->
@@ -342,23 +333,20 @@
 					<section><h2 style="font-family:a신디나루B; margin:0"><img src="${ctp}/images/memberRoom/idLogo01.png"/> <span id="modalMid"></span></h2></section>
 					<section><h2 style="font-family:a신디나루B; margin:0"><img src="${ctp}/images/memberRoom/idLogo01.png"/> Lv.<span id="modalLevel"></span></h2></section>
 					<section><h2 style="font-family:a신디나루B; margin:0"><img src="${ctp}/images/memberRoom/idLogo01.png"/> ♥ <span id="modalLevel"></span></h2></section>
-					<%-- 
-					<c:if test="${fvo.accept != 'NO'}">==${fvo.accept}::
+					<c:if test="${fvo.accept != 'NO'}">
 						<section>
 							<button type="button" onclick="friendInput()" class="m-0 p-0">
 							<img src="${ctp}/images/memberAllList/friend_input_btn01.png" style="width:100%"/>
 							</button>
 						</section>
 					</c:if>
-					<c:if test="${fvo.accept == 'NO'}">
+					<c:if test="${fvo.accept == NO}">
 						<section>
-							<button type="button" onclick="friendInputCancel()" class="m-0 p-0">
+							<button type="button" onclick="friendInput()" class="m-0 p-0">
 							<img src="${ctp}/images/memberAllList/friend_cancel_btn01.png" style="width:100%"/>
 							</button>
 						</section>
 					</c:if>
-					 --%>
-					 <div id="modalAccept"></div>
 				</div>
 				<section class="sec01-02-02">
 				<hr/>
