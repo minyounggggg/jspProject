@@ -68,18 +68,30 @@ public class FMessageDAO {
 	
 	// 친구신청 리스트
 	public ArrayList<FMessageVO> setFMessageList(String receiveId) {
-		ArrayList<FMessageVO> vo = new ArrayList<FMessageVO>();
+		ArrayList<FMessageVO> vos = new ArrayList<FMessageVO>();
 		try {
 			sql = "select * from fMessage where receiveId=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, receiveId);
 			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				vo = new FMessageVO();
+				vo.setIdx(rs.getInt("idx"));
+				vo.setTitle(rs.getString("title"));
+				vo.setContent(rs.getString("content"));
+				vo.setSendId(rs.getString("sendId"));
+				vo.setSendDate(rs.getString("sendDate"));
+				vo.setReceiveId(rs.getString("receiveId"));
+				vo.setReceiveSw(rs.getString("receiveSw"));
+				vos.add(vo);
+			}
 		} catch (SQLException e) {
 			System.out.println("SQL오류2 : " + e.getMessage());
 		} finally {
 			rsClose();
 		}
-		return vo;
+		return vos;
 	}
 	
 	

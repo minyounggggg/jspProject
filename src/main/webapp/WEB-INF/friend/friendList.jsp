@@ -8,7 +8,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>memberAllList.jsp</title>
+	<title>friendList.jsp</title>
     <jsp:include page="/include/bs4.jsp" />
     <style>
     	*{
@@ -142,7 +142,7 @@
     <script>
     	'use strict';
     	
-    	function profile(mid,nickName,gender,birthday,email,photo,content,level,startDate,lastDate,todayCnt,heart,listlevelName) {
+    	function profile(mid,nickName,gender,birthday,email,photo,content,level,startDate,lastDate,todayCnt,heart,listlevelName,accept) {
     		let img = "${ctp}/images/member/"+photo;
 			$("#myModal #modalPhoto").attr("src",img);
 			$("#myModal #modalNick").text(nickName);
@@ -157,7 +157,24 @@
 			$("#myModal #modalTodayCnt").text(todayCnt);
 			$("#myModal #modalHeart").text(heart);
 			$("#myModal #modalLevelName").text(listlevelName);
-			
+			let str = '';
+			if(accept == 'NO') {
+				str += '<button type="button" onclick="friendInputCancel()" class="m-0 p-0">';
+				str += '<img src="${ctp}/images/memberAllList/friend_cancel_btn01.png" style="width:100%"/>';
+				str += '</button>';
+			}
+			else if (accept == 'OK') {
+				str += '<button type="button" onclick="friendInput()" class="m-0 p-0">';
+				str += '<img src="${ctp}/images/memberAllList/friend_delete_btn01.png" style="width:100%"/>';
+				str += '</button>';
+			}
+			else {
+				str += '<button type="button" onclick="friendInput()" class="m-0 p-0">';
+				str += '<img src="${ctp}/images/memberAllList/friend_input_btn01.png" style="width:100%"/>';
+				str += '</button>';
+			}
+			$("#myModal #modalAccept").html(str);
+			/* 
 			let friendMid = $("#modalMid").text();
     		let query = {
     				mid : "${sMid}",
@@ -172,6 +189,7 @@
 					alert("전송오류");
 				}
 			});
+    		 */
 		}
     	
     	// 친구신청 처리
@@ -263,7 +281,7 @@
 							<input type="button" value="프로필보기" 
 							onclick="profile('${vo.mid}','${vo.nickName}','${vo.gender}','${vo.birthday}',
 							'${vo.email}','${vo.photo}','${vo.content}','${vo.level}','${vo.startDate}',
-							'${vo.lastDate}','${vo.todayCnt}','${vo.heart}','${vo.strLevel}')" 
+							'${vo.lastDate}','${vo.todayCnt}','${vo.heart}','${vo.strLevel}','${vo.accept}')" 
 							data-toggle="modal" data-target="#myModal" class="secondary"/>
 						</td>
 						<td><a href="MemberSearch.mem?mid=${vo.mid}">${vo.mid}</a></td>
@@ -285,7 +303,7 @@
 	</div>
 	
 	<div>
-		<section id="fMessageBtn" onclick="location.href='${cpt}/FMessageList.msg';" class="text-right mr-3"><img src="${ctp}/images/memberRoom/birthday_Icon01.png" style="width:50px"/></section>
+		<button id="fMessageBtn" onclick="location.href='${ctp}/FMessageList.msg';" class="text-right mr-3"><img src="${ctp}/images/memberRoom/birthday_Icon01.png" style="width:50px"/></button>
 	</div>
 	
 </div>
@@ -328,20 +346,7 @@
 					<section><h2 style="font-family:a신디나루B; margin:0"><img src="${ctp}/images/memberRoom/idLogo01.png"/> <span id="modalMid"></span></h2></section>
 					<section><h2 style="font-family:a신디나루B; margin:0"><img src="${ctp}/images/memberRoom/idLogo01.png"/> Lv.<span id="modalLevel"></span></h2></section>
 					<section><h2 style="font-family:a신디나루B; margin:0"><img src="${ctp}/images/memberRoom/idLogo01.png"/> ♥ <span id="modalLevel"></span></h2></section>
-					<c:if test="${fvo.accept != 'NO'}">
-						<section>
-							<button type="button" onclick="friendInput()" class="m-0 p-0">
-							<img src="${ctp}/images/memberAllList/friend_input_btn01.png" style="width:100%"/>
-							</button>
-						</section>
-					</c:if>
-					<c:if test="${fvo.accept == NO}">
-						<section>
-							<button type="button" onclick="friendInput()" class="m-0 p-0">
-							<img src="${ctp}/images/memberAllList/friend_cancel_btn01.png" style="width:100%"/>
-							</button>
-						</section>
-					</c:if>
+					<section id="modalAccept"></section>
 				</div>
 				<section class="sec01-02-02">
 				<hr/>

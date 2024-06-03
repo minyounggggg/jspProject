@@ -147,11 +147,9 @@ public class FriendDAO {
 				else if(vo.getLevel() == 2) vo.setStrLevel("섬대표");
 				
 				vos.add(vo);
-				System.out.println("vos : " + vos);
-				System.out.println("vo : " + vo);
 			}
 		} catch (SQLException e) {
-			System.out.println("SQL오류4 : " + e.getMessage());
+			System.out.println("SQL오류44 : " + e.getMessage());
 		} finally {
 			rsClose();
 		}

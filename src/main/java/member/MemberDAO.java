@@ -162,7 +162,7 @@ public class MemberDAO {
 	public ArrayList<MemberVO> getMemberAllList() {
 		ArrayList<MemberVO> vos = new ArrayList<MemberVO>();
 		try {
-//			sql = "select * from members order by idx";
+			//sql = "select * from members order by idx";
 			sql = "select m.*, f.accept as accept from members m, friend f where m.mid=f.friendMid order by idx";
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();

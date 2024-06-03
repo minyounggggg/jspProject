@@ -154,26 +154,19 @@
 			$("#myModal #modalLevelName").text(listlevelName);
 			let str = '';
 			if(accept == 'NO') {
-				//str = '[친구요청]';
-				str += '<section>';
 				str += '<button type="button" onclick="friendInputCancel()" class="m-0 p-0">';
 				str += '<img src="${ctp}/images/memberAllList/friend_cancel_btn01.png" style="width:100%"/>';
 				str += '</button>';
-				str += '</section>';
 			}
 			else if (accept == 'OK') {
-				str += '<section>';
 				str += '<button type="button" onclick="friendInput()" class="m-0 p-0">';
 				str += '<img src="${ctp}/images/memberAllList/friend_delete_btn01.png" style="width:100%"/>';
 				str += '</button>';
-				str += '</section>';
 			}
 			else {
-				str += '<section>';
 				str += '<button type="button" onclick="friendInput()" class="m-0 p-0">';
 				str += '<img src="${ctp}/images/memberAllList/friend_input_btn01.png" style="width:100%"/>';
 				str += '</button>';
-				str += '</section>';
 			}
 			$("#myModal #modalAccept").html(str);
 			/* 
@@ -358,7 +351,7 @@
 						</section>
 					</c:if>
 					 --%>
-					 <div id="modalAccept"></div>
+					 <section id="modalAccept"></section>
 				</div>
 				<section class="sec01-02-02">
 				<hr/>

@@ -15,3 +15,4 @@ create table fMessage(
 
 drop table fMessage;
 desc fMessage;
+select * from fMessage;

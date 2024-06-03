@@ -30,20 +30,6 @@
 		    background-repeat: no-repeat;
 		    background-attachment: fixed;
     	}
-    	#myModal{
-    		background-color: rgba(0,0,0,0.3);
-    	}
-    	.modal-content{
-    		background-color: transparent;
-    		border: none;
-    	}
-    	.modal-dialog {
-	        max-width: 1500px;
-	    }
-	    .modal-header{
-	    	border-bottom: none;
-	    	margin-bottom: 10px;
-	    }
 	    button.close{
 	    	background-color: #fff;
 	    	border-radius: 100px;
@@ -142,36 +128,8 @@
     <script>
     	'use strict';
     	
-    	function profile(mid,nickName,gender,birthday,email,photo,content,level,startDate,lastDate,todayCnt,heart,listlevelName) {
-    		let img = "${ctp}/images/member/"+photo;
-			$("#myModal #modalPhoto").attr("src",img);
-			$("#myModal #modalNick").text(nickName);
-			$("#myModal #modalMid").text(mid);
-			$("#myModal #modalGender").text(gender);
-			$("#myModal #modalBirthday").text(birthday.substring(0,10));
-			$("#myModal #modalEmail").text(email);
+    	function fMessageContent(content) {
 			$("#myModal #modalContent").text(content);
-			$("#myModal #modalLevel").text(level);
-			$("#myModal #modalStartDate").text(startDate.substring(0,10));
-			$("#myModal #modalLastDate").text(lastDate.substring(0,16));
-			$("#myModal #modalTodayCnt").text(todayCnt);
-			$("#myModal #modalHeart").text(heart);
-			$("#myModal #modalLevelName").text(listlevelName);
-			
-			let friendMid = $("#modalMid").text();
-    		let query = {
-    				mid : "${sMid}",
-    				friendMid : friendMid
-    		}
-			$.ajax({
-				url : "FriendInputCheck.bf",
-				type : "get",
-				data : query,
-				//success : 
-				error : function () {
-					alert("전송오류");
-				}
-			});
 		}
     	
     	// 친구신청 처리
@@ -245,138 +203,103 @@
 				<th>-</th>
 				<th>-</th>
 				<th>-</th>
-				<c:if test="${sLevel == 0}">
-					<th>오늘방문횟수</th>
-					<th>활동여부</th>
-				</c:if>
 			</tr>
 			<c:forEach var="vo" items="${vos}" varStatus="st">
-				<c:if test="${vo.userInfor == '공개' || (vo.userInfor != '공개' && sLevel == 0)}">
-					<c:if test="${vo.userDel == 'OK'}"><c:set var="active" value="탈퇴신청" /></c:if>
-					<c:if test="${vo.userDel != 'OK'}"><c:set var="active" value="활동중" /></c:if>
-					<tr>
-						<td>${vo.idx}</td>
-						<td><a href="FMessageContent.msg?title=${vo.title}">${vo.title}</a></td>
-						<td>${fn:substring(vo.sendId,0,16)}</td>
-						
-						<td>-</td>
-						<%-- 
-						<td>
-							<input type="button" value="프로필보기" 
-							onclick="profile('${vo.mid}','${vo.nickName}','${vo.gender}','${vo.birthday}',
-							'${vo.email}','${vo.photo}','${vo.content}','${vo.level}','${vo.startDate}',
-							'${vo.lastDate}','${vo.todayCnt}','${vo.heart}','${vo.strLevel}')" 
-							data-toggle="modal" data-target="#myModal" class="secondary"/>
-						</td>
-						 --%>
-						<td>-</td>
-<%-- 						<td><a href="MemberSearch.mem?mid=${vo.mid}">${vo.mid}</a></td> --%>
-						<td>-</td>
-						<td>-</td>
-						<c:if test="${sLevel == 0}">
-							<td>${vo.todayCnt}</td>
+				<%-- 
+					<c:if test="${vo.userInfor == '공개' || (vo.userInfor != '공개' && sLevel == 0)}">
+						<c:if test="${vo.userDel == 'OK'}"><c:set var="active" value="탈퇴신청" /></c:if>
+						<c:if test="${vo.userDel != 'OK'}"><c:set var="active" value="활동중" /></c:if>
+				--%>
+				<tr>
+					<td>${vo.idx}</td>
+					<td><a href="javascript:fMessageContent('${vo.content}')" data-toggle="modal" data-target="#myModal">${vo.title}</a></td>
+					<td>${fn:substring(vo.sendId,0,16)}</td>
+					<td>-</td>
+							<%-- 
 							<td>
-								<c:if test="${vo.userDel == 'OK'}"><font color="red"><b>${active}</b></font></c:if>
-								<c:if test="${vo.userDel != 'OK'}">${active}</c:if>
+								<input type="button" value="프로필보기" 
+								onclick="profile('${vo.mid}','${vo.nickName}','${vo.gender}','${vo.birthday}',
+								'${vo.email}','${vo.photo}','${vo.content}','${vo.level}','${vo.startDate}',
+								'${vo.lastDate}','${vo.todayCnt}','${vo.heart}','${vo.strLevel}')" 
+								data-toggle="modal" data-target="#myModal" class="secondary"/>
 							</td>
-						</c:if>
-					</tr>
-				</c:if>
-				<input type="hidden" name="sMid" value="${sMid}" />
+							 --%>
+					<td>-</td>
+						<%-- <td><a href="MemberSearch.mem?mid=${vo.mid}">${vo.mid}</a></td> --%>
+					<td>-</td>
+					<td>-</td>
+							<%-- 
+							<c:if test="${sLevel == 0}">
+								<td>${vo.todayCnt}</td>
+								<td>
+									<c:if test="${vo.userDel == 'OK'}"><font color="red"><b>${active}</b></font></c:if>
+									<c:if test="${vo.userDel != 'OK'}">${active}</c:if>
+								</td>
+							</c:if>
+							 --%>
+				</tr>
+					<%-- 
+					</c:if>
+					<input type="hidden" name="sMid" value="${sMid}" />
+					--%>
 			</c:forEach>
 			<tr><td colspan="9" class="m-0 p-0"></td></tr>
 		</table>
 		<button type="button" class="btn btn-secondary" onclick="location.href='${ctp}/MemberMain.mem';">돌아가기</button>
 	</div>
-	
-	<div>
-		<section id="fMessageBtn" class="text-right mr-3"><img src="${ctp}/images/memberRoom/birthday_Icon01.png" style="width:50px"/></section>
-	</div>
-	
 </div>
 
-<!-- 모달창 -->
+<!-- The Modal -->
   <div class="modal fade" id="myModal">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
       
         <!-- Modal Header -->
         <div class="modal-header">
+          <h4 class="modal-title">${sMid}님의 친구신청 리스트</h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
         
         <!-- Modal body -->
-        <div class="sec01">
-			<div class="sec01-01">
-				<%-- <section class="imgBox"><img src="${ctp}/images/member/${mVo.photo}"/></section> --%>
-				<div class="imgBox"><img id="modalPhoto"/></div>
-					<!-- 회원 등급(등급별로 아이콘?달아주기?, 등급 이름 뭐로하지,, 관리자, ), 닉네임 표시 -->
-				<section class="levelSec">
-					<span id="modalLevelName"></span>
-				</section>
-				<section class="nickNameSec">
-					<span id="modalNick"></span>
-				</section>
-				<section class="genderSec">
-					<p>
-						<span style="font-family:a신디나루B">성별</span> &nbsp; | &nbsp; 
-						<span id="modalGender" style="font-size:20px"></span> &nbsp; | &nbsp; 
-						<img src="${ctp}/images/memberRoom/boy01.png" style="width:30px"/>
-					</p>
-				</section>
-				<section class="birthdaySec">
-					<p><img src="${ctp}/images/memberRoom/birthday_Icon01.png" style="width:45px; margin-right:50px"/><span id="modalBirthday"></span></p>
-				</section>
-			</div>
-			<div class="sec01-02">
-				<div class="sec01-02-01">
-					<section><h2 style="font-family:a신디나루B; margin:0"><img src="${ctp}/images/memberRoom/idLogo01.png"/> <span id="modalMid"></span></h2></section>
-					<section><h2 style="font-family:a신디나루B; margin:0"><img src="${ctp}/images/memberRoom/idLogo01.png"/> Lv.<span id="modalLevel"></span></h2></section>
-					<section><h2 style="font-family:a신디나루B; margin:0"><img src="${ctp}/images/memberRoom/idLogo01.png"/> ♥ <span id="modalLevel"></span></h2></section>
-					<c:if test="${fvo.accept != 'NO'}">
-						<section>
-							<button type="button" onclick="friendInput()" class="m-0 p-0">
-							<img src="${ctp}/images/memberAllList/friend_input_btn01.png" style="width:100%"/>
-							</button>
-						</section>
-					</c:if>
-					<c:if test="${fvo.accept == NO}">
-						<section>
-							<button type="button" onclick="friendInput()" class="m-0 p-0">
-							<img src="${ctp}/images/memberAllList/friend_cancel_btn01.png" style="width:100%"/>
-							</button>
-						</section>
-					</c:if>
-				</div>
-				<section class="sec01-02-02">
-				<hr/>
-					<p><b>가입일자</b> : <span id="modalStartDate"></span></p>
-					<p><b>TODAY</b> : <span id="modalTodayCnt"></span> 회</p>
-					<p><b>TOTAL</b> : <span id="modalTodayCnt"></span> 회</p>
-					<p><b>E-mail</b> : <span id="modalEmail"></span></p>
-					<p><b>좋아요</b> : <span id="modalHeart"></span></p>
-				</section>
-				<hr/>
-					<h5 style="font-family:a신디나루B">CONTENT</h5>
-				<section class="sec01-02-03">
-					<span id="modalContent"></span>
-					<%-- <textarea rows="5" class="form-control" id="content" name="content" placeholder="${memVO.content}" readonly></textarea> --%>
-				</section>
-			</div>
-			<!-- <input type="hidden" name="idx" id="idx"/> -->
-			<input type="hidden" name="mid" value="${sMid}" />
-		</div>
+        <div class="modal-body">
+          <span id="modalContent"></span>
+          <hr/>
+          <input type="button" value="수락" onclick="friendInput()" class="btn btn-success"/>
+          <input type="button" value="거절" onclick="friendDelete()" class="btn btn-warning"/>
+        </div>
         
         <!-- Modal footer -->
-        <!-- 
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         </div>
-         -->
+        
       </div>
     </div>
   </div>
-<!-- 모달창 끝 -->
-
+  
+  <div class="modal fade" id="myModal2">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Modal Heading</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+          성명2 : <span id="modalName2"></span>
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+<!-- The Modal -->
 </body>
 </html>
