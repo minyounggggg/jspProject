@@ -6,7 +6,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>wmInput.jsp</title>
+	<title>memberMsgInput.jsp</title>
     <jsp:include page="/include/bs4.jsp" />
     <script>
     'use strict';
@@ -37,7 +37,7 @@
 <body>
 <p><br/></p>
 <div class="container">
-	<form name="myform" method="post" action="WmInputOk.wm">
+	<form name="myform" method="post" action="MemberMsgInputOk.msg">
 		<table class="table table-bordered">
       <tr>
         <th>보내는 사람</th>

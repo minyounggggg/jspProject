@@ -6,7 +6,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>webMessage.jsp</title>
+	<title>MemberMsg.jsp</title>
     <jsp:include page="/include/bs4.jsp" />
     <style>
     	#leftWindow{
@@ -33,12 +33,12 @@
     <script>
     	'use strict';
     	
-    	function wmDeleteAll() {
+    	function memberMsgDeleteAll() {
 			let ans = confirm("휴지통을 모두 비우시겠습니까?");
 			if(!ans) return false;
 			
 			$.ajax({
-				url : "WmDeleteAll.wm",
+				url : "MemberMsgDeleteAll.msg",
 				type : "post",
 				success : function (res) {
 					if(res != "0"){
@@ -62,43 +62,43 @@
 </div>
 <div id="leftWindow">
 	<p><br></p>
-	<p><a href="WebMessage.wm?mSw=0">메세지작성</a></p>
-	<p><a href="WebMessage.wm?mSw=1&mFlag=11">받은메세지</a></p>
-	<p><a href="WebMessage.wm?mSw=2">새메세지</a></p>
-	<p><a href="WebMessage.wm?mSw=3&mFlag=13">보낸메세지</a></p>
-	<p><a href="WebMessage.wm?mSw=4">수신확인</a></p>
-	<p><a href="WebMessage.wm?mSw=5&mFlag=15">휴지통</a></p>
-	<p><a href="javascript:wmDeleteAll()">휴지통비우기</a></p>
+	<p><a href="MemberMsg.msg?mSw=0">메세지작성</a></p>
+	<p><a href="MemberMsg.msg?mSw=1&mFlag=11">받은메세지</a></p>
+	<p><a href="MemberMsg.msg?mSw=2">새메세지</a></p>
+	<p><a href="MemberMsg.msg?mSw=3&mFlag=13">보낸메세지</a></p>
+	<p><a href="MemberMsg.msg?mSw=4">수신확인</a></p>
+	<p><a href="MemberMsg.msg?mSw=5&mFlag=15">휴지통</a></p>
+	<p><a href="javascript:memberMsgDeleteAll()">휴지통비우기</a></p>
 </div>
 <div id="rightWindow">
 	<p>
 		<c:if test="${mSw == 0}">
 			<h3>메세지 작성</h3>
-			<jsp:include page="wmInput.jsp"/>
+			<jsp:include page="memberMsgInput.jsp"/>
 		</c:if>
 		<c:if test="${mSw == 1}">
 			<h3>받은 메세지</h3>
-			<jsp:include page="wmList.jsp"/>
+			<jsp:include page="memberMsgList.jsp"/>
 		</c:if>
 		<c:if test="${mSw == 2}">
 			<h3>신규 메세지</h3>
-			<jsp:include page="wmList.jsp"/>
+			<jsp:include page="memberMsgList.jsp"/>
 		</c:if>
 		<c:if test="${mSw == 3}">
 			<h3>보낸 메세지</h3>
-			<jsp:include page="wmList.jsp"/>
+			<jsp:include page="memberMsgList.jsp"/>
 		</c:if>
 		<c:if test="${mSw == 4}">
 			<h3>수신 확인</h3>
-			<jsp:include page="wmList.jsp"/>
+			<jsp:include page="memberMsgList.jsp"/>
 		</c:if>
 		<c:if test="${mSw == 5}">
 			<h3>휴지통 목록</h3>
-			<jsp:include page="wmList.jsp"/>
+			<jsp:include page="memberMsgList.jsp"/>
 		</c:if>
 		<c:if test="${mSw == 6}">
 			<h3>메세지 내용보기</h3>
-			<jsp:include page="wmContent.jsp"/>
+			<jsp:include page="memberMsgContent.jsp"/>
 		</c:if>
 	</p>
 </div>

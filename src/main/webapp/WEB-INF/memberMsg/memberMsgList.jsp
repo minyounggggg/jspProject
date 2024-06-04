@@ -7,7 +7,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>wmList.jsp</title>
+	<title>MemberMsgList.jsp</title>
     <jsp:include page="/include/bs4.jsp" />
     <script>
     	'use strict';
@@ -24,7 +24,7 @@
 			}
 			
 			$.ajax({
-				url : "WmDeleteOne.wm",
+				url : "MemberMsgDeleteOne.msg",
 				type : "post",
 				date : query,
 				success : function (res) {
@@ -60,7 +60,7 @@
         <tr>
           <td>${vo.idx}</td>
           <td class="text-left">
-          	<c:if test="${mSw!=4}"><a href="WebMessage.wm?mSw=6&idx=${vo.idx}&mFlag=${mFlag}">${vo.title}</a></c:if>
+          	<c:if test="${mSw!=4}"><a href="MemberMsg.msg?mSw=6&idx=${vo.idx}&mFlag=${mFlag}">${vo.title}</a></c:if>
           	<c:if test="${mSw==4}">${vo.title}</c:if>
           	<c:if test="${vo.receiveSw=='n'}"><img src="${ctp}/images/new.gif"/></c:if>
           	<c:if test="${mSw==3}">
