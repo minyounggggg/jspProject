@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<% pageContext.setAttribute("newline", "\n"); %>
 <c:set var="ctp" value="${pageContext.request.contextPath}" />
 <%-- <%@ include file = "/include/certification.jsp" %> --%>
 <!DOCTYPE html>
@@ -128,8 +129,9 @@
     <script>
     	'use strict';
     	
-    	function fMessageContent(content) {
-			$("#myModal #modalContent").text(content);
+    	function fMessageContent(content,sendId) {
+			$("#myModal #modalContent").html(content);
+			$("#myModal #modalSendId").text(sendId);
 		}
     	
     	// 친구신청 처리
@@ -189,6 +191,60 @@
 			});
 		}
     	
+    	// 신청 수락 버튼 처리
+    	function friendInput() {
+    		let friendMid = $("#modalSendId").text();
+    		let query = {
+    				mid : "${sMid}",
+    				friendMid : friendMid
+    		}
+			$.ajax({
+				url : "FriendInputOK.bf",
+				type : "post",
+				data : query,
+				success : function (res) {
+					if(res != "0"){
+						alert("친구신청이 수락되었습니다.");
+						location.reload();
+					}
+					else {
+						alert("친구신청 수락이 누락되었습니다.\n다시 시도해주세요.");
+						return false;
+					}
+				},
+				error : function () {
+					alert("전송오류");
+				}
+			});
+		}
+    	
+    	// 신청 거절 버튼 처리
+    	function friendInputDelete() {
+    		let friendMid = $("#modalSendId").text();
+    		let query = {
+    				mid : "${sMid}",
+    				friendMid : friendMid
+    		}
+			$.ajax({
+				url : "FriendInputDelete.bf",
+				type : "post",
+				data : query,
+				success : function (res) {
+					if(res != "0"){
+						alert("친구신청이 거절되었습니다.");
+						location.reload();
+					}
+					else {
+						alert("친구신청 거절이 누락되었습니다.\n다시 시도해주세요.");
+						return false;
+					}
+				},
+				error : function () {
+					alert("전송오류");
+				}
+			});
+		}
+    	
     </script>
 </head>
 <body>
@@ -212,8 +268,8 @@
 				--%>
 				<tr>
 					<td>${vo.idx}</td>
-					<td><a href="javascript:fMessageContent('${vo.content}')" data-toggle="modal" data-target="#myModal">${vo.title}</a></td>
-					<td>${fn:substring(vo.sendId,0,16)}</td>
+					<td><a href="#" onclick="fMessageContent('${fn:replace(vo.content,newline,'</br>')}','${vo.sendId}')" data-toggle="modal" data-target="#myModal">${vo.title}</a></td>
+					<td>${fn:substring(vo.sendDate,0,16)}</td>
 					<td>-</td>
 							<%-- 
 							<td>
@@ -263,33 +319,10 @@
         <!-- Modal body -->
         <div class="modal-body">
           <span id="modalContent"></span>
+          <input type="hidden" id="modalSendId" name="modalSendId"/>
           <hr/>
           <input type="button" value="수락" onclick="friendInput()" class="btn btn-success"/>
-          <input type="button" value="거절" onclick="friendDelete()" class="btn btn-warning"/>
-        </div>
-        
-        <!-- Modal footer -->
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
-        
-      </div>
-    </div>
-  </div>
-  
-  <div class="modal fade" id="myModal2">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-      
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h4 class="modal-title">Modal Heading</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
-        
-        <!-- Modal body -->
-        <div class="modal-body">
-          성명2 : <span id="modalName2"></span>
+          <input type="button" value="거절" onclick="friendInputDelete()" class="btn btn-warning"/>
         </div>
         
         <!-- Modal footer -->

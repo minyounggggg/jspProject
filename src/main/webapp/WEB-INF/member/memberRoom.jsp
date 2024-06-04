@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<% pageContext.setAttribute("newline", "\n"); %>
 <c:set var="ctp" value="${pageContext.request.contextPath}" />
 <%-- <%@ include file = "/include/certification.jsp" %> --%>
 <!DOCTYPE html>
@@ -188,7 +190,7 @@
 		<section class="sec01-02-03">
 		<hr/>
 			<h5 style="font-family:a신디나루B">CONTENT</h5>
-			<textarea rows="5" class="form-control" id="content" name="content" placeholder="${memVO.content}" readonly></textarea>
+			<textarea rows="5" class="form-control" id="content" name="content" placeholder="${fn:replace(memVO.content,newline,'<br/>')}" readonly></textarea>
 		</section>
 		<hr/>
 		<button type="button" class="btn btn-secondary" onclick="location.href='${ctp}/MemberMain.mem';">메인</button>

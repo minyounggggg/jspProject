@@ -39,6 +39,16 @@ public class FriendController extends HttpServlet{
 			command.execute(request, response);
 			return;
 		}
+		else if(com.equals("/FriendInputOK")){
+			command = new FriendInputOKCommand();
+			command.execute(request, response);
+			return;
+		}
+		else if(com.equals("/FriendInputDelete")){
+			command = new FriendInputDeleteCommand();
+			command.execute(request, response);
+			return;
+		}
 		else if(com.equals("/FriendList")){
 			command = new FriendListCommand();
 			command.execute(request, response);

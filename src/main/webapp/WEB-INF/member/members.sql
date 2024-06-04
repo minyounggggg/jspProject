@@ -38,3 +38,11 @@ insert into members value (default, 'btom', '1234', '비톰맨', '비톰', '여�
 desc members;
 select * from members;
 
+
+/* 실시간 DB 채팅 */
+create table memberChat (
+	idx int not null auto_increment primary key,
+	nickName varchar(20) not null,
+	chat varchar(100) not null
+);
+

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<% pageContext.setAttribute("newline", "\n"); %>
 <c:set var="ctp" value="${pageContext.request.contextPath}" />
 <%-- <%@ include file = "/include/certification.jsp" %> --%>
 <!DOCTYPE html>
@@ -145,7 +146,7 @@
 			$("#myModal #modalGender").text(gender);
 			$("#myModal #modalBirthday").text(birthday.substring(0,10));
 			$("#myModal #modalEmail").text(email);
-			$("#myModal #modalContent").text(content);
+			$("#myModal #modalContent").html(content);
 			$("#myModal #modalLevel").text(level);
 			$("#myModal #modalStartDate").text(startDate.substring(0,10));
 			$("#myModal #modalLastDate").text(lastDate.substring(0,16));
@@ -263,19 +264,20 @@
 					<th>활동여부</th>
 				</c:if>
 			</tr>
+			<c:set var="curScrStarNO" value="${curScrStarNO+1}"></c:set>
 			<c:forEach var="vo" items="${vos}" varStatus="st">
 				<c:if test="${vo.userInfor == '공개' || (vo.userInfor != '공개' && sLevel == 0)}">
 				<c:if test="${vo.userDel == 'OK'}"><c:set var="active" value="탈퇴신청" /></c:if>
 				<c:if test="${vo.userDel != 'OK'}"><c:set var="active" value="활동중" /></c:if>
 				<tr>
-					<td>${vo.idx}</td>
+					<td>${curScrStarNO}</td>
 					<td>${vo.nickName}</td>
 					<td>${vo.strLevel}</td>
 					<td>${fn:substring(vo.lastDate,0,16)}</td>
 					<td>
 						<input type="button" value="프로필보기" 
 						onclick="profile('${vo.mid}','${vo.nickName}','${vo.gender}','${vo.birthday}',
-						'${vo.email}','${vo.photo}','${vo.content}','${vo.level}','${vo.startDate}',
+						'${vo.email}','${vo.photo}','${fn:replace(vo.content,newline,'<br/>')}','${vo.level}','${vo.startDate}',
 						'${vo.lastDate}','${vo.todayCnt}','${vo.heart}','${vo.strLevel}','${vo.accept}')" 
 						data-toggle="modal" data-target="#myModal" class="secondary"/>
 					</td>
@@ -290,6 +292,7 @@
 					</c:if>
 				</tr>
 				</c:if>
+				<c:set var="curScrStarNO" value="${curScrStarNO+1}"></c:set>
 			</c:forEach>
 			<tr><td colspan="9" class="m-0 p-0"></td></tr>
 		</table>

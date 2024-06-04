@@ -101,6 +101,31 @@
   			background-color: transparent;
     	}
     </style>
+    <script>
+    	'use strict';
+    	
+    	// 채팅내용 DB에 저장
+    	function chatInput() {
+			let chat = $("#chat").val();
+			if(chat.trim() != "") {
+				$.ajax({
+					url : "MemberChatInput.mem",
+					type : "post",
+					data : {chat : chat},
+					error : function () {
+						alert("전송오류");
+					}
+				});
+			}
+		}
+    	
+    	// 채딩 대화입력후 엔터키를 누르면 자동으로 DB에 저장시키기 chatInput함수호출
+    	$(function() {
+			$("#chat").on("keydown", function(e) {
+				if(e.keyCode == 13) chatInput();
+			});
+		});
+    </script>
 </head>
 <body>
 <div class="sec01">
@@ -118,20 +143,36 @@
 		</section>
 	</div>
 	<div class="sec01-02">
-		<section><button type="button" onclick="location.href='${ctp}/MemberAllList.mem';"><img src="${ctp}/images/memberRoom/birthday_Icon01.png"/></button></section>
-		<section><button type="button" onclick="location.href='${ctp}/FriendList.bf';"><img src="${ctp}/images/memberRoom/birthday_Icon01.png"/></button></section>
-		<section><button type="button" onclick="location.href='${ctp}/PdsList.pds';"><img src="${ctp}/images/memberRoom/birthday_Icon01.png"/></button></section>
-		<section><button type="button" onclick="location.href='${ctp}/MemberAllList.mem';"><img src="${ctp}/images/memberRoom/birthday_Icon01.png"/></button></section>
-		<section><button type="button" onclick="location.href='${ctp}/MemberAllList.mem';"><img src="${ctp}/images/memberRoom/birthday_Icon01.png"/></button></section>
-		<section><button type="button" onclick="location.href='${ctp}/MemberAllList.mem';"><img src="${ctp}/images/memberRoom/birthday_Icon01.png"/></button></section>
-		<!-- 
-		<section>All-List</section>
-		<section>F-List</section>
-		<section>방명록</section>
-		<section>게시판</section>
-		<section>MENU</section>
-		<section>MENU</section>
-		 -->
+		<div>
+			<section><button type="button" onclick="location.href='${ctp}/MemberAllList.mem';"><img src="${ctp}/images/memberRoom/birthday_Icon01.png"/></button></section>
+			<section><button type="button" onclick="location.href='${ctp}/FriendList.bf';"><img src="${ctp}/images/memberRoom/birthday_Icon01.png"/></button></section>
+			<section><button type="button" onclick="location.href='${ctp}/PdsList.pds';"><img src="${ctp}/images/memberRoom/birthday_Icon01.png"/></button></section>
+			<section><button type="button" onclick="location.href='${ctp}/MemberAllList.mem';"><img src="${ctp}/images/memberRoom/birthday_Icon01.png"/></button></section>
+			<section><button type="button" onclick="location.href='${ctp}/MemberAllList.mem';"><img src="${ctp}/images/memberRoom/birthday_Icon01.png"/></button></section>
+			<section><button type="button" onclick="location.href='${ctp}/MemberAllList.mem';"><img src="${ctp}/images/memberRoom/birthday_Icon01.png"/></button></section>
+			<!-- 
+			<section>All-List</section>
+			<section>F-List</section>
+			<section>방명록</section>
+			<section>게시판</section>
+			<section>MENU</section>
+			<section>MENU</section>
+			 -->
+		</div>
+		<div>
+			<section class="sec-Chat" style="width:100%">
+				<form name="chatForm">
+					<label for="chat"><b></b></label>
+					<iframe src="${ctp}/include/memberMessage.jsp" width="100%" height="200px" class="border"></iframe>
+					<div class="input-group mt-1">
+						<input type="text" name="chat" id="chat" class="form-control" placeholder="대화내용을 입력하세요" autofocus/>
+						<div class="input-group-append">
+							<input type="button" value="글등록" onclick="chatInput()" class="btn btn-primary"/> 
+						</div>
+					</div>
+				</form>
+			</section>
+		</div>
 	</div>
 </div>
 </body>

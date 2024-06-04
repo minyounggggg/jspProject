@@ -22,3 +22,5 @@ delete from friend where mid="atom" and friendMid="btom";
 select * from friend where mid="atom" and accept="OK";
 
 select members.* from members, friend where friend.mid="atom" AND friend.friendMid = members.mid AND friend.accept='OK';
+
+select m.*, f.accept from members m, friend f where m.mid;

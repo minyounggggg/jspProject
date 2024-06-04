@@ -78,6 +78,11 @@ public class MemberController extends HttpServlet{
 			command.execute(request, response);
 			viewPage += "/memberAllList.jsp";
 		}
+		else if(com.equals("/MemberChatInput")){
+			command = new MemberChatInputCommand();
+			command.execute(request, response);
+			viewPage += "/memberAllList.jsp";
+		}
 		
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);

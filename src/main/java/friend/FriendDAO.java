@@ -113,7 +113,7 @@ public class FriendDAO {
 	public ArrayList<MemberVO> getFriendList(String mid) {
 		ArrayList<MemberVO> vos = new ArrayList<MemberVO>();
 		try {
-			sql = "select members.* from members, friend WHERE friend.mid=? AND friend.friendMid=members.mid AND friend.accept='OK'";
+			sql = "select members.*, friend.accept from members, friend WHERE friend.mid=? AND friend.friendMid=members.mid AND friend.accept='OK' order by idx";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, mid);
 			rs = pstmt.executeQuery();
@@ -142,6 +142,8 @@ public class FriendDAO {
 				vo.setTodayCnt(rs.getInt("todayCnt"));
 				vo.setHeart(rs.getInt("heart"));
 				
+				vo.setAccept(rs.getString("accept"));
+				
 				if(vo.getLevel() == 0) vo.setStrLevel("운영자");
 				else if(vo.getLevel() == 1) vo.setStrLevel("주민");
 				else if(vo.getLevel() == 2) vo.setStrLevel("섬대표");
@@ -154,6 +156,76 @@ public class FriendDAO {
 			rsClose();
 		}
 		return vos;
+	}
+
+	
+	// 친구신청수락 처리 (friend table에 accept 'OK'로 update)
+	public int setFriendInputOKup(String mid, String friendMid) {
+		int res = 0;
+		try {
+			sql = "update friend set accept='OK' where mid=? AND friendMid=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, friendMid);
+			pstmt.setString(2, mid);
+			res = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("SQL오류5 : " + e.getMessage());
+		} finally {
+			pstmtClose();
+		}
+		return res;
+	}
+
+	// 친구신청수락 처리 (friend table에 accept 'OK'로 insert)
+	public int setFriendInputOKin(String mid, String friendMid) {
+		int res = 0;
+		try {
+			sql = "insert into friend values (default, ?, ?, 'OK')";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, mid);
+			pstmt.setString(2, friendMid);
+			res = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("SQL오류6 : " + e.getMessage());
+		} finally {
+			pstmtClose();
+		}
+		return res;
+	}
+
+	
+	// 친구신청 거절 처리
+	public int setFriendInputDelete(String mid, String friendMid) {
+		int res = 0;
+		try {
+			sql = "delete from friend where mid=? AND friendMid=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, friendMid);
+			pstmt.setString(2, mid);
+			res = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("SQL오류7 : " + e.getMessage());
+		} finally {
+			pstmtClose();
+		}
+		return res;
+	}
+
+	// 친구 신청 메세지 지우기
+	public int setFriendInputMsgDelete(String mid, String friendMid) {
+		int res = 0;
+		try {
+			sql = "delete from fMessage where sendId=? AND receiveId=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, friendMid);
+			pstmt.setString(2, mid);
+			res = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("SQL오류8 : " + e.getMessage());
+		} finally {
+			pstmtClose();
+		}
+		return res;
 	}
 
 	
