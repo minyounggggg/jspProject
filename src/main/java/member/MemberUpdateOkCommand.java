@@ -22,15 +22,15 @@ public class MemberUpdateOkCommand implements MemberInterface {
 		MultipartRequest multipartRequest = new MultipartRequest(request, realPath, maxSize, encoding, new DefaultFileRenamePolicy());
 		
 		// 회원 사진 업로드 되었는지 여부 처리? 업로드된 파일이 있으면 서버에 저장된 이름을, 없으면 기존파일명을 fsName변수에 저장한다.
-		String upPhoto = multipartRequest.getFilesystemName("photo");
-		String fName = multipartRequest.getParameter("upPhoto");
-		if(upPhoto == null) upPhoto = fName;
+		String photo = multipartRequest.getFilesystemName("fName");
+		String fName = multipartRequest.getParameter("photo");
+		if(photo == null) photo = fName;
 		
 		HttpSession session = request.getSession();
-		//String mid = (String) session.getAttribute("sMid");
+		String mid = (String) session.getAttribute("sMid");
 		String sNickName = (String) session.getAttribute("sNickName");
 		
-		String mid = multipartRequest.getParameter("mid")==null? "" : multipartRequest.getParameter("mid");
+		//String mid = multipartRequest.getParameter("mid")==null? "" : multipartRequest.getParameter("mid");
 		String nickName = multipartRequest.getParameter("nickName")==null? "" : multipartRequest.getParameter("nickName");
 		String name = multipartRequest.getParameter("name")==null? "" : multipartRequest.getParameter("name");
 		String gender = multipartRequest.getParameter("gender")==null? "" : multipartRequest.getParameter("gender");
@@ -64,14 +64,15 @@ public class MemberUpdateOkCommand implements MemberInterface {
 		vo.setTel(tel);
 		vo.setAddress(address);
 		vo.setEmail(email);
-		vo.setPhoto(upPhoto);
+		vo.setPhoto(photo);
 		vo.setContent(content);
 		vo.setUserInfor(userInfor);
 		
 		int res = dao.setMemberUpdateOk(vo);
 		
 		if(res != 0) {
-			session.setAttribute("sNickname", vo.getNickName());
+			//session.setAttribute("sNickname", vo.getNickName());
+			session.setAttribute("sNickname", nickName);
 			request.setAttribute("message", "회원정보 수정이 완료되었습니다.");
 			request.setAttribute("url", "MemberRoom.mem");
 		}

@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:set var="ctp" value="${pageContext.request.contextPath}" />
-<%-- <%@ include file = "/include/certification.jsp" %> --%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,15 +17,26 @@
 		p {margin : 0}
     	body{
     		font-family: "a영고딕M";
+    		/* 
     		background-image : url("${ctp}/images/bg_1.png");
+    		background-image : url("${ctp}/images/memberMain/memberMain_bg01.jpg");
+    		 */
+    		background-color : rgba(245,243,215,0.5);
     		display : flex;
     		align-items: center;
     		justify-content: center;
+    		height: 100vh;
+    		background-size: cover;
+		    background-position: center center;
+		    background-repeat: no-repeat;
+		    background-attachment: fixed;
     	}
     	.sec01{
     		display : flex;
     		width : 1500px;
+    		/* 
     		margin : 100px 0;
+    		 */
     		background-color : #f0f8ff;
     	}
     	.sec01-01{
@@ -148,15 +158,11 @@
 			<section><button type="button" onclick="location.href='${ctp}/FriendList.bf';"><img src="${ctp}/images/memberRoom/birthday_Icon01.png"/></button></section>
 			<section><button type="button" onclick="location.href='${ctp}/PdsList.pds';"><img src="${ctp}/images/memberRoom/birthday_Icon01.png"/></button></section>
 			<section><button type="button" onclick="location.href='${ctp}/MemberAllList.mem';"><img src="${ctp}/images/memberRoom/birthday_Icon01.png"/></button></section>
-			<section><button type="button" onclick="location.href='${ctp}/MemberAllList.mem';"><img src="${ctp}/images/memberRoom/birthday_Icon01.png"/></button></section>
-			<section><button type="button" onclick="location.href='${ctp}/MemberAllList.mem';"><img src="${ctp}/images/memberRoom/birthday_Icon01.png"/></button></section>
 			<!-- 
 			<section>All-List</section>
 			<section>F-List</section>
-			<section>방명록</section>
-			<section>게시판</section>
-			<section>MENU</section>
-			<section>MENU</section>
+			<section>자료실</section>
+			<section>게시판(QnA)</section>
 			 -->
 		</div>
 		<div>

@@ -6,6 +6,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import common.Pagination;
+
 public class PdsListCommand implements PdsInterface {
 
 	@Override
@@ -14,9 +16,9 @@ public class PdsListCommand implements PdsInterface {
 		int pagSize = request.getParameter("pagSize")==null ? 5 : Integer.parseInt(request.getParameter("pagSize"));
 		String part = request.getParameter("part")==null ? "전체" : request.getParameter("part");
 		
-		PdsDAO dao = new PdsDAO();
+		//PdsDAO dao = new PdsDAO();
 	
-		//Pagination.pageChange(request, pag, pagSize, "", "pds", part);
+		Pagination.pageChange(request, pag, pagSize, "", "pds", part);
 	}
 
 }

@@ -22,7 +22,7 @@ public class MemberController extends HttpServlet{
 		com = com.substring(com.lastIndexOf("/"), com.lastIndexOf("."));
 		
 		HttpSession session = request.getSession();
-		int level = session.getAttribute("sLevle")==null? 999 : (int)session.getAttribute("sLevel");
+		int level = session.getAttribute("sLevel")==null? 999 : (int)session.getAttribute("sLevel");
 		
 		if(com.equals("/MemberLogin")) {
 			viewPage += "/memberLogin.jsp";
@@ -50,11 +50,11 @@ public class MemberController extends HttpServlet{
 			command.execute(request, response);
 			return;
 		}
-//		else if(level > 4) {
-//			request.setAttribute("message", "로그인 후 사용하세요");
-//			request.setAttribute("url", request.getContextPath()+"/MemberLogin.mem");
-//			viewPage = "/include/message.jsp";
-//		}
+		else if(level > 4) {
+			request.setAttribute("message", "로그인 후 사용하세요");
+			request.setAttribute("url", request.getContextPath()+"/MemberLogin.mem");
+			viewPage = "/include/message.jsp";
+		}
 		else if(com.equals("/MemberRoom")){
 			command = new MemberRoomCommand();
 			command.execute(request, response);

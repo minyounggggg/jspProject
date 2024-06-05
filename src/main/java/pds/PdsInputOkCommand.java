@@ -76,11 +76,11 @@ public class PdsInputOkCommand implements PdsInterface {
 		int res = dao.setPdsInputOk(vo);
 		
 		if(res != 0) {
-			request.setAttribute("message", "자료실에 자료가 업로드 되었습니다.");
+			request.setAttribute("message", "자료가 업로드 되었습니다.");
 			request.setAttribute("url", "PdsList.pds");
 		}
 		else {
-			request.setAttribute("message", "자료실에 자료가 업로드 실패.");
+			request.setAttribute("message", "자료 업로드 실패. 다시 시도해주세요.");
 			request.setAttribute("url", "PdsInput.pds");
 		}
 		

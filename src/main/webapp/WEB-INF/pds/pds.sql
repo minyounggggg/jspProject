@@ -16,7 +16,7 @@ create table pds(
 	hostIp varchar(30) not null,			/* 업로드한 클라이언트 IP */
 	content text,							/* 업로드 파일의 상세 설명 */
 	primary key(idx),
-	foreign key(mid) references member(mid)
+	foreign key(mid) references members(mid)
 );
 
 drop table pds;

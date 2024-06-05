@@ -61,16 +61,19 @@
     	function fCheck() {
     		// 유효성 검사하기
     		
-    		// 유효성 검사.....
-	    	// 아이디,닉네임,성명,이메일,홈페이지,전화번호,비밀번호 등등....
-	    	
-	    	// 최소 8자, 하나의 이상의 대소문자 및 하나의 숫자, 하나의 특수문자
-	    	//let regPwd = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
-	    	
-	    	
-	    	
-	    	
-	    	// 정규식을 이용한 유효성검사처리..
+	    	// 아이디 검사 (영문대소문자 + 숫자, 4~20자)
+	    	let regMid = /^[a-zA-Z0-9]{4,20}$/;
+	    	// 비밀번호 검사 (최소 8자, 하나의 이상의 대소문자 및 하나의 숫자, 하나의 특수문자)
+	    	let regPwd = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+	    	// 닉네임 검사 (한글+영문+숫자+밑줄만, 2~4자리)
+	    	let regNickName = /^[가-힣a-zA-Z0-9_]{2,4}$/;
+	    	// 이름 검사 (한글+영문만, 2~6자리)
+	    	let regName = /^[가-힣a-zA-Z]{2,6}$/;
+
+	    	let mid = myform.mid.value.trim();
+	    	let pwd = myform.pwd.value.trim();
+	    	let nickName = myform.nickName.value;
+	    	let name = myform.name.value;
 	    	
 	    	// 검사를 끝내고 필요한 내역들을 변수에 담아 회원 가입처리한다.
 			let email1 = myform.email1.value.trim();
@@ -90,33 +93,40 @@
 	    	
 	    	// 이메일 주소형식체크
 	        
-	        // 전화번호 형식 체크
-	        if(tel2 != "" && tel3 != ""){
-	        	// 전화번호 정규화 체크
-	        }
-	        else {
-	        	tel2 = " ";
-	        	tel3 = " ";
-	        	tel = tel1 + "-" + tel2 + "-" + tel3;
-	        }
-	    	/* 
+	        
+	    	
 	    	// 정규식, 유효성
+	    	
 	    	if(!regMid.test(mid)){
-	    		alert("영문 대소문자와 숫자의 8~16자 조합으로 입력해주세요.")
+	    		alert("아이디는 영문 대소문자와 숫자가 포함된 4~20자 조합으로 입력해주세요.");
+	    		myform.mid.focus();
+	    		return false;
 	    	}
+	    	 
+	    	else if(!regNickName.test(nickName)){
+	    		alert("닉네임은 2~6자리의 한글과 영문, 숫자, 밑줄(_)만 가능합니다.");
+	    		myform.nickName.focus();
+	    		return false;
+	    	}
+	    	 
 	    	else if(!regPwd.test(pwd)){
-	    		alert("최소 8자, 하나의 이상의 대소문자 및 하나의 숫자, 하나의 특수문자를 입력해주세요.");
+	    		alert("비밀번호는 한개 이상의 대문자 혹은 소문자와, 한개 이상의 숫자,\\n[@$!%*#?&]중 하나 이상의 특수문자를 포함한 8자 이상으로 입력해주세요.");
 	    		myform.pwd.focus();
 	    		return false;
 	    	}
-	    	 */
+	    	else if(!regName.test(name)){
+	    		alert("성명은 2~6자리의 한글과 영문만 가능합니다.");
+	    		myform.name.focus();
+	    		return false;
+	    	}
+	    	
 	    	
 	    	// 사진파일 업로드
-	    	let photo = document.getElementById("file").value;
-	    	if(photo.trim != ""){
-	    		let ext = photo.substring(photo.lastIndexOf(".")+1).toLowerCase();
-	    		let maxSize = 1024 * 1024 * 2;
-	    		let fileSize = document.getElementById("file").files[0].size;
+	    	let fName = document.getElementById("file").value;
+			if(fName.trim() != "") {
+				let ext = fName.substring(fName.lastIndexOf(".")+1).toLowerCase();
+				let maxSize = 1024 * 1024 * 5;
+				let fileSize = document.getElementById("file").files[0].size;
 	    		
 	    		if(ext != "jpg" && ext != "png" && ext != "gif"){
 	    			alert("사진 파일은 'jpg, png, gif'만 가능합니다.");
@@ -149,9 +159,14 @@
     	
     	// 아이디 중복체크
     	function idCheck() {
+    		let regMid = /^[a-zA-Z0-9]{4,20}$/;
 			let mid = myform.mid.value;
 			if(mid.trim() == ""){
 				alert("아이디를 입력해주세요");
+				myform.mid.focus();
+			}
+			else if(!regMid.test(mid)){
+				alert("아이디는 영문 대소문자와 숫자가 포함된 4~20자 조합으로 입력해주세요.");
 				myform.mid.focus();
 			}
 			else {
@@ -176,10 +191,15 @@
 		}
     	// 닉네임 중복체크
     	function nickCheck() {
+    		let regNickName = /^[가-힣a-zA-Z0-9_]{2,4}$/;
 			let nickName = myform.nickName.value;
 			if(nickName.trim() == ""){
 				alert("닉네임을 입력해주세요");
 				myform.nickName.focus();
+			}
+			else if(!regNickName.test(nickName)){
+	    		alert("닉네임은 2~6자리의 한글과 영문, 숫자, 밑줄(_)만 가능합니다.");
+	    		myform.nickName.focus();
 			}
 			else {
 				nickCheckBtn = 1;
@@ -201,8 +221,8 @@
 				});
 			}
 		}
+    	
     	// 아이디, 닉네임 다시 고쳤을 경우 다시 중복버튼 체크하게 유도
-    	/* 
     	$(function(){
         	$("#mid").on("blur", () => {
         		idCheckBtn = 0;
@@ -213,7 +233,7 @@
         	});
         	
         });
-    	 */
+    	
     	// 사진파일 미리보기
     	function imgCheck(e) {
 			if(e.files && e.files[0]){
@@ -419,7 +439,7 @@
 	    </div>
 	    <div  class="form-group">
 	      회원 사진(파일용량:2MByte이내) :
-	      <input type="file" name="photo" id="file" onchange="imgCheck(this)" class="form-control-file border mb-3"/>
+	      <input type="file" name="fName" id="file" onchange="imgCheck(this)" class="form-control-file border mb-3"/>
 	      <img id="demoImg" width="200px"/>
 	      <hr/>
 	    </div>

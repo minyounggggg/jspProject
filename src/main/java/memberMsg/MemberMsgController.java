@@ -25,12 +25,12 @@ public class MemberMsgController extends HttpServlet{
 		HttpSession session = request.getSession();
 		int level = session.getAttribute("sLevel")==null ? 999 : (int) session.getAttribute("sLevel");
 		
-//		if(level > 4) {
-//			request.setAttribute("message", "로그인 후 사용하세요");
-//			request.setAttribute("url", request.getContextPath()+"/MemberLogin.mem");
-//			viewPage = "/include/message.jsp";
-//		}
-		if(com.equals("/MemberMsg")) {
+		if(level > 4) {
+			request.setAttribute("message", "로그인 후 사용하세요");
+			request.setAttribute("url", request.getContextPath()+"/MemberLogin.mem");
+			viewPage = "/include/message.jsp";
+		}
+		else if(com.equals("/MemberMsg")) {
 			command = new MemberMsgCommand();
 			command.execute(request, response);
 			viewPage += "/memberMsg.jsp";

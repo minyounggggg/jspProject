@@ -43,6 +43,9 @@ public class MemberLoginOKCommand implements MemberInterface {
 		// 2-2. 준회원을 자동으로 정회원 등업처리
 		// 3. 처리 완료된자료(vo)를 DB에 업데이트해준다.
 		
+		
+		
+		
 		String levelName = "";
 		if(vo.getLevel() == 0) levelName = "운영자";
 		else if(vo.getLevel() == 1) levelName = "주민";
