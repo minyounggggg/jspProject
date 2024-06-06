@@ -30,6 +30,14 @@
 		    background-position: center center;
 		    background-repeat: no-repeat;
 		    background-attachment: fixed;
+		    padding : 30px 0;
+    	}
+    	.friend-list{
+    		margin : 0 auto;
+    		background-color : #f0f8ff;
+    		width : 1200px;
+    		padding : 50px;
+    		border-radius: 30px;
     	}
     	#myModal{
     		background-color: rgba(0,0,0,0.3);
@@ -165,7 +173,7 @@
 				str += '</button>';
 			}
 			else if (accept == 'OK') {
-				str += '<button type="button" onclick="friendInput()" class="m-0 p-0">';
+				str += '<button type="button" onclick="friendDelete()" class="m-0 p-0">';
 				str += '<img src="${ctp}/images/memberAllList/friend_delete_btn01.png" style="width:100%"/>';
 				str += '</button>';
 			}
@@ -250,11 +258,49 @@
 			});
 		}
     	
+    	//친구신청 삭제 처리
+    	function friendDelete() {
+    		let ans = confirm("해당 유저를 친구삭제 하시겠습니까?");
+    		if(!ans) return false;
+    		
+    		let friendMid = $("#modalMid").text();
+    		let query = {
+    				mid : "${sMid}",
+    				friendMid : friendMid
+    		}
+			$.ajax({
+				url : "FriendDelete.bf",
+				type : "get",
+				data : query,
+				success : function (res) {
+					if(res != "0") {
+						alert("친구가 삭제되었습니다.");
+						location.reload();
+					}
+					else {
+						alert("친구끊기 실패, 다시 시도해주세요.");
+						return false;
+					}
+				},
+				error : function () {
+					alert("전송오류");
+				}
+			});
+		}
+    	
     </script>
 </head>
 <body>
-<div class="container">
+<div class="friend-list">
 	<div id="totalList">
+		<div class="text-center" style="margin-bottom : 30px; font-size : 30px;">
+			<c:if test="${fMsgCnt == 0}">
+				<span><b>친구 리스트 &nbsp;</b></span><button id="fMessageBtn1" onclick="location.href='${ctp}/FMessageList.fmsg';" class="text-right mr-3"><img src="${ctp}/images/friend/friend_icon.png" style="width:50px"/></button>
+			</c:if>
+			<c:if test="${fMsgCnt != 0}">
+				<span>친구 리스트 </span><button id="fMessageBtn1" onclick="location.href='${ctp}/FMessageList.fmsg';" class="text-right" style="margin-right : 50px"><img src="${ctp}/images/friend/friend_msg_btn.gif" style="width:50px"/></button>
+			</c:if>
+		</div>
 		<table class="table table-hover text-center">
 			<tr class="table-dark text-dark">
 				<th>번호</th>
@@ -284,7 +330,7 @@
 							onclick="profile('${vo.mid}','${vo.nickName}','${vo.gender}','${vo.birthday}',
 							'${vo.email}','${vo.photo}','${fn:replace(vo.content,newline,'<br/>')}','${vo.level}','${vo.startDate}',
 							'${vo.lastDate}','${vo.todayCnt}','${vo.heart}','${vo.strLevel}','${vo.accept}')" 
-							data-toggle="modal" data-target="#myModal" class="secondary"/>
+							data-toggle="modal" data-target="#myModal" class="btn btn-info"/>
 						</td>
 						<td><a href="MemberSearch.mem?mid=${vo.mid}">${vo.mid}</a></td>
 						<td>${vo.gender}</td>
@@ -303,10 +349,6 @@
 			<tr><td colspan="9" class="m-0 p-0"></td></tr>
 		</table>
 		<button type="button" class="btn btn-secondary" onclick="location.href='${ctp}/MemberMain.mem';">돌아가기</button>
-	</div>
-	
-	<div>
-		<button id="fMessageBtn" onclick="location.href='${ctp}/FMessageList.msg';" class="text-right mr-3"><img src="${ctp}/images/memberRoom/birthday_Icon01.png" style="width:50px"/></button>
 	</div>
 	
 </div>

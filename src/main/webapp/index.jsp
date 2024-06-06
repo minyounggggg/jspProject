@@ -14,24 +14,32 @@
 		    padding: 0;
 		    margin: 0;
 		}
+		button{
+    		border: 0;
+  			background-color: transparent;
+    	}
     	body{
     		font-family: "a신디나루B";
-    		/* background-image : url("${ctp}/images/visual_bg_pc.png"); */
-    		background-image : url("<%=request.getContextPath() %>/images/bg_1.png");
+    		background-image : url("${ctp}/images/in_bg.jpg");
     		height: 100vh;
 		    background-size: cover;
 		    background-position: center center;
 		    background-repeat: no-repeat;
 		    background-attachment: fixed;
+		    display: flex;
+  justify-content: center;
+  align-items: center;
     	}
+    	#bt img {
+    		width : 500px;
+    		transition: all 0.2s linear;
+    	}
+    	#bt:hover img {
+  			transform: scale(1.1);
+		}
     </style>
 </head>
 <body>
-<p><br/></p>
-<div class="container">
-	<h2>프로젝트 준비</h2>
-	<input type="button" value="시작하기" onclick="location.href='${ctp}/MemberLogin.mem';" class="btn btn-success mr-2"/>
-</div>
-<p><br/></p>
+	<button type="button" onclick="location.href='${ctp}/MemberLogin.mem';" class="m-0 p-0" id="bt"><img src="${ctp}/images/start_btn.png"/></button>
 </body>
 </html>

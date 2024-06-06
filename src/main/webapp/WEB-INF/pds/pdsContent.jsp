@@ -58,11 +58,11 @@
 					mid : '${sMid}',
 					nickName : '${sNickName}',
 					star : star,
-					content : review
+					cmtContent : review
 			}
 			
 			$.ajax({
-				url : "ReviewInputOk.ad",
+				url : "CommentInputOk.ad",
 				type : "post",
 				data : query,
 				success : function (res) {
@@ -81,7 +81,7 @@
 			if(!ans) return false;
 			
 			$.ajax({
-				url : "ReviewDelete.ad",
+				url : "CommentDelete.ad",
 				type : "post",
 				data : {idx:idx},
 				success : function (res) {
@@ -143,7 +143,7 @@
 			}
 			
 			$.ajax({
-				url : "ReviewReplyInputOk.ad",
+				url : "CommentReplyInputOk.ad",
 				type : "post",
 				data : query,
 				success : function (res) {
@@ -242,7 +242,21 @@
 		</tr>
 		<tr>
 			<th>상세내역</th>
-			<td colspan="3" class="text-left" style="height:150px">${fn:replace(vo.content,newLine,'<br/>')}</td>
+			<td colspan="3" class="text-left pt-3" style="height:150px">${fn:replace(vo.content,newLine,'<br/>')}
+				<hr/>
+				<!-- 자료실에 등록된 자료가 사진이라면 아래쪽에 모두 보여주기 -->
+				<div class="text-left">
+					<c:forEach var="fSName" items="${fSNames}" varStatus="st">
+						${fNames[st.index]}<br/>
+						<c:set var="len" value="${fn:length(fSName)}"/>
+						<c:set var="ext" value="${fn:substring(fSName, len-3, len)}"/>
+						<c:set var="extLower" value="${fn:toLowerCase(ext)}"/>
+						<c:if test="${extLower == 'jpg' || extLower == 'gif' || extLower == 'png'}">
+							<img src="${ctp}/images/pds/${fSName}" width="30%"/>
+						</c:if>
+					</c:forEach>
+				</div>
+			</td>
 		</tr>
 		<tr>
 			<td colspan="4">
@@ -289,9 +303,9 @@
 				<div class="row">
 					<div class="col ml-2">
 						<b>${vo.nickName}</b>
-						<span style="font-size:11px">${fn:substring(vo.rDate, 0, 10)}</span>
+						<span style="font-size:11px">${fn:substring(vo.cmtDate, 0, 10)}</span>
 						<c:if test="${vo.mid == sMid || sLevel == 0}"><a href="javascript:reviewDelete(${vo.idx})" title="리뷰삭제" class="badge badge-danger">x</a></c:if>
-						<a href="#" onclick="reviewReply('${vo.idx}','${vo.nickName}','${fn:replace(vo.content,newLine,'<br>')}')" title="댓글달기" data-toggle="modal" data-target="#myModal" class="badge badge-info">▤</a>
+						<a href="#" onclick="reviewReply('${vo.idx}','${vo.nickName}','${fn:replace(vo.cmtContent,newLine,'<br>')}')" title="댓글달기" data-toggle="modal" data-target="#myModal" class="badge badge-info">▤</a>
 					</div>
 					<div class="col text-right mr-2">
 						<c:forEach var="i" begin="1" end="${vo.star}" varStatus="iSt"><font color="gold">★</font></c:forEach>
@@ -299,7 +313,7 @@
 					</div>
 				</div>
 				<div class="row border m-1 p-2" style="border-radius:5px">
-					${fn:replace(vo.content, newLine, '<br/>')}
+					${fn:replace(vo.cmtContent, newLine, '<br/>')}
 				</div>
 			</c:if>
 			<c:set var="imsiIdx" value="${vo.idx}"/>
@@ -317,19 +331,7 @@
 		</c:forEach>
 	</div>
 	
-	<!-- 자료실에 등록된 자료가 사진이라면 아래쪽에 모두 보여주기 -->
-	<div class="text-center">
-		<c:forEach var="fSName" items="${fSNames}" varStatus="st">
-			${fNames[st.index]}<br/>
-			<c:set var="len" value="${fn:length(fSName)}"/>
-			<c:set var="ext" value="${fn:substring(fSName, len-3, len)}"/>
-			<c:set var="extLower" value="${fn:toLowerCase(ext)}"/>
-			<c:if test="${extLower == 'jpg' || extLower == 'gif' || extLower == 'png'}">
-				<img src="${ctp}/images/pds/${fSName}" width="30%"/>
-			</c:if>
-			<hr/>
-		</c:forEach>
-	</div>
+	
 	<!-- 위로가기버튼 -->
 	<h6 id="topBtn" class="text-right mr-3"><img src="${ctp}/images/Top.png" style="width:50px"/></h6>
 </div>

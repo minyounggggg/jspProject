@@ -9,26 +9,51 @@
 	<title>MemberMsg.jsp</title>
     <jsp:include page="/include/bs4.jsp" />
     <style>
+    	a {  
+			text-decoration: none;
+			color: inherit;
+		}
+		a:link{text-decoration: none;}
+		a:visited, a:active{color: #212529;}
+	    body{
+    		font-family: "a영고딕M";
+    	}
+    	
     	#leftWindow{
+    		font-family: "a영고딕M";
+    		font-size : 18px;
     		float : left;
     		width : 25%;
-    		hright : 500px;
     		text-align : center;
     		background-color : #eee;
+    		padding : 50px 0 30px;
+    		border-radius : 0 50px 50px 0;
+    		margin-top : 50px;
     	}
     	#rightWindow{
+    		font-family: "a영고딕M";
     		float : left;
     		width : 75%;
-    		hright : 500px;
+    		height: 100vh;
     		text-align : center;
     		background-color : #fff;
     		overflow : auto;
+    		margin-top : 40px;
     	}
     	#footerTopMargin{
 	    	clear : both;
 	    	margin : 10px;
     	}
-    	h3{text-align : center}
+    	.title h3{
+    		text-align : center;
+    		font-size : 30px;
+    	}
+    	.title{
+    		font-family: "a신디나루B";
+    		background-color : #f1f1f1;
+    		padding : 80px 0 50px;
+    		color : #333;
+    	}
     </style>
     <script>
     	'use strict';
@@ -55,20 +80,18 @@
     </script>
 </head>
 <body>
-<p><br/></p>
-<div class="container">
-	<h3 class="text-center">메세지 관리</h3>
-	<div>(현재접속 : <font color='red'>${sMid}</font>)</div>
+<div class="title">
+	<h3 class="text-center">${sNickName}님의 편지함</h3>
 </div>
 <div id="leftWindow">
-	<p><br></p>
 	<p><a href="MemberMsg.msg?mSw=0">메세지작성</a></p>
 	<p><a href="MemberMsg.msg?mSw=1&mFlag=11">받은메세지</a></p>
 	<p><a href="MemberMsg.msg?mSw=2">새메세지</a></p>
 	<p><a href="MemberMsg.msg?mSw=3&mFlag=13">보낸메세지</a></p>
-	<p><a href="MemberMsg.msg?mSw=4">수신확인</a></p>
+	<!-- <p><a href="MemberMsg.msg?mSw=4">수신확인</a></p> -->
 	<p><a href="MemberMsg.msg?mSw=5&mFlag=15">휴지통</a></p>
 	<p><a href="javascript:memberMsgDeleteAll()">휴지통비우기</a></p>
+	<p><a href="${ctp}/MemberMain.mem" style="color : #ea4762"><b>메인으로 돌아가기</b></a></p>
 </div>
 <div id="rightWindow">
 	<p>

@@ -30,6 +30,14 @@
 		    background-position: center center;
 		    background-repeat: no-repeat;
 		    background-attachment: fixed;
+		    padding : 30px 0;
+    	}
+    	.fMsg-list{
+    		margin : 0 auto;
+    		background-color : #f0f8ff;
+    		width : 1200px;
+    		padding : 50px;
+    		border-radius: 30px;
     	}
 	    button.close{
 	    	background-color: #fff;
@@ -248,17 +256,14 @@
     </script>
 </head>
 <body>
-<div class="container">
+<div class="fMsg-list">
 	<div id="totalList">
+	<h3 class="text-center mt-3 mb-4">친구 요청 리스트</h3>
 		<table class="table table-hover text-center">
 			<tr class="table-dark text-dark">
 				<th>번호</th>
 				<th>제목</th>
 				<th>보낸날짜</th>
-				<th>-</th>
-				<th>-</th>
-				<th>-</th>
-				<th>-</th>
 			</tr>
 			<c:forEach var="vo" items="${vos}" varStatus="st">
 				<%-- 
@@ -270,7 +275,6 @@
 					<td>${vo.idx}</td>
 					<td><a href="#" onclick="fMessageContent('${fn:replace(vo.content,newline,'</br>')}','${vo.sendId}')" data-toggle="modal" data-target="#myModal">${vo.title}</a></td>
 					<td>${fn:substring(vo.sendDate,0,16)}</td>
-					<td>-</td>
 							<%-- 
 							<td>
 								<input type="button" value="프로필보기" 
@@ -280,10 +284,7 @@
 								data-toggle="modal" data-target="#myModal" class="secondary"/>
 							</td>
 							 --%>
-					<td>-</td>
 						<%-- <td><a href="MemberSearch.mem?mid=${vo.mid}">${vo.mid}</a></td> --%>
-					<td>-</td>
-					<td>-</td>
 							<%-- 
 							<c:if test="${sLevel == 0}">
 								<td>${vo.todayCnt}</td>

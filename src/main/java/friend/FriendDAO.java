@@ -113,7 +113,7 @@ public class FriendDAO {
 	public ArrayList<MemberVO> getFriendList(String mid) {
 		ArrayList<MemberVO> vos = new ArrayList<MemberVO>();
 		try {
-			sql = "select members.*, friend.accept from members, friend WHERE friend.mid=? AND friend.friendMid=members.mid AND friend.accept='OK' order by idx";
+			sql = "select m.*, f.accept from members m, friend f where f.mid=? and f.friendMid=m.mid and f.accept='OK' and m.userDel='NO' order by idx";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, mid);
 			rs = pstmt.executeQuery();
@@ -222,6 +222,31 @@ public class FriendDAO {
 			res = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println("SQL오류8 : " + e.getMessage());
+		} finally {
+			pstmtClose();
+		}
+		return res;
+	}
+
+	
+	// 친구끊기 처리
+	public int setFriendDelete(String mid, String friendMid) {
+		int res = 0;
+		try {
+			sql = "delete from friend where mid=? AND friendMid=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, friendMid);
+			pstmt.setString(2, mid);
+			res = pstmt.executeUpdate();
+			
+			sql = "delete from friend where mid=? AND friendMid=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, mid);
+			pstmt.setString(2, friendMid);
+			
+			res = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("SQL오류9 : " + e.getMessage());
 		} finally {
 			pstmtClose();
 		}

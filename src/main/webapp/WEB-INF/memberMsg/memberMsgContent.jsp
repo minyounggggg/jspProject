@@ -34,7 +34,7 @@
 		<tr>
 			<td colspan="2" class="text-center">
 				<input type="button" value="답장하기" onclick="location.href='MemberMsg.msg?mSw=0&receiveId=${vo.sendId}';" class="btn btn-success"/>
-				<input type="button" value="휴지통으로" onclick="location.href='WmDeleteCheck.wm?idx=${vo.idx}&mSw=${param.mFlag}';" class="btn btn-success"/>
+				<input type="button" value="휴지통으로" onclick="location.href='MemberMsgDeleteCheck.msg?idx=${vo.idx}&mSw=${param.mFlag}';" class="btn btn-success"/>
 				<input type="button" value="돌아가기" onclick="location.href='MemberMsg.msg?mSw=1&mFlag=11';" class="btn btn-success"/>
 			</td>
 		</tr>

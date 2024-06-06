@@ -50,6 +50,11 @@ public class MemberController extends HttpServlet{
 			command.execute(request, response);
 			return;
 		}
+		else if(com.equals("/MemberLogout")){
+			command = new MemberLogoutCommand();
+			command.execute(request, response);
+			viewPage = "/include/message.jsp";
+		}
 		else if(level > 4) {
 			request.setAttribute("message", "로그인 후 사용하세요");
 			request.setAttribute("url", request.getContextPath()+"/MemberLogin.mem");
@@ -61,6 +66,8 @@ public class MemberController extends HttpServlet{
 			viewPage += "/memberRoom.jsp";
 		}
 		else if(com.equals("/MemberMain")){
+			command = new MemberMainCommand();
+			command.execute(request, response);
 			viewPage += "/memberMain.jsp";
 		}
 		else if(com.equals("/MemberUpdate")){
@@ -82,6 +89,16 @@ public class MemberController extends HttpServlet{
 			command = new MemberChatInputCommand();
 			command.execute(request, response);
 			viewPage += "/memberAllList.jsp";
+		}
+		else if(com.equals("/MemberDelete")){
+			command = new MemberDeleteCommand();
+			command.execute(request, response);
+			viewPage += "/memberDelete.jsp";
+		}
+		else if(com.equals("/MemberDeleteCheckOk")){
+			command = new MemberDeleteCheckOkCommand();
+			command.execute(request, response);
+			viewPage = "/include/message.jsp";
 		}
 		
 		

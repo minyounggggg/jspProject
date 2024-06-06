@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import fMessage.FMessageVO;
+import member.MemberDAO;
 import member.MemberVO;
 
 public class FriendListCommand implements FriendInterface {
@@ -23,6 +25,11 @@ public class FriendListCommand implements FriendInterface {
 		ArrayList<MemberVO> vos = dao.getFriendList(mid);
 		
 		request.setAttribute("vos", vos);
+		
+		MemberDAO memDAO = new MemberDAO();
+		ArrayList<FMessageVO> fMsgVos = memDAO.getFriendMsg(mid);
+		request.setAttribute("fMsgVos", fMsgVos);
+		request.setAttribute("fMsgCnt", fMsgVos.size());
 		
 	}
 

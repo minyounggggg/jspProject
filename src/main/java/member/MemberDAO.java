@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import common.GetConn;
+import fMessage.FMessageVO;
+import memberMsg.MemberMsgVO;
 
 public class MemberDAO {
 	
@@ -162,7 +164,7 @@ public class MemberDAO {
 	public ArrayList<MemberVO> getMemberAllList(String mid) {
 		ArrayList<MemberVO> vos = new ArrayList<MemberVO>();
 		try {
-			sql = "select m.*, f.accept from members m left join friend f on f.mid=? and f.friendMid = m.mid order by idx";
+			sql = "select m.*, f.accept from members m left join friend f on f.mid=? and f.friendMid=m.mid where m.userDel='NO' order by idx";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, mid);
 			rs = pstmt.executeQuery();
@@ -268,6 +270,101 @@ public class MemberDAO {
 				System.out.println("SQL오류7 : " + e.getMessage());
 			} finally {
 				pstmtClose();
+			}
+			return vos;
+		}
+
+		// 메인에 신규메세지 mini view 에 목록 불러오기
+		public ArrayList<MemberMsgVO> getMemberMsg(String mid) {
+			ArrayList<MemberMsgVO> vos = new ArrayList<MemberMsgVO>();
+			try {
+				sql = "select *, timestampdiff(hour, sendDate, now()) as hour_diff from memberMsg where receiveId=? and receiveSw='n' order by idx desc";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, mid);
+				rs = pstmt.executeQuery();
+				
+				while(rs.next()) {
+					MemberMsgVO vo = new MemberMsgVO();
+					vo.setIdx(rs.getInt("idx"));
+					vo.setTitle(rs.getString("title"));
+					vo.setContent(rs.getString("content"));
+					vo.setSendId(rs.getString("sendId"));
+					vo.setSendSw(rs.getString("sendSw"));
+					vo.setSendDate(rs.getString("sendDate"));
+					vo.setReceiveId(rs.getString("receiveId"));
+					vo.setReceiveSw(rs.getString("receiveSw"));
+					vo.setReceiveDate(rs.getString("receiveDate"));
+					vo.setHour_diff(rs.getInt("hour_diff"));
+					
+					vos.add(vo);
+				}
+			} catch (SQLException e) {
+				System.out.println("SQL오류8 : " + e.getMessage());
+			} finally {
+				rsClose();
+			}
+			return vos;
+		}
+
+		// 로그인시에 업데이트될 내용 처리
+		public void setLoginUpdate(MemberVO vo) {
+			try {
+				sql = "update members set point=?, lastDate=now(), visitCnt=visitCnt+1, todayCnt=? where mid=?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setInt(1,	vo.getPoint());
+				pstmt.setInt(2, vo.getTodayCnt());
+				pstmt.setString(3, vo.getMid());
+				pstmt.executeUpdate();
+			} catch (SQLException e) {
+				System.out.println("SQL오류9 : " + e.getMessage());
+			} finally {
+				pstmtClose();
+			}
+		}
+
+		
+		//회원 탈퇴신청
+		public int setMemberDeleteUpdate(String mid) {
+			int res = 0;
+			try {
+				sql = "update members set userDel = 'OK', level=99 where mid=?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, mid);
+				res = pstmt.executeUpdate();
+			} catch (SQLException e) {
+				System.out.println("SQL오류10 : " + e.getMessage());
+			} finally {
+				pstmtClose();
+			}
+			return res;
+			
+		}
+
+		
+		// 친구신청 메세지
+		public ArrayList<FMessageVO> getFriendMsg(String mid) {
+			ArrayList<FMessageVO> vos = new ArrayList<FMessageVO>();
+			try {
+				sql = "select * from fMessage where receiveId=?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, mid);
+				rs = pstmt.executeQuery();
+				
+				while(rs.next()) {
+					FMessageVO vo = new FMessageVO();
+					vo.setIdx(rs.getInt("idx"));
+					vo.setTitle(rs.getString("title"));
+					vo.setContent(rs.getString("content"));
+					vo.setSendId(rs.getString("sendId"));
+					vo.setReceiveId(rs.getString("receiveId"));
+					vo.setReceiveSw(rs.getString("receiveSw"));
+					
+					vos.add(vo);
+				}
+			} catch (SQLException e) {
+				System.out.println("SQL오류9 : " + e.getMessage());
+			} finally {
+				rsClose();
 			}
 			return vos;
 		}

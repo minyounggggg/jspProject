@@ -30,6 +30,14 @@
 		    background-position: center center;
 		    background-repeat: no-repeat;
 		    background-attachment: fixed;
+		    padding : 30px 0;
+    	}
+    	.all-list{
+    		margin : 0 auto;
+    		background-color : #f0f8ff;
+    		width : 1200px;
+    		padding : 50px;
+    		border-radius: 30px;
     	}
     	#myModal{
     		background-color: rgba(0,0,0,0.3);
@@ -138,6 +146,21 @@
     <script>
     	'use strict';
     	
+    	$(function() {
+			$("#userDisplay").hide();
+			
+			$("#userInfor").on("click", function() {
+				if($("#userInfor").is(":checked")) {
+					$("#totalList").hide();
+					$("#userDisplay").show();
+				}
+				else {
+					$("#totalList").show();
+					$("#userDisplay").hide();
+				}
+			});
+		});
+    	
     	function profile(mid,nickName,gender,birthday,email,photo,content,level,startDate,lastDate,todayCnt,heart,listlevelName,accept) {
     		let img = "${ctp}/images/member/"+photo;
 			$("#myModal #modalPhoto").attr("src",img);
@@ -160,7 +183,7 @@
 				str += '</button>';
 			}
 			else if (accept == 'OK') {
-				str += '<button type="button" onclick="friendInput()" class="m-0 p-0">';
+				str += '<button type="button" onclick="friendDelete()" class="m-0 p-0">';
 				str += '<img src="${ctp}/images/memberAllList/friend_delete_btn01.png" style="width:100%"/>';
 				str += '</button>';
 			}
@@ -202,7 +225,7 @@
 				success : function (res) {
 					if(res != "0") {
 						alert("친구신청이 완료되었습니다.");
-						//location.reload();
+						location.reload();
 					}
 					else {
 						alert("친구신청 실패, 다시 시도해주세요.");
@@ -232,7 +255,7 @@
 				success : function (res) {
 					if(res != "0") {
 						alert("친구신청이 취소되었습니다.");
-						//location.reload();
+						location.reload();
 					}
 					else {
 						alert("친구신청 취소 실패, 다시 시도해주세요.");
@@ -245,11 +268,45 @@
 			});
 		}
     	
+    	//친구신청 삭제 처리
+    	function friendDelete() {
+    		let ans = confirm("해당 유저를 친구삭제 하시겠습니까?");
+    		if(!ans) return false;
+    		
+    		let friendMid = $("#modalMid").text();
+    		let query = {
+    				mid : "${sMid}",
+    				friendMid : friendMid
+    		}
+			$.ajax({
+				url : "FriendDelete.bf",
+				type : "get",
+				data : query,
+				success : function (res) {
+					if(res != "0") {
+						alert("친구가 삭제되었습니다.");
+						location.reload();
+					}
+					else {
+						alert("친구끊기 실패, 다시 시도해주세요.");
+						return false;
+					}
+				},
+				error : function () {
+					alert("전송오류");
+				}
+			});
+		}
+    	
     </script>
 </head>
 <body>
-<div class="container">
+<div class="all-list">
+	<c:if test="${sLevel == 0}">
+		<input type="checkbox" name="userInfor" id="userInfor" onclick="userCheck()"/> 비공개회원보기 / 가리기
+	</c:if>
 	<div id="totalList">
+		<h3 class="text-center mb-4"><b>전체 회원 리스트</b></h3>
 		<table class="table table-hover text-center">
 			<tr class="table-dark text-dark">
 				<th>번호</th>
@@ -257,10 +314,7 @@
 				<th>회원등급</th>
 				<th>마지막접속일</th>
 				<th>프로필보기</th>
-				<th>아이디</th>
-				<th>최종방문일</th>
 				<c:if test="${sLevel == 0}">
-					<th>오늘방문횟수</th>
 					<th>활동여부</th>
 				</c:if>
 			</tr>
@@ -279,12 +333,9 @@
 						onclick="profile('${vo.mid}','${vo.nickName}','${vo.gender}','${vo.birthday}',
 						'${vo.email}','${vo.photo}','${fn:replace(vo.content,newline,'<br/>')}','${vo.level}','${vo.startDate}',
 						'${vo.lastDate}','${vo.todayCnt}','${vo.heart}','${vo.strLevel}','${vo.accept}')" 
-						data-toggle="modal" data-target="#myModal" class="secondary"/>
+						data-toggle="modal" data-target="#myModal" class="btn btn-info"/>
 					</td>
-					<td><a href="MemberSearch.mem?mid=${vo.mid}">${vo.mid}</a></td>
-					<td>${vo.gender}</td>
 					<c:if test="${sLevel == 0}">
-						<td>${vo.todayCnt}</td>
 						<td>
 							<c:if test="${vo.userDel == 'OK'}"><font color="red"><b>${active}</b></font></c:if>
 							<c:if test="${vo.userDel != 'OK'}">${active}</c:if>
@@ -297,6 +348,51 @@
 			<tr><td colspan="9" class="m-0 p-0"></td></tr>
 		</table>
 		<button type="button" class="btn btn-secondary" onclick="location.href='${ctp}/MemberMain.mem';">돌아가기</button>
+	</div>
+	<div id="userDisplay">
+		<c:if test="${sLevel == 0}"> <!-- 이렇게 안해주면 페이지 소스보기를 눌렀을때 비공개 회원이 다 뜬다. -->
+			<h3 class="text-center mt-3 mb-4">비공개 회원 리스트</h3>
+			<table class="table table-hover text-center">
+				<tr class="table-dark text-dark">
+				<th>번호</th>
+				<th>닉네임</th>
+				<th>회원등급</th>
+				<th>마지막접속일</th>
+				<th>프로필보기</th>
+				<c:if test="${sLevel == 0}">
+					<th>활동여부</th>
+				</c:if>
+			</tr>
+				<c:forEach var="vo" items="${vos}" varStatus="st">
+					<c:if test="${vo.userInfor == '비공개'}">
+					<c:if test="${vo.userDel == 'OK'}"><c:set var="active" value="탈퇴신청" /></c:if>
+				<c:if test="${vo.userDel != 'OK'}"><c:set var="active" value="활동중" /></c:if>
+				<tr>
+					<td>${curScrStarNO}</td>
+					<td>${vo.nickName}</td>
+					<td>${vo.strLevel}</td>
+					<td>${fn:substring(vo.lastDate,0,16)}</td>
+					<td>
+						<input type="button" value="프로필보기" 
+						onclick="profile('${vo.mid}','${vo.nickName}','${vo.gender}','${vo.birthday}',
+						'${vo.email}','${vo.photo}','${fn:replace(vo.content,newline,'<br/>')}','${vo.level}','${vo.startDate}',
+						'${vo.lastDate}','${vo.todayCnt}','${vo.heart}','${vo.strLevel}','${vo.accept}')" 
+						data-toggle="modal" data-target="#myModal" class="btn btn-info"/>
+					</td>
+					<c:if test="${sLevel == 0}">
+						<td>
+							<c:if test="${vo.userDel == 'OK'}"><font color="red"><b>${active}</b></font></c:if>
+							<c:if test="${vo.userDel != 'OK'}">${active}</c:if>
+						</td>
+					</c:if>
+				</tr>
+				</c:if>
+				<c:set var="curScrStarNO" value="${curScrStarNO+1}"></c:set>
+			</c:forEach>
+			<tr><td colspan="9" class="m-0 p-0"></td></tr>
+		</table>
+		<button type="button" class="btn btn-secondary" onclick="location.href='${ctp}/MemberMain.mem';">돌아가기</button>
+		</c:if>
 	</div>
 </div>
 

@@ -19,15 +19,18 @@
 		p {margin : 0}
     	body{
     		font-family: "a영고딕M";
-    		background-image : url("${ctp}/images/bg_1.png");
+    		/* background-image : url("${ctp}/images/bg_1.png"); */
+    		background-color: rgba(0,0,0,0.3);
     		display : flex;
     		align-items: center;
     		justify-content: center;
     	}
     	.sec01{
     		width : 1500px;
-    		margin : 100px 0;
+    		margin : 60px 0;
     		background-color : #f0f8ff;
+    		padding : 50px;
+    		border-radius: 30px;
     	}
     </style>
     
@@ -125,7 +128,6 @@
 				</td>
 				<td>${vo.nickName}</td>
 				<td>
-					${vo.fDate}
 					${vo.date_diff == 0 ? fn:substring(vo.fDate,11,19) : fn:substring(vo.fDate,0,10)}
 				</td>
 				<td>${vo.part}</td>
@@ -165,6 +167,8 @@
 		</ul>
 	</div>
 	<!-- 블록페이지 끝! -->
+	<hr/>
+	<input type="button" value="돌아가기" onclick="location.href='${ctp}/MemberMain.mem';" class="btn btn-secondary"/>
 </div>
 <p><br/></p>
 </body>

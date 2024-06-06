@@ -29,7 +29,7 @@
     		margin : 0 auto;
     	}
     	header{
-    		margin-top : 50px;
+    		margin-top : 30px;
     	}
     	header .top-menu{
     		display : flex;
@@ -38,7 +38,7 @@
     	header .top-menu button img{
     		display : flex;
     		justify-content : space-around;
-    		width : 200px
+    		width : 250px
     	}
     	.sec01{
     		display : flex;
@@ -141,13 +141,32 @@
     		clear : both;
     	}
     </style>
+    <script>
+    	'use strict';
+    	
+    	function pwdDeleteCheck() {
+			let pwd = $("#pwd").val().trim();
+			if(pwd == ""){
+				alert("비밀번호를 입력하세요!");
+				$("#pwd").focus();
+			}
+			else {
+				let ans = confirm("회원탈퇴 하시겠습니까?");
+				if(ans) {
+					ans = confirm("회원탈퇴 하시면 1개월간 같은 아이디로 가입하실 수 없습니다.\n계속 진행하시겠습니까?");
+					if(ans) myform.submit();
+				}
+			}
+		}
+    	
+    </script>
 </head>
 <body>
 <header>
 	<div class="top-menu">
 		<button type="button" onclick="location.href='${ctp}/MemberMain.mem';" class="m-0 p-0"><img src="${ctp}/images/topMenu/topmenu_btn_home01.png"/></button>
 		<button type="button" onclick="location.href='${ctp}/PdsList.pds';" class="m-0 p-0"><img src="${ctp}/images/topMenu/topmenu_btn_pds01.png"/></button>
-		<button type="button" onclick="#" class="m-0 p-0"><img src="${ctp}/images/topMenu/commingsoon_btn.png"/></button>
+		<button type="button" onclick="location.href='${ctp}/MemberMyRoom.mem';" class="m-0 p-0"><img src="${ctp}/images/topMenu/topmenu_btn_myroom01.png"/></button>
 		<c:if test="${slevel == 0}">
 			<button type="button" onclick="location.href='${ctp}/Admin.ad';" class="m-0 p-0"><img src="${ctp}/images/topMenu/topmenu_btn_admin01.png"/></button>
 		</c:if>
@@ -177,7 +196,7 @@
 		</section>
 		<section class="updateBtn">
 			<button onclick="location.href='${ctp}/MemberUpdate.mem';">
-				<img src="${ctp}/images/memberRoom/update_Icon01.png" style="width:45px; margin-right:50px;"/>정보 수정하기
+				<img src="${ctp}/images/memberRoom/birthday_Icon01.png" style="width:45px; margin-right:50px;"/>정보 수정하기
 			</button>
 		</section>
 	</div>
@@ -187,53 +206,52 @@
 			<section><h2 style="font-family:a신디나루B; margin:0"><img src="${ctp}/images/memberRoom/idLogo01.png"/> Lv. ${sLevel}</h2></section>
 			<section><h2 style="font-family:a신디나루B; margin:0"><img src="${ctp}/images/memberRoom/idLogo01.png"/> ${memVO.point} p</h2></section>
 		</div>
-		<div class="sec01-02-02">
-		<hr/>
-			<section class="sec-I">
-				<p><b>가입일자</b> : ${memVO.startDate.substring(0,10)}</p>
-				<p><b>TODAY</b> : ${memVO.todayCnt} 회</p>
-				<p><b>TOTAL</b> : ${memVO.visitCnt} 회</p>
-				<p><b>E-mail</b> : ${memVO.email}</p>
-				<p><b>좋아요</b> : ${memVO.heart}</p>
-			</section>
-			<section class="sec-C">
-				<div class="col text-left">
-				    <b>신규 메세지(<font color='red'><b>${mMsgCnt}</b></font>건)</b>
-				    <span style="font-size:11px">...<a href="MemberMsg.msg">more</a></span>
-			      	<c:if test="${mMsgCnt != 0}">
-					    <table class="table table-bordered table-hover text-center">
-					      <tr class="table-dark text-dark">
-					        <th>번호</th>
-					        <th>아이디</th>
-					        <th>보낸날짜</th>
-					      </tr>
-						  <c:forEach var="vo" items="${mMsgVos}" varStatus="st">
-						  	<c:if test="${st.count <= 3}">
-								<tr>
-							    	<td>${st.count}</td>
-							        <td>${vo.sendId}</td>
-							        <td>${fn:substring(vo.sendDate,0,16)}</td>
-							    </tr>
-						    </c:if>
-						  </c:forEach>
-						  <tr>
-						  	<td colspan="3" class="m-0 p-0"></td>
-						  </tr>
-					    </table>
-			      	</c:if>
-				</div>
-			</section>
+		<div class="sec01-02-02" >
+		<section class="text-center" style="margin : 50px">
+			<img src="${ctp}/images/delete.png"/>
+		</section>
+			<form name="myform" method="post" action="MemberDeleteCheckOk.mem">
+				<hr/>
+				<section class="text-center pb-3">
+					<p>회원 탈퇴를 위한 비밀번호 확인</p>
+					<input type="password" name="pwd" id="pwd" class="form-control mt-3" autofocus required/>
+				</section>
+				<section class="text-center">
+					<input type="button" value="탈퇴하기" onclick="pwdDeleteCheck()" class="btn btn-primary mr-2"/>
+					<input type="reset" value="다시입력" class="btn btn-info mr-2"/>
+				</section>
+				<hr/>
+			</form>
 		</div>
-		<section class="sec01-02-03">
-		<hr/>
-			<h5 style="font-family:a신디나루B">CONTENT</h5>
-			<textarea rows="5" class="form-control" id="content" name="content" placeholder="${fn:replace(memVO.content,newline,'<br/>')}" readonly></textarea>
-		</section>
-		<hr/>
-		<section class="text-right">
-			<button type="button" class="btn btn-secondary" onclick="location.href='${ctp}/MemberDelete.mem';">탈퇴하기</button>
-		</section>
+		<button type="button" class="btn btn-secondary" onclick="location.href='${ctp}/MemberMain.mem';">메인으로 돌아가기</button>
 	</div>
 </div>
+
+<!-- The Modal -->
+  <div class="modal fade" id="myModal1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">회원 탈퇴 신청</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+          회원탈퇴 하시면 1개월간 같은 아이디로 가입하실 수 없습니다.\\n계속 진행하시겠습니까?
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+  <!-- The Modal -->
+  
 </body>
 </html>

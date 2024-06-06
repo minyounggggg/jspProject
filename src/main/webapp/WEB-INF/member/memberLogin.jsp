@@ -84,6 +84,17 @@
     	    window.location = linkLocation;
     	    }
     	});
+    	
+    	Cookie[] cookies = request.getCookies();
+
+    	if(cookies != null) {
+    		for(int i=0; i<cookies.length; i++) {
+    			if(cookies[i].getName().equals("cMid")) {
+    				pageContext.setAttribute("mid", cookies[i].getValue());
+    				break;
+    			}
+    		}
+    	}
     </script>
 </head>
 <body>
@@ -91,9 +102,9 @@
 	<form name="myform" method="post" action="${ctp}/MemberLoginOk.mem">
 		<!-- <h2 class="text-center mb-5">L O G I N</h2> -->
 		<div class="text-center mb-5"><img src="${ctp}/images/memberLogin/logo03.png" class="logo" style="width:300px"></div>
-    	<input type="text" name="mid" value="atom" placeholder="User ID" autofocus required class="form-control mb-1" style="height:45px"/>
+    	<input type="text" name="mid" placeholder="User ID" autofocus required class="form-control mb-1" style="height:45px"/>
        	<input type="checkbox" name="idSave" checked class="mb-3 ml-2"/> 아이디 저장
-	    <input type="password" name="pwd" value="1234" placeholder="Password" required class="form-control mb-4" style="height:45px"/>
+	    <input type="password" name="pwd" placeholder="Password" required class="form-control mb-4" style="height:45px"/>
 	    <div class="btnSec">
 		    <button type="submit" class="mb-2 p-0"><img src="${ctp}/images/memberLogin/login_btn_03.png"></button>
 		    <button type="button" onclick="location.href='${ctp}/MemberJoin.mem';" class="m-0 p-0"><img src="${ctp}/images/memberLogin/join_btn_03.png"/></button>

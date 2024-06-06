@@ -1,10 +1,14 @@
 package pds;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import admin.AdminDAO;
+import admin.comment.CommentVO;
 
 public class PdsContentCommand implements PdsInterface {
 
@@ -20,24 +24,24 @@ public class PdsContentCommand implements PdsInterface {
 		PdsVO vo = dao.getPdsIdxSearch(idx);
 		
 		//해당글의 리뷰내용 가져오기
-//		AdminDAO aDao = new AdminDAO();
-//		ArrayList<ReviewVO> rVos = aDao.getReviewList(idx, "pds");
+		AdminDAO aDao = new AdminDAO();
+		ArrayList<CommentVO> rVos = aDao.getReviewList(idx, "pds");
 		//System.out.println("rVos : " + rVos);
 		
 		// 별점 평균 구하기
-//		int reviewTot = 0;
-//		for(ReviewVO r : rVos) {
-//			reviewTot += r.getStar();
-//		}
-//		double reviewAvg = 0.0;
-//		if(rVos.size() != 0) reviewAvg = (double)reviewTot / rVos.size();
+		int reviewTot = 0;
+		for(CommentVO r : rVos) {
+			reviewTot += r.getStar();
+		}
+		double reviewAvg = 0.0;
+		if(rVos.size() != 0) reviewAvg = (double)reviewTot / rVos.size();
 		
 		request.setAttribute("vo", vo);
 		request.setAttribute("pag", pag);
 		request.setAttribute("pagSize", pagSize);
 		request.setAttribute("part", part);
-//		request.setAttribute("rVos", rVos);
-//		request.setAttribute("reviewAvg", reviewAvg);
+		request.setAttribute("rVos", rVos);
+		request.setAttribute("reviewAvg", reviewAvg);
 	}
 
 }
