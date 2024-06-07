@@ -95,9 +95,9 @@
 				<form name="partForm">
 					<select name="part" id="part" onchange="partCheck()">
 						<option ${part == "전체" ? "selected" : ""}>전체</option>
-						<option ${part == "학습" ? "selected" : ""}>학습</option>
-						<option ${part == "여행" ? "selected" : ""}>여행</option>
-						<option ${part == "음식" ? "selected" : ""}>음식</option>
+						<option ${part == "공략" ? "selected" : ""}>공략</option>
+						<option ${part == "재배" ? "selected" : ""}>재배</option>
+						<option ${part == "무값" ? "selected" : ""}>무값</option>
 						<option ${part == "기타" ? "selected" : ""}>기타</option>
 					</select> 
 				</form>
