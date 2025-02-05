@@ -28,5 +28,41 @@
         <img src="https://img.shields.io/badge/Bootstrap-7952B3?style=for-the-badge&logo=Bootstrap&logoColor=white">
     </div>
 </div>
+<br/>
+<br/>
+
+---
+
+<br/>
+<h2 style="border-bottom: 1px solid #d8dee4; color: #282d33;"> 💻 기능 및 화면 구성 </h2>
+
+> ### 메인화면
+
+<img width="700" src="https://github.com/user-attachments/assets/f154ccf7-9b88-4f7e-bd1e-bbfb418c78b5" />
+
+<br/>
+<br/>
+
+> ### 회원가입
+- 아이디, 비밀번호, 닉네임, 이메일 유효성 검사
+- 카카오 주소 API 사용하여 주소 검색, 등록
+
+<img width="700" src="https://github.com/user-attachments/assets/ecef7c4d-ded7-4e87-99c4-a9d0c4642a56" />
+
+<br/>
+<br/>
+
+> ### 내 정보 보기
+- 정보수정하기, 탈퇴하기 가능
+- 메세지가 들어오면 확인하지 않은 신규메세지를 간략하게 띄워준다
+
+<img width="340" src="https://github.com/user-attachments/assets/b7d6bdbb-cf6c-4f58-a62b-fc88bfad6940" />
+<img width="340" src="https://github.com/user-attachments/assets/4943d633-a443-40b3-a1aa-2dac1d532640" />
+
+![image](https://github.com/user-attachments/assets/4943d633-a443-40b3-a1aa-2dac1d532640)
+
+
+
+
 
 
