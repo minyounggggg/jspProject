@@ -56,10 +56,20 @@
 - 정보수정하기, 탈퇴하기 가능
 - 메세지가 들어오면 확인하지 않은 신규메세지를 간략하게 띄워준다
 
-<img width="420" src="https://github.com/user-attachments/assets/b7d6bdbb-cf6c-4f58-a62b-fc88bfad6940" />
-<img width="410" src="https://github.com/user-attachments/assets/4943d633-a443-40b3-a1aa-2dac1d532640" />
+<img width="500" src="https://github.com/user-attachments/assets/b7d6bdbb-cf6c-4f58-a62b-fc88bfad6940" />
+<img width="750" src="https://github.com/user-attachments/assets/4943d633-a443-40b3-a1aa-2dac1d532640" />
 
-![image](https://github.com/user-attachments/assets/4943d633-a443-40b3-a1aa-2dac1d532640)
+<img width="750" src="https://github.com/user-attachments/assets/890a4b0c-4d83-4915-8fba-ee6235731234" />
+
+![녹화_2025_02_06_03_26_16_532](https://github.com/user-attachments/assets/2873fb77-3f0b-4a02-af97-e2d1912af2f9)
+
+![image](https://github.com/user-attachments/assets/f1960063-7aca-4b19-a882-a3ae0fca0c77)
+
+![친구신청](https://github.com/user-attachments/assets/01599179-0045-4499-8e91-e2eb1d012ee2)
+
+![친구수락_끊기](https://github.com/user-attachments/assets/5380e251-80b7-40d8-983c-32dc33d1c7f2)
+
+
 
 
 
