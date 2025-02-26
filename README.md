@@ -57,7 +57,7 @@
 - 정보수정하기, 탈퇴하기 가능
 - 메세지가 들어오면 확인하지 않은 신규메세지를 간략하게 띄워준다
 
-<img width="500" src="https://github.com/user-attachments/assets/b7d6bdbb-cf6c-4f58-a62b-fc88bfad6940" />
+<img width="750" src="https://github.com/user-attachments/assets/b7d6bdbb-cf6c-4f58-a62b-fc88bfad6940" />
 <img width="750" src="https://github.com/user-attachments/assets/4943d633-a443-40b3-a1aa-2dac1d532640" />
 
 <br/>
