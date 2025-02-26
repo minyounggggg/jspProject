@@ -65,9 +65,10 @@
 
 > ### 메세지 기능
 - 확인하지 않은 메세지를 구분하여 신규 메세지가 있을시 알림 UI
+- 메세지를 확인하고 상대방에게 즉시 답장 기능
 
 <img width="750" src="https://github.com/user-attachments/assets/890a4b0c-4d83-4915-8fba-ee6235731234" />
-<img width="750" src="https://github.com/user-attachments/assets/2873fb77-3f0b-4a02-af97-e2d1912af2f9" />
+<img width="750" src="https://github.com/user-attachments/assets/bf4f9ed9-df8b-41f3-ac4e-dc10c4ebc6e5" />
 
 <br/>
 <br/>
@@ -75,10 +76,13 @@
 > ### 친구맺기 기능
 - 친구 신청 알림 UI
 - 친구신청 요청중, 미신청 등 DB에 저장된 친구체결 상태에 따라 UI 변경
+- 친구 관계가 체결되면 친구리스트 목록에 저장
 
 <img width="750" src="https://github.com/user-attachments/assets/f1960063-7aca-4b19-a882-a3ae0fca0c77" />
-<img width="750" src="https://github.com/user-attachments/assets/01599179-0045-4499-8e91-e2eb1d012ee2" />
-<img width="750" src="https://github.com/user-attachments/assets/5380e251-80b7-40d8-983c-32dc33d1c7f2" />
+<img width="750" src="https://github.com/user-attachments/assets/c1f22cee-193a-4942-bc26-c2c9189c43e2" />
+<img width="750" src="https://github.com/user-attachments/assets/64eb453f-5b90-4d93-8ad9-66cd7a78988d" />
+
+
 
 
 
